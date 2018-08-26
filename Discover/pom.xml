@@ -1,0 +1,303 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>it.unimib</groupId>
+	<artifactId>discover</artifactId>
+	<packaging>war</packaging>
+	<version>1.0.0</version>
+	<name>Discover Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	
+	<properties>
+		<spring.version>4.2.0.RELEASE</spring.version>
+		<spring.security.version>3.2.3.RELEASE</spring.security.version>
+		<spring.social.version>1.1.0.RELEASE</spring.social.version>
+		<spring.social.facebook.version>1.1.0.RELEASE</spring.social.facebook.version>
+		<spring.social.google.version>1.0.0.RELEASE</spring.social.google.version>
+		<spring.jpa.version>1.9.0.RELEASE</spring.jpa.version>
+		<sitemesh.version>3.0.0</sitemesh.version>
+		<hibernate.version>4.3.5.Final</hibernate.version>
+		<mariadb.client.version>1.3.4</mariadb.client.version>
+		<junit.version>4.12</junit.version>
+		<log4j.version>1.2.17</log4j.version>
+		<hibernate.validator.version>5.1.3.Final</hibernate.validator.version>
+	</properties>
+
+	<dependencies>
+		
+		<!-- Spring Context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- Spring MVC -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<!-- Spring data -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring.jpa.version}</version>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- MariaDB -->
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>${mariadb.client.version}</version>
+		</dependency>
+
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<!-- jsr303 validation -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validator.version}</version>
+		</dependency>
+
+		<!-- Servlet Api -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- Sitemesh dependencies -->
+		<dependency>
+			<groupId>org.sitemesh</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>${sitemesh.version}</version>
+		</dependency>
+
+		<!-- logj4 dependencies -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<!-- Apache Commons Lang dependencies -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+		<!-- Google Guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
+		</dependency>
+
+		<!-- Java mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
+		<!-- Velocity Email template -->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		
+		<!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-config%20-->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-config</artifactId>
+           <version>${spring.social.version}</version>
+       </dependency>
+ 
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-core%20-->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-core</artifactId>
+           <version>${spring.social.version}</version>
+       </dependency>
+ 
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-security%20-->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-security</artifactId>
+           <version>${spring.social.version}</version>
+       </dependency>
+ 
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-web%20-->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-web</artifactId>
+           <version>${spring.social.version}</version>
+       </dependency>
+ 
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-facebook%20-->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-facebook</artifactId>
+           <version>${spring.social.facebook.version}</version>
+           <exclusions>
+               <exclusion>
+                   <artifactId>spring-social-core</artifactId>
+                   <groupId>org.springframework.social</groupId>
+               </exclusion>
+               <exclusion>
+                   <artifactId>spring-social-config</artifactId>
+                   <groupId>org.springframework.social</groupId>
+               </exclusion>
+           </exclusions>
+       </dependency>
+ 
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-google%20-->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-google</artifactId>
+           <version>${spring.social.google.version}</version>
+       </dependency>
+       
+       <!-- Email validator,... -->
+       <!-- http://mvnrepository.com/artifact/commons-validator/commons-validator%20-->
+       <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.5.0</version>
+       </dependency>
+	</dependencies>
+
+	<build>
+		<finalName>discover</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<!-- local profile -->
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- DB Configuration -->
+				<jdbc.username>unimib</jdbc.username>
+				<jdbc.password>unimib</jdbc.password>
+				<jdbc.url>jdbc:mysql://localhost:3306/discover</jdbc.url>
+				<jdbc.driverClassName>org.mariadb.jdbc.Driver</jdbc.driverClassName>
+
+				<!-- Hibernate Configuration -->
+				<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+				<hibernate.show_sql>true</hibernate.show_sql>
+				<hibernate.format_sql>true</hibernate.format_sql>
+
+				<!-- Version -->
+				<version.number>1.0.0</version.number>
+				<version.js.number>10000</version.js.number>
+				<version.date>17/02/2016</version.date>
+				
+				<!-- Email -->
+				<email.enable>false</email.enable>
+			</properties>
+		</profile>
+	</profiles>
+</project>
