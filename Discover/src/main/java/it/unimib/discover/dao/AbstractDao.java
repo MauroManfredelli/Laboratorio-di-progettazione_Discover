@@ -89,5 +89,17 @@ public abstract class AbstractDao {
  		}
  		return res;
  	}
+ 	
+ 	public <E extends TipologicaAbstract> List<E> getAllTipoByClassList(Class<E> clazz){
+ 		boolean hasAttrOrdine = false;
+ 		Method[] methodList = clazz.getMethods();
+ 		for (Method method : methodList) {
+ 	        if (method.getName().equalsIgnoreCase("getOrdine")) {
+ 	        	hasAttrOrdine = true;
+ 	        	break;
+ 	        }
+ 	    }
+ 		return this.tipoByClass(clazz, hasAttrOrdine);
+ 	}
  
 }

@@ -25,8 +25,7 @@
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
     <!-- Theme style -->
     <link href="<%= request.getContextPath() %>/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins 
-         folder instead of downloading all of them to reduce the load. -->
+    <!-- Theme Skins. -->
     <link href="<%= request.getContextPath() %>/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
     <link href="<%= request.getContextPath() %>/resources/plugin/iCheck/square/blue.css" rel="stylesheet" type="text/css" />
@@ -305,7 +304,11 @@
     			$(".content-wrapper").css("padding-top", "29px").css("padding-bottom", "32px");
     			$(".content").css("padding-left", "0px")
     						 .css("padding-right", "0px");
-    			$("#inputSelectLista").css("top", "55px").css("right", "0px");
+    			$("#inputSelectLista").css("top", "55px");
+    			$("#labelTipologiaAttr").removeClass("text-right");
+    			$("#labelStatoAttrazione").removeClass("text-right");
+    			$("#labelLunghezzaMassima").removeClass("text-right");
+    			$(".nav-tabs li a h5").removeAttr("style");
     		} else {
     			$("#footerMobile").addClass("hidden");
     			$("#headerWeb").removeClass("hidden");
@@ -314,7 +317,11 @@
     			$(".content-wrapper").css("padding-top", "90px");
     			$(".content").css("padding-left", "20px")
 				 			 .css("padding-right", "20px");
-    			$("#inputSelectLista").css("top", "105px").css("right", "5px");
+    			$("#inputSelectLista").css("top", "105px");
+    			$("#labelTipologiaAttr").addClass("text-right");
+    			$("#labelStatoAttrazione").addClass("text-right");
+    			$("#labelLunghezzaMassima").addClass("text-right");
+    			$(".nav-tabs li a h5").attr("style", "font-size: 1.5em");
     		}
     	}
     	
