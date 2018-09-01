@@ -162,8 +162,8 @@
           </ul>
         </li>
         <!-- Liste e viaggi -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px;">
+        <li>
+          <a href="/discover/liste" style="padding: 10px;">
           	<i class="fa fa-suitcase" style="font-size: 1.5em;"></i>
           </a>
         </li>
