@@ -55,6 +55,13 @@ public class Visita implements Serializable {
 	@JoinColumn(name = "ID_ATTRAZIONE")
 	private Attrazione attrazione;
 
+	public Visita() {}
+
+	public Visita(Attrazione attrazione, Itinerario itinerario) {
+		this.attrazione = attrazione;
+		this.itinerario = itinerario;
+	}
+
 	public Integer getId() {
 		return id;
 	}

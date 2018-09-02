@@ -60,5 +60,39 @@ public class AttrazioneDAO extends AbstractEntityDao<Integer, Attrazione> {
 		}
 		return res;
 	}
+
+	public List<Attrazione> getPrimeAttrazioniOfWishlist(Integer idWishlist) {
+		String sql = "select a.ID " + 
+				"from attrazioni a  " + 
+				"	join rel_wishlist_attrazione rwa on a.ID=rwa.ID_ATTRAZIONE " + 
+				"where rwa.ID_WISHLIST=:idWishlist " + 
+				"limit 4";
+		SQLQuery query = (SQLQuery) getSQLQuery(sql)
+				.addScalar("ID", IntegerType.INSTANCE)
+				.setParameter("idWishlist", idWishlist);
+		List<Integer> idList = query.list();
+		List<Attrazione> res = new ArrayList<Attrazione>();
+		for(Integer idAttrazione : idList) {
+			res.add(super.findByKey(idAttrazione));
+		}
+		return res;
+	}
+
+	public List<Attrazione> getPrimeAttrazioniOfItinerario(Integer idItinerario) {
+		String sql = "select a.ID " + 
+				"from attrazioni a  " + 
+				"	join visite v on a.ID=v.ID_ATTRAZIONE " + 
+				"where v.ID_ITINERARIO=:idItinerario " + 
+				"limit 4";
+		SQLQuery query = (SQLQuery) getSQLQuery(sql)
+				.addScalar("ID", IntegerType.INSTANCE)
+				.setParameter("idItinerario", idItinerario);
+		List<Integer> idList = query.list();
+		List<Attrazione> res = new ArrayList<Attrazione>();
+		for(Integer idAttrazione : idList) {
+			res.add(super.findByKey(idAttrazione));
+		}
+		return res;
+	}
 	
 }

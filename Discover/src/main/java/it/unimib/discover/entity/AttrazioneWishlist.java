@@ -29,6 +29,13 @@ public class AttrazioneWishlist implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_ATTRAZIONE")
 	private Attrazione attrazione;
+	
+	public AttrazioneWishlist() {}
+
+	public AttrazioneWishlist(Attrazione attrazione, Wishlist wishlist) {
+		this.attrazione = attrazione;
+		this.wishlist = wishlist;
+	}
 
 	public Integer getId() {
 		return id;

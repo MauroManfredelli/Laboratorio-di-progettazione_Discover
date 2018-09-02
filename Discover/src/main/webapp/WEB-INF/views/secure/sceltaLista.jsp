@@ -6,7 +6,6 @@
 		<label>Lista selezionata:&nbsp;&nbsp;<i class="fa fa-times-circle text-danger" onclick="mostraScegliLista()" style="cursor: pointer;"></i></label>
 		<select id="idListaSelezionata" class="form-control chosen chosen-select" data-live-search="true" >
 			<option value="">-</option>
-			<option value="">Milano</option>
 			<c:forEach items="${listeUtente}" var="lista" varStatus="indexLista">
 				<option value="${lista.id}">${lista.nome}</option>
 			</c:forEach>
@@ -20,6 +19,48 @@
 			} else {
 				$("#scegliLista").addClass("hidden");
 				$("#btnMostraScegliLista").removeClass("hidden");
+			}
+		}
+		
+		function aggiungiAttrazioneToLista(idAttrazione) {
+			var idLista = $("#idListaSelezionata").val();
+			if(idLista == "") {
+				swal({
+        			title: 'ERRORE',
+        			type: 'error',
+        			text: 'Selezionare una lista a cui aggiungere l\'attrazione!',
+        			html: true,
+        			showCancelButton: false,
+        			confirmButtonText: 'Continua',
+        			confirmButtonColor: '#0066cc',
+        		}, function() {
+        			$("#inputSelectLista").fadeTo('slow', 0.5).fadeTo('slow', 1.0).fadeTo('slow', 0.5).fadeTo('slow', 1.0).fadeTo('slow', 0.5).fadeTo('slow', 1.0);
+        		});
+			} else {
+				$.ajax({
+			    	type: 'GET',
+			        url : '/discover/liste/aggiungiAttrazioneToLista',
+			       	data: { 
+			       		"idAttrazione": idAttrazione,
+			   			"idLista": idLista
+			       	},
+			        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+			        success: function(result) {
+			        	if(result.staus == "SUCCESS") {
+			        		mostraNotifica("Attrazione aggiunta alla lista", "success");
+			        	} else {
+			        		swal({
+			        			title: 'ATTENZIONE',
+			        			type: 'warning',
+			        			text: 'La lista selezionata contiene già l\'attrazione selezionata.',
+			        			html: true,
+			        			showCancelButton: false,
+			        			confirmButtonText: 'Continua',
+			        			confirmButtonColor: '#0066cc',
+			        		});
+			        	}
+			        }
+				});
 			}
 		}
 	</script>

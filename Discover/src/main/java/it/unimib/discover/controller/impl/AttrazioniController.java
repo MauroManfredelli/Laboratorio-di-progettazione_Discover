@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.unimib.discover.entity.Attrazione;
-import it.unimib.discover.entity.readonly.TipoAttrazione;
 import it.unimib.discover.model.ParametriRicerca;
 import it.unimib.discover.service.impl.AttrazioniService;
 
