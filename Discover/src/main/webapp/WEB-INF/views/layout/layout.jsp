@@ -50,7 +50,7 @@
 
 </head>
 
-<body class="wysihtml5-supported skin-black fixed">
+<body class="wysihtml5-supported skin-blue fixed">
 	<input type="hidden" id="isMobile" />
 	
     <!-- jQuery 2.1.3 -->
@@ -284,20 +284,20 @@
 				<!-- /.col -->
 			</div>
 			
-			<div id="notificaSuccess" class="box box-success box-body badger-right badger-success" data-badger="          " 
-					style="z-index: 9999999; displaY: none; width: 200px; height: 70px; font-size: 18px; position: fixed; bottom: 50px; left: 0px;  border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+			<div id="notificaSuccess" class="box box-success box-body badger-left badger-success shadow" data-badger="          " 
+					style="z-index: 9999999; displaY: none; width: 200px; height: 70px; font-size: 18px; position: fixed; top: 215px; right: 0px;  border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
 				<span id="testoNotifica">Prova notifica success</span><br>
 				<a href="#" style="font-size: 13px; margin-top: 5px;" class="pull-right" id="btnAnnullaNotificaSuccess">Annulla</a>
 			</div>
 			
-			<div id="notificaDanger" class="box box-danger box-body badger-right badger-danger" data-badger="          " 
-					style="z-index: 9999999; displaY: none; width: 200px; height: 70px; font-size: 18px; position: fixed; bottom: 50px; left: 0px;  border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+			<div id="notificaDanger" class="box box-danger box-body badger-left badger-danger shadow" data-badger="          " 
+					style="z-index: 9999999; displaY: none; width: 200px; height: 70px; font-size: 18px; position: fixed; top: 215px; right: 0px;  border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
 				<span id="testoNotifica">Prova notifica danger</span><br>
 				<a href="#" style="font-size: 13px; margin-top: 5px;" class="pull-right" id="btnAnnullaNotificaDanger">Annulla</a>
 			</div>
 			
-			<div id="notificaPrimary" class="box box-primary box-body badger-right badger-primary" data-badger="          " 
-					style="z-index: 9999999; displaY: none; width: 200px; height: 70px; font-size: 18px; position: fixed; bottom: 50px; left: 0px;  border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+			<div id="notificaPrimary" class="box box-primary box-body badger-left badger-primary shadow" data-badger="          " 
+					style="z-index: 9999999; displaY: none; width: 200px; height: 70px; font-size: 18px; position: fixed; top: 215px; right: 0px;  border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
 				<span id="testoNotifica">Prova notifica danger</span><br>
 				<a href="#" style="font-size: 13px; margin-top: 5px;" class="pull-right" id="btnAnnullaNotificaPrimary">Annulla</a>
 			</div>

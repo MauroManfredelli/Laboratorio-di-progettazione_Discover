@@ -52,7 +52,7 @@ function archiviaLista(idLista) {
 	        		$("#divLista"+idLista).fadeOut();
 	        		var copy = $("#divLista"+idLista).clone();
 	        		$("#divLista"+idLista).remove();
-	        		$("#listeArchiviate .row .col-md-12").append(copy);
+	        		$("#listeArchiviate #containerToAppend").append(copy);
 	        		$("#divLista"+idLista).fadeIn();
 	        		$("#divLista"+idLista+" #recuperaLista").removeClass("hidden");
 	        		$("#divLista"+idLista+" #archiviaLista").addClass("hidden");
@@ -92,7 +92,7 @@ function recuperaLista(idLista) {
 	        		$("#divLista"+idLista).fadeOut();
 	        		var copy = $("#divLista"+idLista).clone();
 	        		$("#divLista"+idLista).remove();
-	        		$("#listeAttive .row .col-md-12").append(copy);
+	        		$("#listeAttive #containerToAppend").append(copy);
 	        		$("#divLista"+idLista).fadeIn();
 	        		$("#divLista"+idLista+" #recuperaLista").addClass("hidden");
 	        		$("#divLista"+idLista+" #archiviaLista").removeClass("hidden");

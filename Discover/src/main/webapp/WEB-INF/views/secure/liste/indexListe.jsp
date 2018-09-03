@@ -36,7 +36,7 @@
 		<div class="tab-content p-0">
 			<div class="tab-pane active" id="listeAttive">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-12" id="containerToAppend">
 						<div id="nessunaListaAttiva" class="hidden alert alert-info col-md-offset-4 col-md-4" style="background-color: #FFF !important; color: #00c0ef !important; border-radius: 13px; margin-top: 20px;">
 							<div class="col-md-2 text-center">
 								<i class="fa fa-info-circle" style="font-size: 2.8em;"></i>
@@ -167,7 +167,7 @@
 			</div>
 			<div class="tab-pane" id="listeArchiviate">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-12" id="containerToAppend">
 						<div id="nessunaListaArchiviata" class="hidden alert alert-info col-md-offset-4 col-md-4" style="background-color: #FFF !important; color: #00c0ef !important; border-radius: 13px; margin-top: 20px;">
 							<div class="col-md-2 text-center">
 								<i class="fa fa-info-circle" style="font-size: 2.8em;"></i>

@@ -24,7 +24,7 @@
 .content-wrapper {
 	min-height: 100%;
 	z-index: 800;
-	background: linear-gradient(to bottom, rgba(170,170,170,1) 0%, rgba(191,191,191,1) 39%, rgba(230,230,230,1) 100%) !important;
+	background: linear-gradient(to bottom, #D7EBFF 0%, #C1D3E5 100%);
     -webkit-background-size: cover !important;
     -moz-background-size: cover !important;
     -o-background-size: cover !important;
@@ -100,4 +100,13 @@
 
 .font-weight-bold {
     font-weight: bold;
+}
+
+.shadow {
+	-webkit-box-shadow: 5px 5px 5px #def;
+    box-shadow: 5px 5px 5px #def;
+}
+
+.light-blue-bg {
+	background-color: #D7EBFF !important;
 }

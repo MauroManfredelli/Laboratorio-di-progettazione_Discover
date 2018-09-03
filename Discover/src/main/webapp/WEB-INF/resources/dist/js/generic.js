@@ -25,6 +25,8 @@ function checkRunningOnMobile() {
 		$("#labelLunghezzaMassima").removeClass("text-right");
 		$(".nav-tabs li a h5").removeAttr("style");
 		$("[id^=cotainerImmaginiLista]").attr("style", "max-height: 250px; overflow-x: hidden; overflow-y: auto;");
+		$("#mapContent").removeClass("p-0");
+		$("#mapContent").closest(".content-wrapper").css("padding-bottom", "32px");
 	} else {
 		$("#footerMobile").addClass("hidden");
 		$("#headerWeb").removeClass("hidden");
@@ -39,6 +41,8 @@ function checkRunningOnMobile() {
 		$("#labelLunghezzaMassima").addClass("text-right");
 		$(".nav-tabs li a h5").attr("style", "font-size: 1.5em");
 		$("[id^=cotainerImmaginiLista]").removeAttr("style");
+		$("#mapContent").addClass("p-0");
+		$("#mapContent").closest(".content-wrapper").css("padding-bottom", "0px");
 	}
 }
 
