@@ -68,9 +68,22 @@ function addReaction(el, reaction) {
 
 function mostraNotifica(testo, tipo) {
 	 if(tipo=="success") {
-		 $("#notificaSuccess #testoNotifica").html(testo).fadeIn();
+		 $("#notificaSuccess #testoNotifica").html(testo);
+		 $("#notificaSuccess").fadeIn();
 		 setTimeout(function() {
 			 $("#notificaSuccess").fadeOut();
+		 }, 2000);
+	 } else if(tipo=="danger") {
+		 $("#notificaDanger #testoNotifica").html(testo);
+		 $("#notificaDanger").fadeIn();
+		 setTimeout(function() {
+			 $("#notificaDanger").fadeOut();
+		 }, 2000);
+	 } else if(tipo=="primary") {
+		 $("#notificaPrimary #testoNotifica").html(testo);
+		 $("#notificaPrimary").fadeIn();
+		 setTimeout(function() {
+			 $("#notificaPrimary").fadeOut();
 		 }, 2000);
 	 }
  }

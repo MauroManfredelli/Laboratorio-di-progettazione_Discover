@@ -22,13 +22,13 @@ INSERT INTO STATO_ATTRAZIONE(DESCRIZIONE) VALUES ('Attrazione verificata');
 INSERT INTO STATO_ATTRAZIONE(DESCRIZIONE) VALUES ('Attrazione secondaria');
 
 create or replace view vw_liste_utente as
-	(select 'wishlist' || w.id ID, w.id ID_WISHLIST, null ID_ITINERARIO, w.nome, w.DATA_CREAZIONE, w.USER_PROPRIETARIO, w.ARCHIVIATA, null DATA_INIZIO, null DATA_FINE, null NUMERO_GIORNI,
+	(select CONCAT('wishlist',w.id) ID, w.id ID_WISHLIST, null ID_ITINERARIO, w.nome, w.DATA_CREAZIONE, w.USER_PROPRIETARIO, w.ARCHIVIATA, null DATA_INIZIO, null DATA_FINE, null NUMERO_GIORNI,
 		(select count(*)
 		 from rel_wishlist_attrazione rwa
 		 where rwa.ID_WISHLIST=w.ID) NUMERO_ATTRAZIONI
 	from wishlist w) 
 	union
-	(select 'itinerario' || i.ID ID, null ID_WISHLIST, i.ID ID_ITINERARIO, i.NOME, i.DATA_CREAZIONE, i.USER_PROPRIETARIO, i.ARCHIVIATA, i.DATA_INIZIO, i.DATA_FINE, i.NUMERO_GIORNI,
+	(select CONCAT('itinerario',i.ID) ID, null ID_WISHLIST, i.ID ID_ITINERARIO, i.NOME, i.DATA_CREAZIONE, i.USER_PROPRIETARIO, i.ARCHIVIATA, i.DATA_INIZIO, i.DATA_FINE, i.NUMERO_GIORNI,
 		(select count(*)
 		 from visite v
 		 where v.ID_ITINERARIO=i.ID) NUMERO_ATTRAZIONI

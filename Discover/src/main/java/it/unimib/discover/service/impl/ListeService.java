@@ -1,5 +1,8 @@
 package it.unimib.discover.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +24,7 @@ import it.unimib.discover.entity.Lista;
 import it.unimib.discover.entity.MyUserAccount;
 import it.unimib.discover.entity.Visita;
 import it.unimib.discover.entity.Wishlist;
+import it.unimib.discover.model.ItinerarioModel;
 
 @Service
 public class ListeService {
@@ -96,6 +100,88 @@ public class ListeService {
 			itinerario = itinerarioDAO.findByKey(lista.getIdItinerario());
 			Visita visita = new Visita(attrazione, itinerario);
 			visitaDAO.persist(visita);
+		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void archiviaLista(String idLista) {
+		Lista lista = listaDAO.findByKey(idLista);
+		if(lista.getIdWishlist() != null) {
+			Wishlist wishlist = wishlistDAO.findByKey(lista.getIdWishlist());
+			wishlist.setArchiviata(true);
+			wishlistDAO.persist(wishlist);
+		} else {
+			Itinerario itinerario = itinerarioDAO.findByKey(lista.getIdItinerario());
+			itinerario.setArchiviata(true);
+			itinerarioDAO.persist(itinerario);
+		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void recuperaLista(String idLista) {
+		Lista lista = listaDAO.findByKey(idLista);
+		if(lista.getIdWishlist() != null) {
+			Wishlist wishlist = wishlistDAO.findByKey(lista.getIdWishlist());
+			wishlist.setArchiviata(false);
+			wishlistDAO.persist(wishlist);
+		} else {
+			Itinerario itinerario = itinerarioDAO.findByKey(lista.getIdItinerario());
+			itinerario.setArchiviata(false);
+			itinerarioDAO.persist(itinerario);
+		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void eliminaLista(String idLista) {
+		Lista lista = listaDAO.findByKey(idLista);
+		if(lista.getIdWishlist() != null) {
+			Wishlist wishlist = wishlistDAO.findByKey(lista.getIdWishlist());
+			List<AttrazioneWishlist> listAw = attrazioneWishlistDAO.getByIdWishList(wishlist.getId());
+			attrazioneWishlistDAO.delete(listAw);
+			wishlistDAO.delete(wishlist);
+		} else {
+			Itinerario itinerario = itinerarioDAO.findByKey(lista.getIdItinerario());
+			List<Visita> visite = visitaDAO.getByIdItinerario(itinerario.getId());
+			visitaDAO.delete(visite);
+			itinerarioDAO.delete(itinerario);
+		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<Wishlist> getWishlistAttiveByUser(String id) {
+		return wishlistDAO.getWishlistAttiveByUser(id);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void salvaItinerario(ItinerarioModel itinerarioModel, MyUserAccount user) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Itinerario itinerario = new Itinerario();
+		itinerario.setNome(itinerarioModel.getNome());
+		if(itinerarioModel.getDivisione() == 1) {
+			itinerario.setDataInizio(sdf.parse(itinerarioModel.getDataInizio()));
+			itinerario.setDataFine(sdf.parse(itinerarioModel.getDataFine()));
+		} else {
+			itinerario.setNumeroGiorni(itinerarioModel.getNumeroGiorni());
+		}
+		itinerario.setDataCreazione(new Date());
+		itinerario.setArchiviata(false);
+		itinerario.setUserProprietario(user);
+		itinerarioDAO.persist(itinerario);
+		List<Wishlist> wishlistList = new ArrayList<Wishlist>();
+		for(Integer id : itinerarioModel.getIdWishlist()) {
+			wishlistList.add(wishlistDAO.findByKey(id));
+		}
+		// List<Visita> visite = new ArrayList<Visita>();
+		for(Wishlist wishlist : wishlistList) {
+			List<AttrazioneWishlist> listAw = wishlist.getAttrazioniWishlist();
+			for(AttrazioneWishlist attrazioneWish : listAw) {
+				Visita visita = new Visita();
+				visita.setAttrazione(attrazioneWish.getAttrazione());
+				visita.setItinerario(itinerario);
+				visitaDAO.persist(visita);
+			}
+			attrazioneWishlistDAO.delete(listAw);
+			wishlistDAO.delete(wishlist);
 		}
 	}
 }

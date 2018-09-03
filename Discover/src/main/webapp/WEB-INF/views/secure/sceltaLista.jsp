@@ -4,7 +4,7 @@
 	<i class="fa fa-suitcase text-info" onclick="mostraScegliLista()" id="btnMostraScegliLista" style="cursor: pointer;"> Lista selezionata</i>
 	<span id="scegliLista" class="hidden">
 		<label>Lista selezionata:&nbsp;&nbsp;<i class="fa fa-times-circle text-danger" onclick="mostraScegliLista()" style="cursor: pointer;"></i></label>
-		<select id="idListaSelezionata" class="form-control chosen chosen-select" data-live-search="true" >
+		<select id="idListaSelezionata" class="form-control chosen chosen-select" data-live-search="true" onchange="saveSceltaLista()">
 			<option value="">-</option>
 			<c:forEach items="${listeUtente}" var="lista" varStatus="indexLista">
 				<option value="${lista.id}">${lista.nome}</option>
@@ -12,6 +12,15 @@
 		</select>
 	</span>
 	<script>
+		
+		var idListaUtente = "${idListaUtente}";
+		
+		$(document).ready(function() {
+			if(idListaUtente != '') {
+				$("#idListaSelezionata").val(idListaUtente).trigger("chosen:updated");
+			}	
+		});
+		
 		function mostraScegliLista() {
 			if($("#scegliLista").hasClass("hidden")) {
 				$("#scegliLista").removeClass("hidden");
@@ -20,6 +29,19 @@
 				$("#scegliLista").addClass("hidden");
 				$("#btnMostraScegliLista").removeClass("hidden");
 			}
+		}
+		
+		function saveSceltaLista() {
+			var idLista = $("#idListaSelezionata").val();
+			$.ajax({
+		    	type: 'GET',
+		        url : '/discover/liste/aggiornaIdListaUtente',
+		       	data: {
+		   			"idLista": idLista
+		       	},
+		        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+		        success: function() {}
+			});
 		}
 		
 		function aggiungiAttrazioneToLista(idAttrazione) {
@@ -46,7 +68,7 @@
 			       	},
 			        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 			        success: function(result) {
-			        	if(result.staus == "SUCCESS") {
+			        	if(result.status == "SUCCESS") {
 			        		mostraNotifica("Attrazione aggiunta alla lista", "success");
 			        	} else {
 			        		swal({

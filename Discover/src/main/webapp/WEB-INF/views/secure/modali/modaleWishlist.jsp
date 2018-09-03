@@ -13,7 +13,7 @@
 	<div class="modal-dialog modal-sm" style="margin-top: 150px;">
     	<div class="modal-content">
       		<div class="modal-header">
-        		<h3 class="m-0"><strong>Nuova wishlist</strong></h3>
+        		<h3 class="m-0"><strong>Wishlist</strong></h3>
         		<button type="button" data-dismiss="modal" aria-label="Close" class="close" style="position:absolute;top:0;right:0;padding:.75rem 1.25rem;color:inherit"><span aria-hidden="true">&times;</span></button>
       		</div>
       		<div class="modal-body">

@@ -1,8 +1,10 @@
 package it.unimib.discover.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 public class ValidationResponse implements Serializable {
@@ -16,6 +18,22 @@ public class ValidationResponse implements Serializable {
 
     public ValidationResponse(String status) {
 		this.status = status;
+	}
+
+	public ValidationResponse(String status, BindingResult errors) {
+		this.status = status;
+		this.errorMessages = new ArrayList<ErrorMessage>();
+        for (FieldError fieldError : errors.getFieldErrors()) {
+            String field = fieldError.getField();
+            if (field.contains("[")) {
+                field = field.replace("[", "\\[");
+                field = field.replace("]", "\\]");
+            }
+            if(field.contains(".")) {
+            	field = field.replace(".", "\\.");
+            }
+            this.errorMessages.add(new ErrorMessage(field, fieldError.getDefaultMessage()));
+        }
 	}
 
 	public String getStatus() {

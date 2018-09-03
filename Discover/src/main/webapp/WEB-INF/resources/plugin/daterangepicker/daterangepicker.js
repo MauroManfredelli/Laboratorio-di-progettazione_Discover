@@ -39,14 +39,14 @@
         this.applyClass = 'btn-success';
         this.cancelClass = 'btn-default';
 
-        this.format = 'MM/DD/YYYY';
+        this.format = 'DD/MM/YYYY';
         this.separator = ' - ';
 
         this.locale = {
-            applyLabel: 'Apply',
-            cancelLabel: 'Cancel',
-            fromLabel: 'From',
-            toLabel: 'To',
+            applyLabel: 'Conferma',
+            cancelLabel: 'Annulla',
+            fromLabel: 'Dal',
+            toLabel: 'Al',
             weekLabel: 'W',
             customRangeLabel: 'Custom Range',
             daysOfWeek: moment()._lang._weekdaysMin.slice(),

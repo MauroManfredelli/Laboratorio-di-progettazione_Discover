@@ -97,3 +97,7 @@
 .badger-inverse:after {
     background: #222
 }
+
+.font-weight-bold {
+    font-weight: bold;
+}

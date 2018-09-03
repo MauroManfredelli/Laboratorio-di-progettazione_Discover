@@ -35,6 +35,10 @@ public class HomepageController {
     	ModelAndView modelAndView = new ModelAndView("secure/attrazioni/bacheca");
 		MyUserAccount user = (MyUserAccount) request.getSession().getAttribute("currentUser");
     	Object listeUtenteObj = request.getSession().getAttribute("listeUtente");
+    	Object idListaUtenteObj = request.getSession().getAttribute("idListaUtente");
+    	if(idListaUtenteObj == null) {
+    		request.getSession().setAttribute("idListaUtente", "");
+    	}
     	if(listeUtenteObj == null) {
     		request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId()));
     	}

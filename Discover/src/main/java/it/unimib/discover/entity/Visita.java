@@ -38,7 +38,7 @@ public class Visita implements Serializable {
 	@Column(name = "ORA")
 	private String ora;
 	
-	@Column(name = "ETICHIETTA")
+	@Column(name = "ETICHETTA")
 	private String etichetta;
 	
 	@Column(name = "NOTA_PREC")
