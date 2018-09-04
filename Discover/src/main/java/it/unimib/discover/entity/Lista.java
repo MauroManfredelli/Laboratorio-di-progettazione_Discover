@@ -70,6 +70,12 @@ public class Lista implements Serializable {
 	
 	@Transient
 	private List<Attrazione> attrazioni;
+	
+	@Transient
+	private String formattedDataInizio;
+	
+	@Transient
+	private String formattedDataFine;
 
 	public String getId() {
 		return id;
@@ -165,6 +171,22 @@ public class Lista implements Serializable {
 
 	public void setAttrazioni(List<Attrazione> attrazioni) {
 		this.attrazioni = attrazioni;
+	}
+
+	public String getFormattedDataInizio() {
+		return formattedDataInizio;
+	}
+
+	public void setFormattedDataInizio(String formattedDataInizio) {
+		this.formattedDataInizio = formattedDataInizio;
+	}
+
+	public String getFormattedDataFine() {
+		return formattedDataFine;
+	}
+
+	public void setFormattedDataFine(String formattedDataFine) {
+		this.formattedDataFine = formattedDataFine;
 	}
 
 }

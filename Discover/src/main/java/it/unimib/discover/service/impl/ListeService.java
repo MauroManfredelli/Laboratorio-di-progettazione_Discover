@@ -75,10 +75,16 @@ public class ListeService {
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void salvaWishlist(Wishlist wishlist, MyUserAccount user) {
-		wishlist.setArchiviata(false);
-		wishlist.setDataCreazione(new Date());
-		wishlist.setUserProprietario(user);
-		wishlistDAO.persist(wishlist);
+		if(wishlist.getId() != null) {
+			Wishlist wishlistRemote = wishlistDAO.findByKey(wishlist.getId());
+			wishlistRemote.setNome(wishlist.getNome());
+			wishlistDAO.persist(wishlistRemote);
+		} else {
+			wishlist.setArchiviata(false);
+			wishlist.setDataCreazione(new Date());
+			wishlist.setUserProprietario(user);
+			wishlistDAO.persist(wishlist);
+		}
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
@@ -155,33 +161,77 @@ public class ListeService {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void salvaItinerario(ItinerarioModel itinerarioModel, MyUserAccount user) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Itinerario itinerario = new Itinerario();
-		itinerario.setNome(itinerarioModel.getNome());
-		if(itinerarioModel.getDivisione() == 1) {
-			itinerario.setDataInizio(sdf.parse(itinerarioModel.getDataInizio()));
-			itinerario.setDataFine(sdf.parse(itinerarioModel.getDataFine()));
-		} else {
-			itinerario.setNumeroGiorni(itinerarioModel.getNumeroGiorni());
-		}
-		itinerario.setDataCreazione(new Date());
-		itinerario.setArchiviata(false);
-		itinerario.setUserProprietario(user);
-		itinerarioDAO.persist(itinerario);
-		List<Wishlist> wishlistList = new ArrayList<Wishlist>();
-		for(Integer id : itinerarioModel.getIdWishlist()) {
-			wishlistList.add(wishlistDAO.findByKey(id));
-		}
-		// List<Visita> visite = new ArrayList<Visita>();
-		for(Wishlist wishlist : wishlistList) {
-			List<AttrazioneWishlist> listAw = wishlist.getAttrazioniWishlist();
-			for(AttrazioneWishlist attrazioneWish : listAw) {
-				Visita visita = new Visita();
-				visita.setAttrazione(attrazioneWish.getAttrazione());
-				visita.setItinerario(itinerario);
-				visitaDAO.persist(visita);
+		if(itinerarioModel.getId() != null) {
+			Itinerario itinerario = itinerarioDAO.findByKey(itinerarioModel.getId());
+			itinerario.setNome(itinerarioModel.getNome());
+			Date dataInizio = null, dataFine = null;
+			if(itinerarioModel.getDivisione() == 1) {
+				itinerario.setDataInizio(sdf.parse(itinerarioModel.getDataInizio()));
+				itinerario.setDataFine(sdf.parse(itinerarioModel.getDataFine()));
+				itinerario.setNumeroGiorni(null);
+				dataInizio = sdf.parse(itinerarioModel.getDataInizio());
+				dataFine = sdf.parse(itinerarioModel.getDataFine());
+			} else {
+				itinerario.setDataInizio(null);
+				itinerario.setDataFine(null);
+				itinerario.setNumeroGiorni(itinerarioModel.getNumeroGiorni());
 			}
-			attrazioneWishlistDAO.delete(listAw);
-			wishlistDAO.delete(wishlist);
+			for(Visita visita : itinerario.getVisite()) {
+				if(itinerarioModel.getDivisione() == 1) {
+					visita.setGiorno(null);
+					if(visita.getDataVisita() != null &&
+							(visita.getDataVisita().before(dataInizio) || visita.getDataVisita().after(dataFine))) {
+						visita.setDataVisita(null);
+					}
+				} else {
+					visita.setDataVisita(null);
+					if(visita.getGiorno() > itinerario.getNumeroGiorni()) {
+						visita.setGiorno(null);
+					}
+				}
+				visita.setNota(null);
+				visita.setNotaPrec(null);
+			}
+			itinerarioDAO.persist(itinerario);
+		} else {
+			Itinerario itinerario = new Itinerario();
+			itinerario.setNome(itinerarioModel.getNome());
+			if(itinerarioModel.getDivisione() == 1) {
+				itinerario.setDataInizio(sdf.parse(itinerarioModel.getDataInizio()));
+				itinerario.setDataFine(sdf.parse(itinerarioModel.getDataFine()));
+			} else {
+				itinerario.setNumeroGiorni(itinerarioModel.getNumeroGiorni());
+			}
+			itinerario.setDataCreazione(new Date());
+			itinerario.setArchiviata(false);
+			itinerario.setUserProprietario(user);
+			itinerarioDAO.persist(itinerario);
+			List<Wishlist> wishlistList = new ArrayList<Wishlist>();
+			for(Integer id : itinerarioModel.getIdWishlist()) {
+				wishlistList.add(wishlistDAO.findByKey(id));
+			}
+			for(Wishlist wishlist : wishlistList) {
+				List<AttrazioneWishlist> listAw = wishlist.getAttrazioniWishlist();
+				for(AttrazioneWishlist attrazioneWish : listAw) {
+					Visita visita = new Visita();
+					visita.setAttrazione(attrazioneWish.getAttrazione());
+					visita.setItinerario(itinerario);
+					visitaDAO.persist(visita);
+				}
+				attrazioneWishlistDAO.delete(listAw);
+				wishlistDAO.delete(wishlist);
+			}
 		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public Lista getListaById(String idLista) {
+		Lista lista = listaDAO.findByKey(idLista);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		if(lista.getDataInizio() != null) {
+			lista.setFormattedDataInizio(sdf.format(lista.getDataInizio()));
+			lista.setFormattedDataFine(sdf.format(lista.getDataFine()));
+		}
+		return lista;
 	}
 }

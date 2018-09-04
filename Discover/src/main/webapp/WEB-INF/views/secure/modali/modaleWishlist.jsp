@@ -18,6 +18,7 @@
       		</div>
       		<div class="modal-body">
       			<form:form action="/discover/liste/salvaWishlist" method="post" modelAttribute="wishlist" id="modalWushlistForm">
+      				<form:hidden path="id" />
       				<div class="row form-group" id="formNome">
    						<div class="col-md-12">
    							<label class="font-weight-bold">

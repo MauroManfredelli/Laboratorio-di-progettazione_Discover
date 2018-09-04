@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import it.unimib.discover.entity.Lista;
 import it.unimib.discover.entity.MyUserAccount;
 import it.unimib.discover.entity.Wishlist;
 import it.unimib.discover.model.ItinerarioModel;
@@ -65,6 +66,11 @@ public class ListeController {
 			listeService.salvaItinerario(itinerarioModel, user);
 			return new ValidationResponse("SUCCESS");
 		}
+	}
+	
+	@RequestMapping( value = "/liste/getLista", method = RequestMethod.GET )
+	public @ResponseBody Lista salvaWishlist(@RequestParam(name="idLista") String idLista, HttpServletRequest request) {
+        return listeService.getListaById(idLista);
 	}
 	
 	@RequestMapping(value = "/liste/aggiungiAttrazioneToLista", method = RequestMethod.GET)

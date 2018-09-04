@@ -152,7 +152,7 @@
 															<span id="archiviaLista"><i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
 															<span class="hidden" id="recuperaLista"><i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
 															&nbsp;&nbsp;<span><i class="fa fa-trash text-danger" style="cursor: pointer;" data-toggle="tooltip" title="Elimina" onclick="eliminaLista('${lista.id}')"></i></span>
-															&nbsp;&nbsp;<span><i class="fa fa-edit text-info" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}')"></i></span>
+															&nbsp;&nbsp;<span><i class="fa fa-edit text-info" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}', '${lista.nome}')"></i></span>
 														</div>
 													</div>
 												</div>
@@ -283,7 +283,7 @@
 															<span class="hidden" id="archiviaLista"><i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
 															<span id="recuperaLista"><i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
 															&nbsp;&nbsp;<span><i class="fa fa-trash text-danger" style="cursor: pointer;" data-toggle="tooltip" title="Elimina" onclick="eliminaLista('${lista.id}')"></i></span>
-															&nbsp;&nbsp;<span><i class="fa fa-edit text-info" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}')"></i></span>
+															&nbsp;&nbsp;<span><i class="fa fa-edit text-info" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}', '${lista.nome}')"></i></span>
 														</div>
 													</div>
 												</div>

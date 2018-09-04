@@ -6,6 +6,7 @@ import java.util.List;
 public class ItinerarioModel implements Serializable {
 
 	private static final long serialVersionUID = 8318033398679740760L;
+	private Integer id;
 	private String nome;
 	private Integer divisione;
 	private String dataInizio;
@@ -13,6 +14,12 @@ public class ItinerarioModel implements Serializable {
 	private Integer numeroGiorni;
 	private List<Integer> idWishlist;
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}

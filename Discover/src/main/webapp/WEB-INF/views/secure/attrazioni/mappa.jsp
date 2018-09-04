@@ -34,7 +34,7 @@
                 </div>
 				<input id="localitaMappa" class="form-control" style="display: inline-block;" />
 				<div class="input-group-addon" style="background-color: #ddd; color: #000;">
-                	<i class="fa fa-search" style="cursor: pointer;" onclick="cercaLocalitaMappa()"></i>
+                	<i class="fa fa-search" style="cursor: pointer;" onclick="initMapByAddress()"></i>
                 </div>
 			</div>
 			</div>

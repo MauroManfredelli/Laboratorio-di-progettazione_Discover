@@ -5,6 +5,7 @@ $(document).ready(function() {
 
 function creaWishlist() {
 	$("#wishlistModal #nome").val("");
+	$("#wishlistModal #id").val("");
 	$("#wishlistModal #formNome").removeClass("has-error");
 	$("#wishlistModal #formNomeErrore").addClass("hidden");
 	$("#wishlistModal").modal("toggle");
@@ -139,17 +140,65 @@ function eliminaLista(idLista) {
 }
 
 function modificaLista(idLista) {
-	// TODO
+	$.ajax({
+    	type: 'GET',
+        url : '/discover/liste/getLista',
+       	data: {
+   			"idLista": idLista
+       	},
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        success: function(lista) {
+        	if(lista.idWishlist != null) {
+        		modificaWishlist(lista);
+        	} else {
+        		modificaItinerario(lista);
+        	}
+        }
+	});
 }
 
-function creaItinerario() {
-	$("#itinerarioModal #nome").val("");
-	$("#itinerarioModal #numeroGorni").val("");
+function modificaWishlist(lista) {
+	$("#wishlistModal #nome").val(lista.nome);
+	$("#wishlistModal #id").val(lista.idWishlist);
+	$("#wishlistModal #formNome").removeClass("has-error");
+	$("#wishlistModal #formNomeErrore").addClass("hidden");
+	$("#wishlistModal").modal("toggle");
+}
+
+function modificaItinerario(lista) {
+	$("#itinerarioModal #id").val(lista.idItinerario);
+	$("#itinerarioModal #nome").val(lista.nome);
+	$("#itinerarioModal #numeroGorni").val(lista.numeroGiorni);
+	if(lista.formattedDataInizio != null) {
+		$("#itinerarioModal #dateRange").val(lista.formattedDataInizio + " - " +lista.formattedDataFine);
+		$("#itinerarioModal #dataInizio").val(lista.formattedDataInizio);
+		$("#itinerarioModal #dataFine").val(lista.formattedDataFine);
+		$("#itinerarioModal #dateRange").daterangepicker().startDate = lista.formattedDataInizio;
+		$("#itinerarioModal #dateRange").daterangepicker().endDate = lista.formattedDataFine;
+	}
 	$("#itinerarioModal .form-group").removeClass("has-error");
 	$("#itinerarioModal").find("div[id^=formErrore]").addClass("hidden");
 	$("#itinerarioModal #formDate").addClass("hidden");
 	$("#itinerarioModal #formGiorni").addClass("hidden");
 	$("#itinerarioModal [type=radio], #itinerarioModal [type=checkbox]").iCheck('uncheck');
+	$("#itinerarioModal #divisione"+(lista.numeroGiorni != null ? "2" : "1")).iCheck('check');
+	$("#itinerarioModal #formWishlist").addClass("hidden");
+	$("#itinerarioModal").modal("toggle");
+}
+
+function creaItinerario() {
+	$("#itinerarioModal #id").val("");
+	$("#itinerarioModal #nome").val("");
+	$("#itinerarioModal #numeroGorni").val("");
+	$("#itinerarioModal #dateRange").val("");
+	$("#itinerarioModal #dataInizio").val("");
+	$("#itinerarioModal #dataFine").val("");
+	$("#itinerarioModal .form-group").removeClass("has-error");
+	$("#itinerarioModal").find("div[id^=formErrore]").addClass("hidden");
+	$("#itinerarioModal #formDate").addClass("hidden");
+	$("#itinerarioModal #formGiorni").addClass("hidden");
+	$("#itinerarioModal [type=radio], #itinerarioModal [type=checkbox]").iCheck('uncheck');
+	$("#itinerarioModal #formWishlist").removeClass("hidden");
 	$("#itinerarioModal").modal("toggle");
 }
 
@@ -183,7 +232,7 @@ function salvaItinerario() {
 					$(field).closest(".form-group").find("div[id^=formErrore]").removeClass("hidden");
 				}
 			} else {
-				mostraNotifica("Itinerario crearo", "success");
+				mostraNotifica("Itinerario salvato", "success");
 				setTimeout(function() {
 					location.assign("/discover/liste")
 				}, 1000);

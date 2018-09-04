@@ -29,7 +29,9 @@ public class ItinerarioModelValidator implements Validator {
         		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "numeroGiorni", "", "Numero giorni obbligatorio");
         	}
         }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "idWishlist", "", "Wishlist obbligatorie");
+        if(form.getId() == null) {
+        	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "idWishlist", "", "Wishlist obbligatorie");
+        }
 	}
 
 }

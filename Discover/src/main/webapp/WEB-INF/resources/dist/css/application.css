@@ -24,7 +24,7 @@
 .content-wrapper {
 	min-height: 100%;
 	z-index: 800;
-	background: linear-gradient(to bottom, #D7EBFF 0%, #C1D3E5 100%);
+	background: linear-gradient(to top, #C1D3E5 0%, #D7EBFF 50%, rgba(271,271,271,1) 100%) !important;
     -webkit-background-size: cover !important;
     -moz-background-size: cover !important;
     -o-background-size: cover !important;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import it.unimib.discover.dao.AbstractEntityDao;
 import it.unimib.discover.entity.Attrazione;
+import it.unimib.discover.model.MarkerAttrazione;
 import it.unimib.discover.model.ParametriRicerca;
 
 @Repository
@@ -93,6 +94,17 @@ public class AttrazioneDAO extends AbstractEntityDao<Integer, Attrazione> {
 			res.add(super.findByKey(idAttrazione));
 		}
 		return res;
+	}
+
+	public Attrazione findByPosizione(Integer id) {
+		String sql = "select a.ID " + 
+				"from attrazioni a  " + 
+				"where a.ID_MARKER_POSIZIONE = :id ";
+		SQLQuery query = (SQLQuery) getSQLQuery(sql)
+				.addScalar("ID", IntegerType.INSTANCE)
+				.setParameter("id", id);
+		Integer idAttrazione = (Integer) query.uniqueResult();
+		return this.findByKey(idAttrazione);
 	}
 	
 }

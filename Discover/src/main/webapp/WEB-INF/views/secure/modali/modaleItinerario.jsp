@@ -35,6 +35,7 @@
       		</div>
       		<div class="modal-body">
       			<form:form action="/discover/liste/creaItinerario" modelAttribute="itinerario" id="modalItinerarioForm">
+      				<form:hidden path="id" />
       				<div class="row form-group" id="formNome">
    						<div class="col-md-12">
    							<label class="font-weight-bold">

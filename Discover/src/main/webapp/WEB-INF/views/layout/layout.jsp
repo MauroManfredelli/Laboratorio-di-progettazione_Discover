@@ -123,7 +123,7 @@
 								<script>
 									function openChats() {
 										if($(".direct-chat-contacts").css("transform") == 'matrix(1, 0, 0, 1, 0, 0)') {
-											$(".direct-chat-contacts").css("transform", "matrix(1, 0, 0, 1, 500, 0)");
+											$(".direct-chat-contacts").css("transform", "matrix(1, 0, 0, 1, 600, 0)");
 										} else {
 											$(".direct-chat-contacts").css("transform", "matrix(1, 0, 0, 1, 0, 0)");
 										}
