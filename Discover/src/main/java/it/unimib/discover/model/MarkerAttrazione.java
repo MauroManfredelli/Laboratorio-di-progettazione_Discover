@@ -12,6 +12,9 @@ public class MarkerAttrazione implements Serializable {
 	private String latitudine;
 	private String longitudine;
 	
+	private String tipoMarker;
+	private String ordineMarker;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -47,6 +50,18 @@ public class MarkerAttrazione implements Serializable {
 	}
 	public void setLongitudine(String longitudine) {
 		this.longitudine = longitudine;
+	}
+	public String getTipoMarker() {
+		return tipoMarker;
+	}
+	public void setTipoMarker(String tipoMarker) {
+		this.tipoMarker = tipoMarker;
+	}
+	public String getOrdineMarker() {
+		return ordineMarker;
+	}
+	public void setOrdineMarker(String ordineMarker) {
+		this.ordineMarker = ordineMarker;
 	}
 	
 }

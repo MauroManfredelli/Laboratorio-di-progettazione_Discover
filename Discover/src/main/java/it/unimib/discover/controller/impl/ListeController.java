@@ -1,22 +1,26 @@
 package it.unimib.discover.controller.impl;
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import it.unimib.discover.entity.Itinerario;
 import it.unimib.discover.entity.Lista;
 import it.unimib.discover.entity.MyUserAccount;
 import it.unimib.discover.entity.Wishlist;
 import it.unimib.discover.model.ItinerarioModel;
+import it.unimib.discover.model.MarkerAttrazione;
 import it.unimib.discover.model.ValidationResponse;
 import it.unimib.discover.service.impl.ListeService;
 import it.unimib.discover.validator.ItinerarioModelValidator;
@@ -106,5 +110,25 @@ public class ListeController {
 		listeService.eliminaLista(idLista);
 		return new ValidationResponse("SUCCESS");
     }
+	
+	@RequestMapping(value = "/liste/getMarkersAttrazioniByItinerario", method = RequestMethod.GET)
+    public @ResponseBody List<MarkerAttrazione> getMarkersItinerario(@RequestParam(name="idItinerario") Integer idItinerario,  HttpServletRequest request) {
+		return listeService.getMarkersAttrazioniByItinerario(idItinerario);
+    }
+	
+	@RequestMapping(value="/liste/{id}")
+	public ModelAndView visualizzaAttrazione(@PathVariable String id, HttpServletRequest request) throws ParseException {
+		Lista lista = listeService.getListaById(id);
+		if(lista.getIdItinerario() != null) {
+			ModelAndView modelAndView = new ModelAndView("secure/liste/itinerario");
+			Itinerario itinerario = listeService.getItinerarioById(lista.getIdItinerario());
+			itinerario.setMapAttrazioni(listeService.getMapAttrazioniItinerario(itinerario));
+			modelAndView.addObject("itinerario", itinerario);
+			modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
+	        return modelAndView;
+		} else {
+			return null;
+		}
+	}
 	
 }

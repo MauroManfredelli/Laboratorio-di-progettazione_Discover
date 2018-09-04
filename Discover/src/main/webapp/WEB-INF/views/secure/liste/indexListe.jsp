@@ -108,7 +108,7 @@
 														<div class="box-body" style="border: none;">
 															<div class="row">
 																<div class="col-md-12" style="float: left; font-size: 25px;">
-																	<b>${lista.nome}</b>
+																	<a href="/discover/liste/${lista.id}"><b>${lista.nome}</b></a>
 																</div>
 															</div>
 															
@@ -239,7 +239,7 @@
 														<div class="box-body" style="border: none;">
 															<div class="row">
 																<div class="col-md-12" style="float: left; font-size: 25px;">
-																	<b>${lista.nome}</b>
+																	<a href="/discover/liste/${lista.id}"><b>${lista.nome}</b></a>
 																</div>
 															</div>
 															

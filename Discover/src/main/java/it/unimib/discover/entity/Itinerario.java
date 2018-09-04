@@ -3,6 +3,7 @@ package it.unimib.discover.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -61,6 +63,9 @@ public class Itinerario implements Serializable {
 	
 	@OneToMany(mappedBy = "itinerario", fetch = FetchType.EAGER)
 	private List<Visita> visite;
+	
+	@Transient
+	private Map<String, List<Visita>> mapAttrazioni;
 
 	public Integer getId() {
 		return id;
@@ -132,6 +137,14 @@ public class Itinerario implements Serializable {
 
 	public void setVisite(List<Visita> visite) {
 		this.visite = visite;
+	}
+
+	public Map<String, List<Visita>> getMapAttrazioni() {
+		return mapAttrazioni;
+	}
+
+	public void setMapAttrazioni(Map<String, List<Visita>> mapAttrazioni) {
+		this.mapAttrazioni = mapAttrazioni;
 	}
 
 }

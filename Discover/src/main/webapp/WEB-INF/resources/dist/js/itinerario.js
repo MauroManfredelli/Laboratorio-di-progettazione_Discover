@@ -1,7 +1,5 @@
-
 $(document).ready(function() {
 	initMap();
-	$("#headerWeb #btnIntornoMe, #footerMobile #btnIntornoMe").addClass("section-active");
 });
 
 // Note: This example requires that you consent to location sharing when
@@ -13,42 +11,6 @@ var markersAttrazioni = [], infoWindowsMarker = [];
 var geocoder =  new google.maps.Geocoder();
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 14
-	});
-	
-	// Try HTML5 geolocation.
-	if (navigator.geolocation) {
-	  navigator.geolocation.getCurrentPosition(function(position) {
-	    var pos = {
-	      lat: position.coords.latitude,
-	      lng: position.coords.longitude
-	    };
-	
-	    infoWindow.setPosition(pos);
-	    infoWindow.setContent('Tu sei qui');
-	    infoWindow.open(map);
-	    map.setCenter(pos);
-	  }, function() {
-	    handleLocationError(true, infoWindow, map.getCenter());
-	  });
-	} else {
-	  // Browser doesn't support Geolocation
-	      handleLocationError(false, infoWindow, map.getCenter());
-	}
-	
-	addMarkersAttrazioniToMap();
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-                          'Error: The Geolocation service failed.' :
-    					  'Error: Your browser doesn\'t support geolocation.');
-    infoWindow.open(map);
-}
-
-function initMapByAddress() {
 	geocoder.geocode( { 'address': $('#localitaMappa').val()}, function(results, status) {
 		if (status != google.maps.GeocoderStatus.OK) {
 			return;
@@ -58,7 +20,7 @@ function initMapByAddress() {
  
 		var var_mapoptions = {
 		  center: var_location,
-		  zoom: 14
+		  zoom: 11
 		};
 		
 		addMarkersAttrazioniToMap();
@@ -71,13 +33,16 @@ function initMapByAddress() {
 		  google.maps.event.trigger(map, "resize");
 		  map.setCenter(center); 
 	    });
-	})
+	});
 }
 
 function addMarkersAttrazioniToMap() {
 	$.ajax({
     	type: 'GET',
-        url : '/discover/mappa/getMarkersAttrazioni',
+        url : '/discover/liste/getMarkersAttrazioniByItinerario',
+        data: {
+        	"idItinerario": $("#idItinerario").val()
+        },
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         success: function(markersAttrazioniJson) {
 			for(var i=0; i<markersAttrazioniJson.length; i++) {
@@ -94,7 +59,7 @@ function addMarker(attrazione) {
 	var marker = new google.maps.Marker({
 		id: 'marker'+attrazione.ID,
 		position: position,
-		icon: '/discover/resources/dist/img/markers/marker_red.png',
+		icon: '/discover/resources/dist/img/markers/'+attrazione.tipoMarker+'.png',
 		formatted_address: attrazione.nome + " " + attrazione.localita,
 		map: map,
 		title:"Localizzazione attrazione",
