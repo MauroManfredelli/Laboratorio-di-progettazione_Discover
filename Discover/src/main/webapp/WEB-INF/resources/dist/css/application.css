@@ -24,7 +24,8 @@
 .content-wrapper {
 	min-height: 100%;
 	z-index: 800;
-	background: linear-gradient(to top, #C1D3E5 0%, #D7EBFF 50%, rgba(271,271,271,1) 100%) !important;
+	/*background: linear-gradient(to top, #C1D3E5 0%, #D7EBFF 50%, rgba(271,271,271,1) 100%) !important;*/
+	background-color: #D7EBFF !important;
     -webkit-background-size: cover !important;
     -moz-background-size: cover !important;
     -o-background-size: cover !important;
@@ -109,6 +110,14 @@
 
 .light-blue-bg {
 	background-color: #D7EBFF !important;
+}
+
+.light-azure-bg {
+	background-color: #FCFDFF !important;
+}
+
+.item-hovered {
+	background-color: #E3E4E5 !important;
 }
 
 .tabs-left > .nav-tabs > li,

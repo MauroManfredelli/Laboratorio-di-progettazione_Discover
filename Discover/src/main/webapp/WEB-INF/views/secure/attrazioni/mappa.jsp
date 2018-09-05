@@ -21,7 +21,7 @@
 <section class="content-header p-0"></section>
 
 <!-- Main content -->
-<section class="content" id="mapContent">
+<section class="content" id="mapContent" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px);">
 	
 	<div id="map"></div>
 	

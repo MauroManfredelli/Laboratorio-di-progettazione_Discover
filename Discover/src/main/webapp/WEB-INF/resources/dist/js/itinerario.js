@@ -1,6 +1,58 @@
 $(document).ready(function() {
 	initMap();
+	$('.item-draggable').draggable({
+        cursor: 'move',
+        revert: '10',
+        start: function (event, ui) {
+            $(this).css({
+                'opacity': '0.4'
+            });
+        },
+        stop: function (event, ui) {
+            $(this).removeAttr("style");
+            $(this).css({
+                'right':'0px'
+            });
+            elementDragged = $(this);
+            
+        }
+	});
+	$('.dropable-tab').droppable({
+        accept: '.item-draggable',
+        hoverClass: 'item-hovered',
+        drop: function (event, ui) {
+            var tab_id = $(this).attr('id');
+            alert(tab_id);
+            elementDragTo = $(this);
+            dragElementTo();
+        }
+    });
+	var sortableList = $("[id^=data]");
+	for(var i=0; i<sortableList.length; i++) {
+		$(sortableList[i]).sortable({
+			cancel : ".notSortable"
+		});
+	}
 });
+
+var elementDragged = "", elementDragTo = "";
+
+function dragElementTo() {
+	setTimeout(function() {
+		if(elementDragged == "" || elementDragTo == "") {
+			dragElementTo();
+		} else {
+			var clonedElement = $(elementDragged).clone();
+			var href = $(elementDragTo).find("a").attr("href")
+			var destTab = $("#"+href.substring(1, href.length));
+			$(destTab).append(clonedElement);
+			$(elementDragged).remove();
+			elementDragged="";
+			elementDragTo="";
+			$(destTab).find("[id^=nessunaAttrazione]").addClass("hidden");
+		}
+	}, 200);
+}
 
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service

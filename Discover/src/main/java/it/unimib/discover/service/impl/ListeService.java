@@ -264,6 +264,7 @@ public class ListeService {
 			markerAttrazione.setLongitudine(posizione.getLongitudine());
 			markerAttrazione.setLocalita(posizione.getDescrizione());
 			markerAttrazione.setNome(attrazione.getNome());
+			markerAttrazione.setImagePath(attrazione.getFotoPrincipali().get(0).getPath());
 			if((visita.getDataVisita() != null && visita.getDataVisita().equals(dataMinima)) || visita.getGiorno() != null) {
 				markerAttrazione.setTipoMarker("marker_red");
 			} else {

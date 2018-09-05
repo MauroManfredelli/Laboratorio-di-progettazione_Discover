@@ -94,7 +94,7 @@
     <!-- Discover App -->
     <script src="<%= request.getContextPath() %>/resources/dist/js/generic.js" type="text/javascript"></script>
     
-    <div class="wrapper">
+    <div class="wrapper light-blue-bg">
 		<%-- Header --%>
 		<%@include file="/WEB-INF/views/layout/header.jsp"%>
 		

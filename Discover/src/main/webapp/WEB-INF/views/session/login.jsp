@@ -20,7 +20,8 @@
 	
 	<style>
 		body { 
-		  background: linear-gradient(to top, #C1D3E5 0%, #D7EBFF 39%, rgba(271,271,271,1) 100%) !important;
+		  /*background: linear-gradient(to top, #C1D3E5 0%, #D7EBFF 39%, rgba(271,271,271,1) 100%) !important;*/
+		  background-color: #D7EBFF !important;
 		  -webkit-background-size: cover !important;
 		  -moz-background-size: cover !important;
 		  -o-background-size: cover !important;
@@ -34,7 +35,7 @@
       <div class="login-logo" style="">
         <img src="<%= request.getContextPath() %>/resources/dist/img/logo_orizzontale.png" alt="Discover" style=""/>
       </div><!-- /.login-logo -->
-      <div class="login-box-body">
+      <div class="login-box-body light-azure-bg">
         <p class="login-box-msg">Autenticati per iniziare una nuova sessione</p>
         <form:form class="form-signin" name='loginForm' action="/discover/j_spring_security_check" method='POST'>
           <div class="form-group has-feedback">

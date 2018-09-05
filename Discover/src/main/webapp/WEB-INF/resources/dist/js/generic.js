@@ -16,25 +16,26 @@ function checkRunningOnMobile() {
 		$("#headerWeb").addClass("hidden");
 		$("#logoWeb").addClass("hidden");
 		$("#logoMobile").removeClass("hidden");
-		$(".content-wrapper").css("padding-top", "29px").css("padding-bottom", "32px");
+		$(".content-wrapper").css("padding-top", "64px")/*.css("padding-bottom", "32px")*/;
 		$(".content").css("padding-left", "0px")
 					 .css("padding-right", "0px");
-		$("#inputSelectLista").css("top", "55px");
+		$("#inputSelectLista").css("top", "90px");
 		$("#labelTipologiaAttr").removeClass("text-right");
 		$("#labelStatoAttrazione").removeClass("text-right");
 		$("#labelLunghezzaMassima").removeClass("text-right");
 		$(".nav-tabs li a h5").removeAttr("style");
 		$("[id^=cotainerImmaginiLista]").attr("style", "max-height: 250px; overflow-x: hidden; overflow-y: auto;");
 		$("#mapContent").removeClass("p-0");
-		$("#mapContent").closest(".content-wrapper").css("padding-bottom", "32px");
+		$("#mapCercaLocalita").css("bottom", "0px").addClass("m-0");
+		$(".content").css("padding-bottom", "0px");
 	} else {
 		$("#footerMobile").addClass("hidden");
 		$("#headerWeb").removeClass("hidden");
 		$("#logoWeb").removeClass("hidden");
 		$("#logoMobile").addClass("hidden");
 		$(".content-wrapper").css("padding-top", "90px");
-		$(".content").css("padding-left", "20px")
-		 			 .css("padding-right", "20px");
+		$(".content").css("padding-left", "180px")
+		 			 .css("padding-right", "180px");
 		$("#inputSelectLista").css("top", "105px");
 		$("#labelTipologiaAttr").addClass("text-right");
 		$("#labelStatoAttrazione").addClass("text-right");
@@ -43,6 +44,8 @@ function checkRunningOnMobile() {
 		$("[id^=cotainerImmaginiLista]").removeAttr("style");
 		$("#mapContent").addClass("p-0");
 		$("#mapContent").closest(".content-wrapper").css("padding-bottom", "0px");
+		$("#mapCercaLocalita").css("bottom", "18px").removeClass("m-0");
+		$(".content").css("padding-bottom", "0px");
 	}
 }
 

@@ -14,6 +14,7 @@ public class MarkerAttrazione implements Serializable {
 	
 	private String tipoMarker;
 	private String ordineMarker;
+	private String imagePath;
 	
 	public Integer getId() {
 		return id;
@@ -62,6 +63,12 @@ public class MarkerAttrazione implements Serializable {
 	}
 	public void setOrdineMarker(String ordineMarker) {
 		this.ordineMarker = ordineMarker;
+	}
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 	
 }
