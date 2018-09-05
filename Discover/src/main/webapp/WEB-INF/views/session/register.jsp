@@ -20,7 +20,7 @@
 	
 	<style>
 		body { 
-		  background: linear-gradient(to top, rgba(101,101,101,1) 0%, rgba(171,171,171,1) 39%, rgba(271,271,271,1) 100%) !important;
+		  background: linear-gradient(to top, #C1D3E5 0%, #D7EBFF 39%, rgba(271,271,271,1) 100%) !important;
 		  -webkit-background-size: cover !important;
 		  -moz-background-size: cover !important;
 		  -o-background-size: cover !important;

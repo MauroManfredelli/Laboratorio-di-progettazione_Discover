@@ -3,7 +3,6 @@ package it.unimib.discover.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,15 +20,21 @@ import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "ITINERARI")
-public class Itinerario implements Serializable {
+@Table(name = "VW_LISTE_UTENTE")
+public class Lista implements Serializable {
 
-	private static final long serialVersionUID = -2140660291323248206L;
+	private static final long serialVersionUID = -1538457764114775169L;
 	
 	@Id
 	@GeneratedValue
 	@Column(name = "ID")
-	private Integer id;
+	private String id;
+	
+	@Column(name = "ID_WISHLIST")
+	private Integer idWishlist;
+	
+	@Column(name = "ID_ITINERARIO")
+	private Integer idItinerario;
 	
 	@Column(name = "NOME")
 	private String nome;
@@ -61,18 +65,40 @@ public class Itinerario implements Serializable {
 	@Column(name = "NUMERO_GIORNI")
 	private Integer numeroGiorni;
 	
-	@OneToMany(mappedBy = "itinerario", fetch = FetchType.EAGER)
-	private List<Visita> visite;
+	@Column(name = "NUMERO_ATTRAZIONI")
+	private Integer numeroAttrazioni;
 	
 	@Transient
-	private Map<String, List<Visita>> mapAttrazioni;
+	private List<Attrazione> attrazioni;
+	
+	@Transient
+	private String formattedDataInizio;
+	
+	@Transient
+	private String formattedDataFine;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Integer getIdWishlist() {
+		return idWishlist;
+	}
+
+	public void setIdWishlist(Integer idWishlist) {
+		this.idWishlist = idWishlist;
+	}
+
+	public Integer getIdItinerario() {
+		return idItinerario;
+	}
+
+	public void setIdItinerario(Integer idItinerario) {
+		this.idItinerario = idItinerario;
 	}
 
 	public String getNome() {
@@ -131,20 +157,36 @@ public class Itinerario implements Serializable {
 		this.numeroGiorni = numeroGiorni;
 	}
 
-	public List<Visita> getVisite() {
-		return visite;
+	public Integer getNumeroAttrazioni() {
+		return numeroAttrazioni;
 	}
 
-	public void setVisite(List<Visita> visite) {
-		this.visite = visite;
+	public void setNumeroAttrazioni(Integer numeroAttrazioni) {
+		this.numeroAttrazioni = numeroAttrazioni;
 	}
 
-	public Map<String, List<Visita>> getMapAttrazioni() {
-		return mapAttrazioni;
+	public List<Attrazione> getAttrazioni() {
+		return attrazioni;
 	}
 
-	public void setMapAttrazioni(Map<String, List<Visita>> mapAttrazioni) {
-		this.mapAttrazioni = mapAttrazioni;
+	public void setAttrazioni(List<Attrazione> attrazioni) {
+		this.attrazioni = attrazioni;
+	}
+
+	public String getFormattedDataInizio() {
+		return formattedDataInizio;
+	}
+
+	public void setFormattedDataInizio(String formattedDataInizio) {
+		this.formattedDataInizio = formattedDataInizio;
+	}
+
+	public String getFormattedDataFine() {
+		return formattedDataFine;
+	}
+
+	public void setFormattedDataFine(String formattedDataFine) {
+		this.formattedDataFine = formattedDataFine;
 	}
 
 }

@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "VISITE")
-public class Visita implements Serializable {
+public class Visita implements Serializable, Comparable<Visita> {
 
 	private static final long serialVersionUID = 5410778427663786818L;
 	
@@ -38,7 +38,7 @@ public class Visita implements Serializable {
 	@Column(name = "ORA")
 	private String ora;
 	
-	@Column(name = "ETICHIETTA")
+	@Column(name = "ETICHETTA")
 	private String etichetta;
 	
 	@Column(name = "NOTA_PREC")
@@ -54,6 +54,13 @@ public class Visita implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_ATTRAZIONE")
 	private Attrazione attrazione;
+
+	public Visita() {}
+
+	public Visita(Attrazione attrazione, Itinerario itinerario) {
+		this.attrazione = attrazione;
+		this.itinerario = itinerario;
+	}
 
 	public Integer getId() {
 		return id;
@@ -125,6 +132,17 @@ public class Visita implements Serializable {
 
 	public void setAttrazione(Attrazione attrazione) {
 		this.attrazione = attrazione;
+	}
+
+	@Override
+	public int compareTo(Visita o) {
+		if(this.dataVisita == null && this.giorno == null) {
+			return -1;
+		} else if(o.dataVisita == null && o.giorno == null) {
+			return 1;
+		} else {
+			return ora.compareTo(o.ora);
+		}
 	}
 
 }

@@ -51,7 +51,7 @@ public class MyUserAccount implements Serializable {
 	private Integer punti;
 	
 	@Column(name = "SESSO")
-	private char sesso;
+	private String sesso;
 	
 	@Column(name = "LIVELLO")
 	private Integer livello;
@@ -174,11 +174,11 @@ public class MyUserAccount implements Serializable {
 		this.punti = punti;
 	}
 
-	public char getSesso() {
+	public String getSesso() {
 		return sesso;
 	}
 
-	public void setSesso(char sesso) {
+	public void setSesso(String sesso) {
 		this.sesso = sesso;
 	}
 

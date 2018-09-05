@@ -137,7 +137,7 @@
 					
 					<div class="row" style="padding-top: 15px;">
 						<div class="col-md-12" style="text-align: right; font-size: 30px;">
-							&nbsp;&nbsp;<span><i class="fa fa-suitcase text-primary" data-toggle="tooltip" title="Aggiungi alla lista" style="cursor: pointer;"></i></span>
+							&nbsp;&nbsp;<span><i class="fa fa-suitcase text-primary" data-toggle="tooltip" title="Aggiungi alla lista" style="cursor: pointer;" onclick="aggiungiAttrazioneToLista('${attrazione.id}')"></i></span>
 							&nbsp;&nbsp;<span><i class="fa fa-globe text-info" style="cursor: pointer;" data-toggle="tooltip" title="Mappa"></i></span>
 						</div>
 					</div>

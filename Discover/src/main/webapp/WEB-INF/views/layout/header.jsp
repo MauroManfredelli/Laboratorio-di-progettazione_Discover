@@ -5,18 +5,18 @@
 <header class="main-header">
   <!-- Logo -->
   <!-- Header Navbar: style can be found in header.less -->
-  <nav class="navbar navbar-static-top col-md-12 p-0" role="navigation" id="navbarWithMargin" style="margin-left: 0px;">
-	  <span class="col-md-5 hidden" id="logoWeb">
-		<a href="#" style="background-color: #FFF; font-size: 2.1em; color: #333; width: 70px;">
+  <nav class="navbar navbar-static-top col-md-12 p-0 light-blue-bg" role="navigation" id="navbarWithMargin" style="margin-left: 0px; border-bottom: 1.5px solid #3c8dbc;">
+	  <span class="col-md-7 pull-left hidden" id="logoWeb">
+		<a href="#" class="light-blue-bg" style="background-color: #FFF; font-size: 2.1em; color: #333; width: 70px;">
 			<i class="fa fa-plus-circle"></i>
 		</a>
-		<a href="/discover">
+		<a href="/discover" class="pull-right" style="padding-right: 30px;">
 			<img src="<%= request.getContextPath() %>/resources/dist/img/logo_orizzontale.png" alt="Discover" style="width: 200px; vertical-align: top; margin-top: 5px; padding-left: 15px;"/>
 		</a>
 	  </span>
 	  <span class="col-md-4 p-0 hidden" id="logoMobile">
-		<a href="#" class="btn" style="background-color: #FFF; color: #333; padding: 10px; padding-right: 5px; padding-left: 5px; border-radius: 0px;  border-right: 1px solid #eee;">
-			<i class="fa fa-plus-circle" style="font-size: 1.5em;"></i>
+		<a href="#" class="btn light-blue-bg" style="background-color: #FFF; color: #333; padding: 10px; padding-right: 5px; padding-left: 5px; border-radius: 0px;  border-right: 1px solid #eee;">
+			<i class="fa fa-plus-circle" style="font-size: 1.2em;"></i>
 		</a>
 		<a href="/discover" class="p-0">
 			<img src="<%= request.getContextPath() %>/resources/dist/img/logo_orizzontale.png" alt="Discover" style="width: 90px; padding-left: 5px;"/>
@@ -27,7 +27,7 @@
       <ul class="nav navbar-nav" style="margin-right: 0px;">
         <!-- Notifications: style can be found in dropdown.less -->
         <li class="dropdown notifications-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px;">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px; color: #333;">
             <i class="fa fa-bell-o" style="font-size: 1.5em;"></i>
             <span class="label label-warning">5</span>
           </a>
@@ -68,7 +68,7 @@
         </li>
         <!-- Messages: style can be found in dropdown.less-->
         <li class="dropdown messages-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px;">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px; color: #333;">
             <i class="fa fa-envelope-o" style="font-size: 1.5em;"></i>
             <span class="label label-success">4</span>
           </a>
@@ -162,20 +162,20 @@
           </ul>
         </li>
         <!-- Liste e viaggi -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px;">
+        <li>
+          <a href="/discover/liste" style="padding: 10px; color: #333;">
           	<i class="fa fa-suitcase" style="font-size: 1.5em;"></i>
           </a>
         </li>
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px;">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px; color: #333;">
           	<i class="fa fa-user"></i>
             <span class="hidden-xs"><c:out value="${currentUser.userName}"></c:out></span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
-            <li class="user-header">
+            <li class="user-header" style="background-color: #444">
               <c:choose>
               	<c:when test="${not empty currentUser.imageUrl}">
               		<img src="${currentUser.imageUrl}" class="img-circle" alt="User Image" />
@@ -202,7 +202,7 @@
         </li>
         <!-- Tasks: style can be found in dropdown.less -->
         <li class="dropdown tasks-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px;">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px; color: #333;">
             <i class="fa fa-ellipsis-v"></i>
           </a>
           <ul class="dropdown-menu">
@@ -257,18 +257,18 @@
     </div>
   </nav>
   
-  <nav class="navbar col-md-12 hidden" style="padding-left: 0px; margin-left: 0px; padding-right: 0px; border: 1px solid #F0F0F0; border-top: 1.5px solid #3c8dbc; border-bottom: 1.5px solid #3c8dbc;" id="headerWeb">
+  <nav class="navbar col-md-12 hidden" style="padding-left: 0px; margin-left: 0px; padding-right: 0px; border: 1px solid #F0F0F0; border-bottom: 1.5px solid #3c8dbc; background-color: #FFF;" id="headerWeb">
   	<a href="/discover" type="button" class="btn btn-lg btn-default col-md-3" id="btnBacheca" style="background-color: #FFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 11px; border-radius: 0px;">
 		<i class="fa fa-list"></i> <span>Bacheca</span>
 	</a>
-	<button type="button" class="btn btn-lg btn-default col-md-3" id="btnBachecaDiscover" style="background-color: #FFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 11px; border-radius: 0px;">
+	<button type="button" class="btn btn-lg btn-default col-md-3" id="btnBachecaDiscover" style="background-color: #FFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 8px; border-radius: 0px;">
 		<img src="<%= request.getContextPath() %>/resources/dist/img/bacheca_discover.png" style="width: 20px; padding-bottom: 5px;"/> Bacheca Discover
 	</button>
 	<a href="/discover/cerca"  type="button" class="btn btn-lg btn-default col-md-3" id="btnCerca" style="background-color: #FFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 11px; border-radius: 0px;">
 		<i class="fa fa-search"></i> Cerca
 	</a>
-	<button type="button" class="btn btn-lg btn-default col-md-3" id="btnIntornoMe" style="background-color: #FFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 11px; border-radius: 0px;">
+	<a href="/discover/mappa" type="button" class="btn btn-lg btn-default col-md-3" id="btnIntornoMe" style="background-color: #FFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 11px; border-radius: 0px;">
 		<i class="fa fa-compass"></i> Introno a me
-	</button>
+	</a>
   </nav>
 </header>

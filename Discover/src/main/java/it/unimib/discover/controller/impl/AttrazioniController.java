@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.unimib.discover.entity.Attrazione;
-import it.unimib.discover.entity.readonly.TipoAttrazione;
+import it.unimib.discover.model.ParametriRicerca;
 import it.unimib.discover.service.impl.AttrazioniService;
 
 @Controller
@@ -32,6 +32,18 @@ public class AttrazioniController {
 	@RequestMapping(value="/cerca")
 	public ModelAndView cerca(HttpServletRequest request) throws ParseException {
 		ModelAndView modelAndView = new ModelAndView("secure/cerca");
+		modelAndView.addObject("parametriRicerca", new ParametriRicerca());
+		modelAndView.addObject("tipologie", attrazioniService.getAllTipologieAttrazioni());
+		modelAndView.addObject("stati", attrazioniService.getAllStatiAttrazione());
+        return modelAndView;
+	}
+	
+	@RequestMapping( value = "/attrazioni/cerca" )
+	public ModelAndView cercaAttrazioni(ParametriRicerca parametriRicerca, HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("secure/cerca");
+		modelAndView.addObject("parametriRicerca", parametriRicerca);
+		List<Attrazione> listAttrazioni = attrazioniService.getAttrazioniByRicerca(parametriRicerca);
+		modelAndView.addObject("listAttrazioni", listAttrazioni);
 		modelAndView.addObject("tipologie", attrazioniService.getAllTipologieAttrazioni());
 		modelAndView.addObject("stati", attrazioniService.getAllStatiAttrazione());
         return modelAndView;

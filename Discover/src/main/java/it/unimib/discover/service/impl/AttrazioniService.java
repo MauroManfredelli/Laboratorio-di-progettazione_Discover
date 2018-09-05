@@ -1,7 +1,6 @@
 package it.unimib.discover.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import it.unimib.discover.dao.impl.AttrazioneDAO;
 import it.unimib.discover.entity.Attrazione;
 import it.unimib.discover.entity.readonly.StatoAttrazione;
 import it.unimib.discover.entity.readonly.TipoAttrazione;
+import it.unimib.discover.model.ParametriRicerca;
 
 @Service
 public class AttrazioniService {
@@ -38,6 +38,11 @@ public class AttrazioniService {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<StatoAttrazione> getAllStatiAttrazione() {
 		return attrazioneDAO.getAllTipoByClassList(StatoAttrazione.class);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<Attrazione> getAttrazioniByRicerca(ParametriRicerca parametriRicerca) {
+		return attrazioneDAO.getAttrazioniByRicerca(parametriRicerca);
 	}
 	
 }

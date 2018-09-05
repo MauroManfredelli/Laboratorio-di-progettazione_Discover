@@ -24,7 +24,7 @@
 .content-wrapper {
 	min-height: 100%;
 	z-index: 800;
-	background: linear-gradient(to bottom, rgba(170,170,170,1) 0%, rgba(191,191,191,1) 39%, rgba(230,230,230,1) 100%) !important;
+	background: linear-gradient(to top, #C1D3E5 0%, #D7EBFF 50%, rgba(271,271,271,1) 100%) !important;
     -webkit-background-size: cover !important;
     -moz-background-size: cover !important;
     -o-background-size: cover !important;
@@ -37,4 +37,113 @@
     -moz-background-size: cover !important;
     -o-background-size: cover !important;
     background-size: cover !important;
+}
+
+/* Badger
+------------------------- */
+[class*="badger"] {
+    position: relative
+}
+
+[class*="badger"]:after {
+    content: attr(data-badger);
+    position: absolute;
+    top: 0;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    background: #999;
+    color: #fff
+}
+
+.badger-left {
+    border-top-left-radius: 6px
+}
+
+.badger-right {
+    border-top-right-radius: 6px
+}
+
+.badger-left:after {
+    left: 0;
+    border-radius: 6px 0 6px 0
+}
+
+.badger-right:after {
+    right: 0;
+    border-radius: 0 6px 0 6px
+}
+
+.badger-danger:after {
+    background: #d9534f
+}
+
+.badger-warning:after {
+    background: #f0ad4e
+}
+
+.badger-success:after {
+    background: #00a65a
+}
+
+.badger-info:after {
+    background: #5bc0de
+}
+
+.badger-primary:after {
+    background: #3c8dbc
+}
+
+.badger-inverse:after {
+    background: #222
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.shadow {
+	-webkit-box-shadow: 5px 5px 5px #def;
+    box-shadow: 5px 5px 5px #def;
+}
+
+.light-blue-bg {
+	background-color: #D7EBFF !important;
+}
+
+.tabs-left > .nav-tabs > li,
+.tabs-right > .nav-tabs > li {
+  float: none;
+}
+
+.tabs-left > .nav-tabs > li > a,
+.tabs-right > .nav-tabs > li > a {
+  min-width: 74px;
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+
+.tabs-left > .nav-tabs {
+  float: left;
+  margin-right: 19px;
+  border-right: 1px solid #ddd;
+}
+
+.tabs-left > .nav-tabs > li > a {
+  margin-right: -1px;
+  -webkit-border-radius: 4px 0 0 4px;
+     -moz-border-radius: 4px 0 0 4px;
+          border-radius: 4px 0 0 4px;
+}
+
+.tabs-left > .nav-tabs > li > a:hover,
+.tabs-left > .nav-tabs > li > a:focus {
+  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+}
+
+.tabs-left > .nav-tabs .active > a,
+.tabs-left > .nav-tabs .active > a:hover,
+.tabs-left > .nav-tabs .active > a:focus {
+  border-color: #ddd transparent #ddd #ddd;
+  *border-right-color: #ffffff;
 }
