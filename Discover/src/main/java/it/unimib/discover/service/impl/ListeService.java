@@ -290,6 +290,15 @@ public class ListeService {
 					}
 				}
 				markerAttrazione.setOrdineMarker(ordineGiorno+"-"+ordineNelGiorno);
+			} else {
+				Integer ordineNelGiorno = 1;
+				for(Visita visitaOther : itinerario.getVisite()) {
+					if(!visitaOther.equals(visita) && visitaOther.getGiorno() == null && visitaOther.getDataVisita() == null &&
+							visitaOther.getOrdine() != null) {
+						ordineNelGiorno ++;
+					}
+				}
+				markerAttrazione.setOrdineMarker("0-"+ordineNelGiorno);
 			}
 			markers.add(markerAttrazione);
 		}
@@ -300,6 +309,39 @@ public class ListeService {
 	public Map<String, List<Visita>> getMapAttrazioniItinerario(Itinerario itinerario) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Map<String, List<Visita>> mapAttrazioni = new TreeMap<String, List<Visita>>();
+		Date dataMinima = itinerario.getDataInizio();
+		for(Visita visita: itinerario.getVisite()) {
+			if(visita.getDataVisita() != null) {
+				Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - dataMinima.getTime()) / (24 * 60 * 60 * 1000));
+				Integer ordineNelGiorno = 1;
+				for(Visita visitaOther : itinerario.getVisite()) {
+					if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOra() != null &&
+							visitaOther.getDataVisita().equals(visita.getDataVisita()) && visitaOther.getOra().compareTo(visita.getOra()) > 0) {
+						ordineNelGiorno ++;
+					}
+				}
+				visita.setOrdine(ordineGiorno+"-"+ordineNelGiorno);
+			} else if(visita.getGiorno() != null) {
+				Integer ordineGiorno = visita.getGiorno();
+				Integer ordineNelGiorno = 1;
+				for(Visita visitaOther : itinerario.getVisite()) {
+					if(!visitaOther.equals(visita) && visitaOther.getGiorno() != null && visitaOther.getOra() != null &&
+							visitaOther.getGiorno() == visita.getGiorno() && visitaOther.getOra().compareTo(visita.getOra()) > 0) {
+						ordineNelGiorno ++;
+					}
+				}
+				visita.setOrdine(ordineGiorno+"-"+ordineNelGiorno);
+			} else {
+				Integer ordineNelGiorno = 1;
+				for(Visita visitaOther : itinerario.getVisite()) {
+					if(!visitaOther.equals(visita) && visitaOther.getGiorno() == null && visitaOther.getDataVisita() == null &&
+							visitaOther.getOrdine() != null) {
+						ordineNelGiorno ++;
+					}
+				}
+				visita.setOrdine("0-"+ordineNelGiorno);
+			}
+		}
 		for(Visita visita: itinerario.getVisite()) {
 			if(visita.getDataVisita() != null) {
 				String dataVisita = sdf.format(visita.getDataVisita());
@@ -343,11 +385,6 @@ public class ListeService {
 					mapAttrazioni.put(sdf.format("giorno "+giorno), null);
 				}
 				giorno++;
-			}
-		}
-		for(String key: mapAttrazioni.keySet()) {
-			if(mapAttrazioni.get(key) != null) {
-				Collections.sort(mapAttrazioni.get(key));
 			}
 		}
 		return mapAttrazioni;

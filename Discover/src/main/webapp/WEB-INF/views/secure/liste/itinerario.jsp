@@ -96,7 +96,7 @@
 			</ul>
 			<div id="tabContentItinerario" class="sortable tab-content p-0" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px);">
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
-					<ol class="list-group tab-pane <c:if test='${key eq "Tutte le date"}'>active</c:if>" id="data${indexKey.index}" style="width: 100%; padding-left: 136px;">
+					<ol class="list-group tab-pane <c:if test='${key eq "Tutte le date"}'>active</c:if>" id="data${indexKey.index}" style="width: 100%; padding-left: 136px;" key="${fn:replace(key, ' ', '')}">
 						<li id="nessunaAttrazione${indexKey.index}" class="hidden notSortable list-group-item m-0 light-azure-bg text-center text-primary" style="border: none; padding-top: 30px; position: inherit; height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px);">
 							<div><i class="fa fa-info-circle" style="font-size: 4em;"></i></div>
 							<div style="font-size: 1.5em;">Nessuna attrazione selezionata per questo giorno</div>
@@ -118,7 +118,9 @@
 										</div>
 										<div>
 											<div style="margin-top: 10px;">
-												<span class="btn btn-danger" style="font-size: 1.5em; border-radius: 20px; padding: 3px;">1.1</span>
+												<span class="btn <c:choose><c:when test='${empty visita.giorno or empty visita.dataVisita}'>btn-black</c:when><c:otherwise>btn-danger</c:otherwise></c:choose>" style="font-size: 1.5em; border-radius: 20px; padding: 3px;">
+													${fn:replace(visita.ordine, '-', '.')}
+												</span>
 												<img
 													src="${visita.attrazione.fotoPrincipali[0].path}"
 													style="margin-left: 5px; margin-right: 5px; height: 50px; width: 50px; border-radius: 10px;">
@@ -126,13 +128,13 @@
 													<b>${visita.attrazione.nome}</b>
 												</span>
 											</div>
-												<div style="margin-top: 20px;">
-													<i class="fa fa-file" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;"></i>
-													<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;"></i>
-													<i class="fa fa-pencil" style="font-size: 1.5em; float: right; cursor: pointer;"></i>
-													<i class="fa fa-trash" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;"></i>
-													<i class="fa fa-copy" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;"></i>
-												</div>
+											<div style="margin-top: 20px;">
+												<i class="fa fa-file" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;"></i>
+												<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;"></i>
+												<i class="fa fa-pencil" style="font-size: 1.5em; float: right; cursor: pointer;"></i>
+												<i class="fa fa-trash" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;"></i>
+												<i class="fa fa-copy" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;"></i>
+											</div>
 										</div>
 									</li>
 								</c:forEach>

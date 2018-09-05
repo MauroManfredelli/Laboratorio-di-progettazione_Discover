@@ -1,5 +1,9 @@
 $(document).ready(function() {
 	initMap();
+	setDraggable();
+});
+
+function setDraggable() {
 	$('.item-draggable').draggable({
         cursor: 'move',
         revert: '10',
@@ -7,6 +11,7 @@ $(document).ready(function() {
             $(this).css({
                 'opacity': '0.4'
             });
+            elementDragFrom = $(this).closest("ol");
         },
         stop: function (event, ui) {
             $(this).removeAttr("style");
@@ -14,7 +19,6 @@ $(document).ready(function() {
                 'right':'0px'
             });
             elementDragged = $(this);
-            
         }
 	});
 	$('.dropable-tab').droppable({
@@ -30,25 +34,37 @@ $(document).ready(function() {
 	var sortableList = $("[id^=data]");
 	for(var i=0; i<sortableList.length; i++) {
 		$(sortableList[i]).sortable({
-			cancel : ".notSortable"
+			exclude : $(".notSortable")
 		});
 	}
-});
+}
 
-var elementDragged = "", elementDragTo = "";
+var elementDragged = "", elementDragTo = "", elementDragFrom = "";
 
 function dragElementTo() {
 	setTimeout(function() {
 		if(elementDragged == "" || elementDragTo == "") {
 			dragElementTo();
 		} else {
-			var clonedElement = $(elementDragged).clone();
-			var href = $(elementDragTo).find("a").attr("href")
+			var href = $(elementDragTo).find("a").attr("href");
 			var destTab = $("#"+href.substring(1, href.length));
+			if($(elementDragFrom).attr("key") == "Tutteledate" ||
+					$(destTab).attr("key") == "Tutteledate") {
+				elementDragged="";
+				elementDragTo="";
+				elementDragFrom="";
+				return;
+			}
+			var clonedElement = $(elementDragged).clone();
 			$(destTab).append(clonedElement);
 			$(elementDragged).remove();
+			if($(elementDragFrom).find("li[id^=item]").length == 0) {
+				$(elementDragFrom).find("[id^=nessunaAttrazione]").removeClass("hidden");
+			}
 			elementDragged="";
 			elementDragTo="";
+			elementDragFrom="";
+			setDraggable();
 			$(destTab).find("[id^=nessunaAttrazione]").addClass("hidden");
 		}
 	}, 200);

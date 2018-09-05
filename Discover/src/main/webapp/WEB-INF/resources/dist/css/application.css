@@ -156,3 +156,8 @@
   border-color: #ddd transparent #ddd #ddd;
   *border-right-color: #ffffff;
 }
+
+.btn-black {
+	background-color: #000;
+	color: #fff;
+}

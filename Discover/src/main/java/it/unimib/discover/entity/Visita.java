@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -54,6 +55,9 @@ public class Visita implements Serializable, Comparable<Visita> {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_ATTRAZIONE")
 	private Attrazione attrazione;
+	
+	@Transient
+	private String ordine;
 
 	public Visita() {}
 
@@ -132,6 +136,14 @@ public class Visita implements Serializable, Comparable<Visita> {
 
 	public void setAttrazione(Attrazione attrazione) {
 		this.attrazione = attrazione;
+	}
+
+	public String getOrdine() {
+		return ordine;
+	}
+
+	public void setOrdine(String ordine) {
+		this.ordine = ordine;
 	}
 
 	@Override
