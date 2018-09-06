@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -230,6 +229,7 @@ public class ListeService {
 					Visita visita = new Visita();
 					visita.setAttrazione(attrazioneWish.getAttrazione());
 					visita.setItinerario(itinerario);
+					visita.setEtichetta(attrazioneWish.getAttrazione().getNome());
 					visitaDAO.persist(visita);
 				}
 				attrazioneWishlistDAO.delete(listAw);
@@ -258,20 +258,20 @@ public class ListeService {
 			Attrazione attrazione = visita.getAttrazione();
 			MarkerPosizione posizione = attrazione.getPosizione();
 			MarkerAttrazione markerAttrazione = new MarkerAttrazione();
-			markerAttrazione.setId(posizione.getID());
+			markerAttrazione.setId(visita.getId());
 			markerAttrazione.setIdAttrazione(attrazione.getId());
 			markerAttrazione.setLatitudine(posizione.getLatitudine());
 			markerAttrazione.setLongitudine(posizione.getLongitudine());
 			markerAttrazione.setLocalita(posizione.getDescrizione());
-			markerAttrazione.setNome(attrazione.getNome());
+			markerAttrazione.setNome(visita.getEtichetta());
 			markerAttrazione.setImagePath(attrazione.getFotoPrincipali().get(0).getPath());
-			if((visita.getDataVisita() != null && visita.getDataVisita().equals(dataMinima)) || visita.getGiorno() != null) {
+			if(visita.getDataVisita() != null || visita.getGiorno() != null) {
 				markerAttrazione.setTipoMarker("marker_red");
 			} else {
 				markerAttrazione.setTipoMarker("marker_black");
 			}
 			if(visita.getDataVisita() != null) {
-				Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - dataMinima.getTime()) / (24 * 60 * 60 * 1000));
+				Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - dataMinima.getTime()) / (24 * 60 * 60 * 1000)) + 1;
 				Integer ordineNelGiorno = 1;
 				for(Visita visitaOther : itinerario.getVisite()) {
 					if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOra() != null &&
@@ -312,7 +312,7 @@ public class ListeService {
 		Date dataMinima = itinerario.getDataInizio();
 		for(Visita visita: itinerario.getVisite()) {
 			if(visita.getDataVisita() != null) {
-				Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - dataMinima.getTime()) / (24 * 60 * 60 * 1000));
+				Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - dataMinima.getTime()) / (24 * 60 * 60 * 1000)) + 1;
 				Integer ordineNelGiorno = 1;
 				for(Visita visitaOther : itinerario.getVisite()) {
 					if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOra() != null &&
@@ -387,6 +387,14 @@ public class ListeService {
 				giorno++;
 			}
 		}
+		if(!mapAttrazioni.containsKey("Non programm.")) {
+			mapAttrazioni.put("Non programm.", null);
+		}
+		for(String key : mapAttrazioni.keySet()) {
+			if(mapAttrazioni.get(key) != null) {
+				Collections.sort(mapAttrazioni.get(key));
+			}
+		}
 		return mapAttrazioni;
 	}
 	
@@ -397,5 +405,75 @@ public class ListeService {
 	        cal.add(Calendar.DAY_OF_MONTH, 1);
 	    }
 	    return cal.getTime();
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void aggiornaVisite(Integer idItinerario, Integer idVisita, String key) throws ParseException {
+		Itinerario itinerario = itinerarioDAO.findByKey(idItinerario);
+		Visita visita = visitaDAO.findByKey(idVisita);
+		if(key.contains("Non programm")) {
+			if(visita.getDataVisita() != null) {
+				visita.setDataVisita(null);
+			} else {
+				visita.setGiorno(null);
+			}
+			visita.setOra(itinerario.getOrdineVisitaNonProgramm());
+			visitaDAO.persist(visita);
+		} else if(key.contains("giorno")) {
+			Integer giorno = Integer.valueOf(key.substring(key.indexOf(" ") + 1));
+			visita.setGiorno(giorno);
+			visita.setOra(itinerario.getOrdineVisita(giorno));
+			visitaDAO.persist(visita);
+		} else {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date dataVisita = sdf.parse(key);
+			visita.setDataVisita(dataVisita);
+			visita.setOra(itinerario.getOrdineVisita(dataVisita));
+			visitaDAO.persist(visita);
+		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void aggiornaVisiteStessaData(Integer idItinerario, Integer idVisita, String key, Integer ordine) {
+		Visita visita = visitaDAO.findByKey(idVisita);
+		visita.setOra(ordine+"");
+		visitaDAO.persist(visita);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public Visita copiaVisita(Integer idVisita) {
+		Visita visitaRemote = visitaDAO.findByKey(idVisita);
+		Visita visita = new Visita(visitaRemote);
+		Itinerario itinerario = visita.getItinerario();
+		changeEtichettaIfExists(visita, itinerario.getVisite(), 2);
+		visitaDAO.persist(visita);
+		visita.setItinerario(null);
+		visita.getAttrazione().setRecensioni(null);
+		return visita;
+	}
+
+	private void changeEtichettaIfExists(Visita visita, List<Visita> visite, Integer versione) {
+		for(Visita v : visite) {
+			if(visita.getEtichetta().equals(v.getEtichetta())) {
+				visita.setEtichetta(visita.getEtichetta().substring(0, visita.getEtichetta().length() - 2) + "_" + versione++);
+				changeEtichettaIfExists(visita, visite, versione);
+				return;
+			}
+		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void eliminaVisita(Integer idVisita) {
+		Visita visitaRemote = visitaDAO.findByKey(idVisita);
+		visitaRemote.setAttrazione(null);
+		visitaRemote.setItinerario(null);
+		visitaDAO.delete(visitaRemote);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void salvaModificaEtichetta(Integer idVisita, String etichetta) {
+		Visita visitaRemote = visitaDAO.findByKey(idVisita);
+		visitaRemote.setEtichetta(etichetta);
+		visitaDAO.persist(visitaRemote);
 	}
 }

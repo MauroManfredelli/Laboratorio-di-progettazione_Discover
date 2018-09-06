@@ -66,6 +66,17 @@ public class Visita implements Serializable, Comparable<Visita> {
 		this.itinerario = itinerario;
 	}
 
+	public Visita(Visita visita) {
+		this.giorno = visita.giorno;
+		this.ora = visita.ora;
+		this.dataVisita = visita.dataVisita;
+		this.etichetta = visita.etichetta+"_2";
+		this.nota = visita.nota;
+		this.notaPrec = "";
+		this.itinerario = visita.itinerario;
+		this.attrazione = visita.attrazione;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -152,6 +163,8 @@ public class Visita implements Serializable, Comparable<Visita> {
 			return -1;
 		} else if(o.dataVisita == null && o.giorno == null) {
 			return 1;
+		} else if(ordine != null && o.ordine != null) {
+			return ordine.compareTo(o.ordine);
 		} else {
 			return ora.compareTo(o.ora);
 		}

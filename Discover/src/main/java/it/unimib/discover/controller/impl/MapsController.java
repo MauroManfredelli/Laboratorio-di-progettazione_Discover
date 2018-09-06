@@ -28,7 +28,7 @@ public class MapsController {
 	}
 	
 	@RequestMapping(value = "/mappa/getMarkersAttrazioni", method = RequestMethod.GET)
-    public @ResponseBody List<MarkerAttrazione> aggiungiAttrazioneToLista(HttpServletRequest request) {
+    public @ResponseBody List<MarkerAttrazione> getMarkersAttrazioni(HttpServletRequest request) {
 		return mapsService.getMarkersAttrazioniJson();
     }
 	

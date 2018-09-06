@@ -147,4 +147,43 @@ public class Itinerario implements Serializable {
 		this.mapAttrazioni = mapAttrazioni;
 	}
 
+	public String getOrdineVisita(Date dataVisita) {
+		Integer ordine = 1;
+		for(Visita visita : this.visite) {
+			if(visita.getDataVisita() != null && visita.getDataVisita().equals(dataVisita)) {
+				ordine ++;
+			}
+		}
+		return ordine + "";
+	}
+
+	public String getOrdineVisita(Integer giorno) {
+		Integer ordine = 1;
+		for(Visita visita : this.visite) {
+			if(visita.getGiorno() != null && visita.getGiorno() == giorno) {
+				ordine ++;
+			}
+		}
+		return ordine + "";
+	}
+
+	public String getOrdineVisitaNonProgramm() {
+		Integer ordine = 1;
+		for(Visita visita : this.visite) {
+			if(visita.getGiorno() == null && visita.getDataVisita() == null) {
+				ordine ++;
+			}
+		}
+		return ordine + "";
+	}
+
+	public Visita getVisitaByOrdine(Integer ordine) {
+		for(Visita visita : this.visite) {
+			if(visita.getOra().equals(ordine+"")) {
+				return visita;
+			}
+		}
+		return null;
+	}
+
 }

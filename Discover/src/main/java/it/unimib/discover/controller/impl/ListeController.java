@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import it.unimib.discover.entity.Itinerario;
 import it.unimib.discover.entity.Lista;
 import it.unimib.discover.entity.MyUserAccount;
+import it.unimib.discover.entity.Visita;
 import it.unimib.discover.entity.Wishlist;
 import it.unimib.discover.model.ItinerarioModel;
 import it.unimib.discover.model.MarkerAttrazione;
@@ -130,5 +132,38 @@ public class ListeController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/liste/aggiornaVisite", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse aggiornaVisite(@RequestParam(name="idItinerario") Integer idItinerario, @RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="key") String key,  HttpServletRequest request) throws ParseException {
+		listeService.aggiornaVisite(idItinerario, idVisita, key);
+		return new ValidationResponse("SUCCESS");
+    }
+	
+	@RequestMapping(value = "/liste/aggiornaVisiteStessaDataDB", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse aggiornaVisiteStessaDataDB(@RequestParam(name="idItinerario") Integer idItinerario, @RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="key") String key, @RequestParam(name="ordine") Integer ordine,  HttpServletRequest request) throws ParseException {
+		listeService.aggiornaVisiteStessaData(idItinerario, idVisita, key, ordine);
+		return new ValidationResponse("SUCCESS");
+    }
+	
+	@RequestMapping(value = "/liste/salvaModificaEtichetta", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse salvaModificaEtichetta(@RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="etichetta") String etichetta, HttpServletRequest request) throws ParseException {
+		if(StringUtils.isNotBlank(etichetta)) {
+			listeService.salvaModificaEtichetta(idVisita, etichetta);
+			return new ValidationResponse("SUCCESS");
+		} else {
+			return new ValidationResponse("ERROR");
+		}
+    }
+	
+	@RequestMapping(value = "/liste/eliminaVisita", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse eliminaVisita(@RequestParam(name="idVisita") Integer idVisita, HttpServletRequest request) throws ParseException {
+		listeService.eliminaVisita(idVisita);
+		return new ValidationResponse("SUCCESS");
+    }
+	
+	@RequestMapping(value = "/liste/copiaVisita", method = RequestMethod.GET)
+    public @ResponseBody Visita copiaVisita(@RequestParam(name="idVisita") Integer idVisita, HttpServletRequest request) throws ParseException {
+		return listeService.copiaVisita(idVisita);
+    }
 	
 }
