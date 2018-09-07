@@ -42,4 +42,10 @@ public class MapsService {
 		return markers;
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<MarkerAttrazione> getMarkersAttrazioniVisitaLiveJson(Integer idItinerario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

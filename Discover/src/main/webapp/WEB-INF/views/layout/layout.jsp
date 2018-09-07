@@ -285,19 +285,19 @@
 			</div>
 			
 			<div id="notificaSuccess" class="box box-success box-body badger-left badger-success shadow" data-badger="          " 
-					style="z-index: 9999999; displaY: none; width: 200px; height: 70px; font-size: 18px; position: fixed; top: 215px; right: 0px;  border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+					style="z-index: 9999999; displaY: none; width: 200px; min-height: 70px; font-size: 18px; position: fixed; top: 215px; right: 0px;  border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
 				<span id="testoNotifica">Prova notifica success</span><br>
 				<a href="#" style="font-size: 13px; margin-top: 5px;" class="pull-right" id="btnAnnullaNotificaSuccess">Annulla</a>
 			</div>
 			
 			<div id="notificaDanger" class="box box-danger box-body badger-left badger-danger shadow" data-badger="          " 
-					style="z-index: 9999999; displaY: none; width: 200px; height: 70px; font-size: 18px; position: fixed; top: 215px; right: 0px;  border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+					style="z-index: 9999999; displaY: none; width: 200px; min-height: 70px; font-size: 18px; position: fixed; top: 215px; right: 0px;  border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
 				<span id="testoNotifica">Prova notifica danger</span><br>
 				<a href="#" style="font-size: 13px; margin-top: 5px;" class="pull-right" id="btnAnnullaNotificaDanger">Annulla</a>
 			</div>
 			
 			<div id="notificaPrimary" class="box box-primary box-body badger-left badger-primary shadow" data-badger="          " 
-					style="z-index: 9999999; displaY: none; width: 200px; height: 70px; font-size: 18px; position: fixed; top: 215px; right: 0px;  border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+					style="z-index: 9999999; displaY: none; width: 200px; min-height: 70px; font-size: 18px; position: fixed; top: 215px; right: 0px;  border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
 				<span id="testoNotifica">Prova notifica danger</span><br>
 				<a href="#" style="font-size: 13px; margin-top: 5px;" class="pull-right" id="btnAnnullaNotificaPrimary">Annulla</a>
 			</div>

@@ -59,8 +59,8 @@ function dragElementTo() {
 				return;
 			}
 			var clonedElement = $(elementDragged).clone();
-			$(destTab).append(clonedElement);
 			$(elementDragged).remove();
+			$(destTab).append(clonedElement);
 			if($(elementDragFrom).find("li[id^=item]").length == 0) {
 				$(elementDragFrom).find("[id^=nessunaAttrazione]").removeClass("hidden");
 			}
@@ -288,7 +288,127 @@ function addMarker(attrazione) {
 // *********************************
 
 function mostraNotaVisita(idVisita) {
-	
+	$("#notaVisitaModal #idVisita").val(idVisita);
+	$("#notaVisitaModal #notaVisita").html($("#notaVisita"+idVisita).val());
+	$("#notaVisitaModal").modal("toggle");
+}
+
+$('#notaVisitaModal').on('hide.bs.modal', function (e) {
+	var idVisita = $("#notaVisitaModal #idVisita").val();
+	if($("#notaVisitaModal #notaVisita").val() != $("#notaVisita"+idVisita).val()) {
+		$.ajax({
+	    	type: 'GET',
+	        url : '/discover/liste/salvaNotaVisita',
+	        data: {
+	        	"idVisita": idVisita,
+	        	"nota": $("#notaVisitaModal #notaVisita").val()
+	        },
+	        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+	        success: function(response) {
+	        	if(response.status == "SUCCESS") {
+	        		$("#notaVisita"+idVisita).val($("#notaVisitaModal #notaVisita").val());
+		        	mostraNotifica('Nota visita aggiornata', 'primary');
+	        	}
+	        }
+		});
+	}
+});
+
+function cambiaDataVisita(idVisita, tabFrom, element) {
+	$("#dataVisitaModal #idVisita").val(idVisita);
+	$("#dataVisitaModal #dataVisita").val("");
+	$("#dataVisitaModal #btnSalva").attr("onclick", "salvaModificaDataVisita('"+tabFrom+"', '"+element+"')")
+	$("#dataVisitaModal").modal("toggle");
+}
+
+function cambiaGiornoVisita(idVisita, tabFrom, element) {
+	$("#giornoVisitaModal #idVisita").val(idVisita);
+	$("#giornoVisitaModal #giornoVisita").val("");
+	$("#giornoVisitaModal #btnSalva").attr("onclick", "salvaModificaGiornoVisita('"+tabFrom+"', '"+element+"')")
+	$("#giornoVisitaModal").modal("toggle");
+}
+
+function salvaModificaDataVisita(tabFrom, element) {
+	var idVisita = $("#dataVisitaModal #idVisita").val();
+	$.ajax({
+    	type: 'GET',
+        url : '/discover/liste/salvaModificaDataVisita',
+        data: {
+        	"idVisita": idVisita,
+        	"dataVisita": $("#dataVisitaModal #dataVisita").val()
+        },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        success: function(response) {
+        	if(response.status == "SUCCESS") {
+        		elementDragFrom = $("#"+tabFrom);
+        		elementDragged = $("#"+element);
+        		var idTabDest = $("ol[key='"+$("#dataVisitaModal #dataVisita").val()+"']").attr("id");
+                elementDragTo = $("a[href='#"+idTabDest+"']").parent("li");
+                dragElementTo();
+                $("#dataVisitaModal").modal("hide");
+	        	mostraNotifica('Data di visita aggiornata', 'primary');
+        	} else {
+        		swal({
+        			title: '',
+        			text: 'La data deve essere una di quelle specificate per i giorni dell\'itinerario.',
+        			html: true,
+        			showCancelButton: false,
+        			confirmButtonText: 'Continua',
+        			confirmButtonColor: '#0066cc',
+        		});
+        	}
+        }
+	});
+}
+
+function salvaModificaGiornoVisita(tabFrom, element) {
+	var idVisita = $("#giornoVisitaModal #idVisita").val();
+	$.ajax({
+    	type: 'GET',
+        url : '/discover/liste/salvaModificaGiornoVisita',
+        data: {
+        	"idVisita": idVisita,
+        	"giornoVisita": $("#giornoVisitaModal #giornoVisita").val()
+        },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        success: function(response) {
+        	if(response.status == "SUCCESS") {
+        		elementDragFrom = $("#"+tabFrom);
+        		elementDragged = $("#"+element);
+        		var idTabDest = $("ol[key='giorno"+$("#giornoVisitaModal #giornoVisita").val()+"']").attr("id");
+                elementDragTo = $("a[href='#"+idTabDest+"']").parent("li");
+                dragElementTo();
+                $("#giornoVisitaModal").modal("hide");
+	        	mostraNotifica('Giorno di visita aggiornata', 'primary');
+        	} else {
+        		swal({
+        			title: '',
+        			text: 'Il numero del giorno deve essere entro i limiti del numero di giorni dell\'itinerario.',
+        			html: true,
+        			showCancelButton: false,
+        			confirmButtonText: 'Continua',
+        			confirmButtonColor: '#0066cc',
+        		});
+        	}
+        }
+	});
+}
+
+function salvaNotaPrec(el, idVisita) {
+	$.ajax({
+    	type: 'GET',
+        url : '/discover/liste/salvaNotaPrec',
+        data: {
+        	"idVisita": idVisita,
+        	"notaPrec": $(el).val()
+        },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        success: function(response) {
+        	if(response.status == "SUCCESS") {
+	        	mostraNotifica('Nota aggiornata', 'primary');
+        	}
+        }
+	});
 }
 
 function modificaDettagliVisita(idVisita) {
@@ -302,12 +422,13 @@ function salvaModificaEtichetta(idVisita) {
         url : '/discover/liste/salvaModificaEtichetta',
         data: {
         	"idVisita": idVisita,
-        	"etichetta": $("#etichetta"+idVisita).val()
+        	"etichetta": $("#etichetta"+idVisita+" input").val()
         },
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         success: function(response) {
         	if(response.status == "SUCCESS") {
-	        	$("#showEtichetta"+idVisita).html($("#etichetta"+idVisita).val());
+	        	$("#showEtichetta"+idVisita).html($("#etichetta"+idVisita+" input").val());
+	        	mostraNotifica('Etichetta modificata', 'success');
 	        	annullaModificaEtichetta(idVisita);
         	}
         }
@@ -329,6 +450,7 @@ function eliminaVisita(idVisita) {
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         success: function(response) {
         	$("li[id=item"+idVisita+"]").remove();
+        	mostraNotifica('Visita eliminata', 'danger');
         }
 	});
 }
@@ -345,20 +467,32 @@ function copiaVisita(idVisita) {
 			var liCloned = liCopia;
 			liCloned = liCloned.replace(/_IDVISITA_/g, visita.id);
 			liCloned = liCloned.replace(/_ORDINE_/g, visita.ordine);
+			liCloned = liCloned.replace(/_NOTAPREC_/g, visita.notaPrec);
 			liCloned = liCloned.replace(/_ORDINESHOW_/g, visita.ordine.replace("-", "."));
 			liCloned = liCloned.replace(/_ETICHETTA_/g, visita.etichetta);
-			liCloned = liCloned.replace(/_URLFOTO_/g, visita.attrazione.fotoPrincipali[0].path);
+			liCloned = liCloned.replace(/_URLFOTO_/g, visita.attrazione.fotoPrincipali[0].path.replace(/ /g, "/"));
 			liCloned = liCloned.replace(/_IDATTRAZIONE_/g, visita.attrazione.id);
 			$("li[id=item"+idVisita+"]").closest("ol").append(liCloned);
+			if($("li[id=item"+idVisita+"]").find("span[id=spanOrdine]").hasClass("btn-danger")) {
+				$("li[id=item"+visita.id+"]").find("span[id=spanOrdine]").addClass("btn-danger");
+			}
+			if($("li[id=item"+idVisita+"]").find("span[id=spanOrdine]").hasClass("btn-black")) {
+				$("li[id=item"+visita.id+"]").find("span[id=spanOrdine]").addClass("btn-black");
+			}
 			elementDragFrom = $("li[id=item"+idVisita+"]").closest("ol");
-			elementDragged = $($("li[id=item"+visita.id+"]"));
+			elementDragged = $("li[id=item"+visita.id+"]");
 			aggiornaOrdineSezione();
+			setDraggable();
+        	mostraNotifica('Visita copiata e aggiunta in fondo alla sezione corrente', 'primary');
         }
 	});
 }
 
 var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box box-body m-0 light-blue-bg" style="position: inherit;" idVisita="_IDVISITA_">'+
-						'<div>'+
+						'<div style="width: 107%; margin-left: -11px; margin-top: -13px;">'+
+							'<textarea rows="3" id="notaPrec" class="form-control" placeholder="Nota" onblur="salvaNotaPrec(this, \'_IDVISITA_\')" style="min-width: 100%; max-width: 100%; min-height: 60px; height: 60px;">_NOTAPREC_</textarea>'+
+						'</div>'+
+						'<div style="margin-top: 10px;">'+
 							'<div class="text-center">'+
 								'<i class="fa fa-align-justify" style="font-size: 1.5em;  cursor: pointer;"></i>'+
 							'</div>'+
@@ -368,26 +502,106 @@ var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box
 								'<span id="spanOrdine" ordine="_ORDINE_" class="btn " style="font-size: 1.5em; border-radius: 20px; padding: 3px;">'+
 									'_ORDINESHOW_'+
 								'</span>'+
-								'<img'+
-									'src="_URLFOTO_"'+
+								'<img '+
+									'src="_URLFOTO_" '+
 									'style="margin-left: 5px; margin-right: 5px; height: 50px; width: 50px; border-radius: 10px;">'+
 								'<span style="font-size: 1.3em;" id="etichettaVisita">'+
 									'<b id="showEtichetta_IDVISITA_">_ETICHETTA_</b>'+
 									'<div class="input-group hidden" id="etichetta_IDVISITA_">'+
 										'<input class="form-control" style="display: inline-block;" />'+
-										'<div class="input-group-addon" style="background-color: #ddd; color: #000;">'+
-						                	'<i class="fa fa-save" style="cursor: pointer;" onclick="salvaModificaEtichetta(\'_IDVISITA_\')"></i>'+
-						                	'<i class="fa fa-repeat" style="cursor: pointer;" onclick="annullaModificaEtichetta(\'_IDVISITA_\')"></i>'+
+										'<div class="input-group-addon" style="background-color: #ddd; color: #000; cursor: pointer;" onclick="salvaModificaEtichetta(\'_IDVISITA_\')">'+
+						                	'<i class="fa fa-save"></i>'+
+						                '</div>'+
+						                '<div class="input-group-addon" style="background-color: #ddd; color: #000; cursor: pointer;" onclick="annullaModificaEtichetta(\'_IDVISITA_\')">'+
+						                	'<i class="fa fa-repeat"></i>'+
 						               '</div>'+
 						            '</div>'+
 								'</span>'+
 							'</div>'+
 							'<div style="margin-top: 20px;">'+
 								'<i class="fa fa-file" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita(\'_IDVISITA_\')"></i>'+
-								'<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.href(\'/discover/attrazione/_IDATTRAZIONE_\')"></i>'+
+								'<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign(\'/discover/attrazione/_IDATTRAZIONE_\')"></i>'+
 								'<i class="fa fa-pencil" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita(\'_IDVISITA_\')"></i>'+
 								'<i class="fa fa-trash" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita(\'_IDVISITA_\')"></i>'+
 								'<i class="fa fa-copy" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita(\'_IDVISITA_\')"></i>'+
 							'</div>'+
 						'</div>'+
 					'</li>';
+
+function confermaItinerario(idItinerario) {
+	if($("#btnConfermaItinerario").hasClass("text-primary")) {
+		$.ajax({
+	    	type: 'GET',
+	        url : '/discover/liste/rimuoviConfermaItinerario',
+	       	data: {
+	   			"idItinerario": idItinerario
+	       	},
+	        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+	        success: function(result) {
+	        	$("#btnConfermaItinerario").removeClass("text-primary").addClass("text-gray-disc");
+	        	mostraNotifica("itinerario non confermato", "danger");
+	        }
+		});
+	} else {
+		if($("#tipoItinerario").val() == "GIORNI") {
+			swal({
+				title: '',
+				text: 'L\'itinerario verrà modificato in <b>Itinerario programmato</b> con data inizio uguale alla data odierna. Continuare?',
+				html: true,
+				showCancelButton: true,
+				cancelButtonText: 'Annulla',
+				confirmButtonText: 'Continua',
+				confirmButtonColor: '#0066cc',
+			}, function() {
+				confermaItinerarioAjax(idItinerario);
+				setTimeout(function() {
+					location.reload();
+				}, 400);
+			});
+		} else {
+			confermaItinerarioAjax(idItinerario);
+		}
+	}
+}
+
+function confermaItinerarioAjax(idItinerario) {
+	$.ajax({
+    	type: 'GET',
+        url : '/discover/liste/confermaItinerario',
+       	data: {
+   			"idItinerario": idItinerario
+       	},
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        success: function(result) {
+        	$("#btnConfermaItinerario").addClass("text-primary").removeClass("text-gray-disc");
+        	mostraNotifica("itinerario confermato", "success");
+        }
+	});
+}
+
+function visitaLive(idItinerario) {
+	$.ajax({
+    	type: 'GET',
+        url : '/discover/liste/visitaLive',
+       	data: {
+   			"idItinerario": idItinerario
+       	},
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        success: function(result) {
+        	if(result.status == "SUCCESS") {
+        		location.assign("/discover/liste/visitaLive/"+idItinerario);
+        	} else {
+        		swal({
+    				title: '',
+    				text: 'Non è possibile accedere alla modalità LIVE. Per poter accedere a questa funzionalità è necessario confermare l\'itinerario e che ci sia presente almeno una visita per la data odierna.',
+    				html: true,
+    				showCancelButton: false,
+    				confirmButtonText: 'Continua',
+    				confirmButtonColor: '#0066cc',
+    			});
+        	}
+        	$("#btnConfermaItinerario").addClass("text-primary").removeClass("text-gray-disc");
+        	mostraNotifica("itinerario confermato", "success");
+        }
+	});
+}

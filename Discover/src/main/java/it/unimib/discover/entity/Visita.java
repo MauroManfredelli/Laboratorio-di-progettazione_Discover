@@ -159,12 +159,12 @@ public class Visita implements Serializable, Comparable<Visita> {
 
 	@Override
 	public int compareTo(Visita o) {
-		if(this.dataVisita == null && this.giorno == null) {
+		if(ordine != null && o.ordine != null) {
+			return ordine.compareTo(o.ordine);
+		} else if(this.dataVisita == null && this.giorno == null) {
 			return -1;
 		} else if(o.dataVisita == null && o.giorno == null) {
 			return 1;
-		} else if(ordine != null && o.ordine != null) {
-			return ordine.compareTo(o.ordine);
 		} else {
 			return ora.compareTo(o.ora);
 		}

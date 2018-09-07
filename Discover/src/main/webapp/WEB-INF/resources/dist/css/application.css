@@ -10,6 +10,10 @@
 	margin: 0px !important;
 }
 
+.text-gray-disc {
+	color: #aaa !important;
+}
+
 .rounded {
 	border-radius: 25px;
 }
@@ -174,23 +178,25 @@ body.dragging, body.dragging * {
 
 ol li.placeholder {
   position: relative;
-  padding: 5px;
-  left: 20px;
+  width: 97%;
+  padding-top: 5px;
+  left: 30px;
   height: 50px;
   content: "\f0a9"; /* FontAwesome Unicode */
-font-family: FontAwesome;
-   margin-left: -1.3em; /* same as padding-left set on li */
- font-size: 1.3em; /* same as padding-left set on li */
-     list-style:none;
+  font-family: FontAwesome;
+    margin-left: -1.3em; /* same as padding-left set on li */
+  font-size: 1.3em; /* same as padding-left set on li */
+    list-style:none;
 }
 ol li.placeholder:before {
   position: relative;
-  padding: 5px;
-  left: 20px;
+  width: 97%;
+  padding-top: 5px;
+  left: 30px;
   height: 50px;
   content: "\f0a9"; /* FontAwesome Unicode */
-font-family: FontAwesome;
-   margin-left: -1.3em; /* same as padding-left set on li */
- font-size: 1.3em; /* same as padding-left set on li */
+  font-family: FontAwesome;
+     margin-left: -1.3em; /* same as padding-left set on li */
+  font-size: 1.3em; /* same as padding-left set on li */
      list-style:none;
 }

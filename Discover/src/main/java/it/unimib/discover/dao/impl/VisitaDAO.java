@@ -14,7 +14,7 @@ public class VisitaDAO extends AbstractEntityDao<Integer, Visita> {
 	public List<Visita> getByIdItinerario(Integer id) {
 		String sql = "select * " + 
 				"from itinerari " +
-				"where ID_ITINERARIO=:id ";
+				"where ID=:id ";
 		SQLQuery query = (SQLQuery) getSQLQuery(sql)
 				.addEntity(Visita.class)
 				.setParameter("id", id);

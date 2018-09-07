@@ -18,7 +18,7 @@
 			<button class="btn btn-primary" id="btnNuovaWishlist" style="width: 130px;" onclick="creaWishlist()">
 				<i class="fa fa-plus-circle"></i> Crea wishlist
 			</button>
-			<button class="btn btn-default" id="btnNuovoItinerario" style="width: 130px;" onclick="creaItinerario()">
+			<button class="btn btn-primary" id="btnNuovoItinerario" style="width: 130px;" onclick="creaItinerario()">
 				<i class="fa fa-plus-circle"></i> Crea itinerario
 			</button>
 		</div>
@@ -119,12 +119,14 @@
 																			<c:choose>
 																				<c:when test="${not empty lista.dataInizio}">
 																					<span style="text-decoration: underline;" class="font-weight-bold">Itininerario programmato:</span><br>
+																					<input type="hidden" id="tipoLista${lista.id}" value="PROGRAMMATO" />
 																					<span style="padding-left: 20px;">
 																						<fmt:formatDate type="date" value="${lista.dataInizio}" pattern="dd/MM/yyyy" /> - <fmt:formatDate type="date" value="${lista.dataFine}" pattern="dd/MM/yyyy" />
 																					</span>
 																				</c:when>
 																				<c:otherwise>
 																					<span style="text-decoration: underline;" class="font-weight-bold">Itinerario senza data:</span><br>
+																					<input type="hidden" id="tipoLista${lista.id}" value="GIORNI" />
 																					<span style="padding-left: 20px;">
 																						<c:out value="${lista.numeroGiorni}"></c:out> giorni
 																					</span>
@@ -133,6 +135,7 @@
 																		</c:when>
 																		<c:otherwise>
 																			<span style="text-decoration: underline;" class="font-weight-bold">Wishlist</span>
+																			<input type="hidden" id="tipoLista${lista.id}" value="WISHLIST" />
 																		</c:otherwise>
 																	</c:choose>
 																</div>
@@ -149,10 +152,13 @@
 	    										<div class="box-footer" style="border: none;">
 													<div class="row">
 														<div class="col-md-12" style="text-align: right; font-size: 30px;">
-															<span id="archiviaLista"><i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
-															<span class="hidden" id="recuperaLista"><i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
-															&nbsp;&nbsp;<span><i class="fa fa-trash text-danger" style="cursor: pointer;" data-toggle="tooltip" title="Elimina" onclick="eliminaLista('${lista.id}')"></i></span>
-															&nbsp;&nbsp;<span><i class="fa fa-edit text-info" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}', '${lista.nome}')"></i></span>
+															<c:if test="${not empty lista.idItinerario}">
+																<span id="confermaItinerario"><i class="fa fa-check-circle <c:choose><c:when test="${lista.confermato == 'true'}">text-primary</c:when><c:otherwise>text-gray-disc</c:otherwise></c:choose>" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
+															</c:if>
+															<span id="archiviaLista">&nbsp;&nbsp;<i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
+															<span class="hidden" id="recuperaLista">&nbsp;&nbsp;<i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
+															&nbsp;&nbsp;<span><i class="fa fa-trash text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Elimina" onclick="eliminaLista('${lista.id}')"></i></span>
+															&nbsp;&nbsp;<span><i class="fa fa-edit text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}', '${lista.nome}')"></i></span>
 														</div>
 													</div>
 												</div>
@@ -239,7 +245,7 @@
 														<div class="box-body" style="border: none;">
 															<div class="row">
 																<div class="col-md-12" style="float: left; font-size: 25px;">
-																	<a href="/discover/liste/${lista.id}"><b>${lista.nome}</b></a>
+																	<!-- <a href="/discover/liste/${lista.id}"> --><b>${lista.nome}</b><!-- </a> -->
 																</div>
 															</div>
 															
@@ -250,6 +256,7 @@
 																			<c:choose>
 																				<c:when test="${not empty lista.dataInizio}">
 																					<span style="text-decoration: underline;" class="font-weight-bold">Itininerario programmato:</span><br>
+																					<input type="hidden" id="tipoLista${lista.id}" value="PROGRAMMATO" />
 																					<span style="padding-left: 20px;">
 																						<fmt:formatDate type="date" value="${lista.dataInizio}" pattern="dd/MM/yyyy" /> - <fmt:formatDate type="date" value="${lista.dataFine}" pattern="dd/MM/yyyy" />
 																					</span>
@@ -258,12 +265,14 @@
 																					<span style="text-decoration: underline;" class="font-weight-bold">Itinerario senza data:</span><br>
 																					<span style="padding-left: 20px;">
 																						<c:out value="${lista.numeroGiorni}"></c:out> giorni
+																						<input type="hidden" id="tipoLista${lista.id}" value="GIORNI" />
 																					</span>
 																				</c:otherwise>
 																			</c:choose>
 																		</c:when>
 																		<c:otherwise>
 																			<span style="text-decoration: underline;" class="font-weight-bold">Wishlist</span>
+																			<input type="hidden" id="tipoLista${lista.id}" value="WISHLIST" />
 																		</c:otherwise>
 																	</c:choose>
 																</div>
@@ -280,10 +289,13 @@
 	    										<div class="box-footer" style="border: none;">
 													<div class="row">
 														<div class="col-md-12" style="text-align: right; font-size: 30px;">
-															<span class="hidden" id="archiviaLista"><i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
-															<span id="recuperaLista"><i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
-															&nbsp;&nbsp;<span><i class="fa fa-trash text-danger" style="cursor: pointer;" data-toggle="tooltip" title="Elimina" onclick="eliminaLista('${lista.id}')"></i></span>
-															&nbsp;&nbsp;<span><i class="fa fa-edit text-info" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}', '${lista.nome}')"></i></span>
+															<c:if test="${not empty lista.idItinerario}">
+																<span id="confermaItinerario" class="hidden"><i class="fa fa-check-circle text-gray-disc" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
+															</c:if>
+															<span class="hidden" id="archiviaLista">&nbsp;&nbsp;<i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
+															<span id="recuperaLista">&nbsp;&nbsp;<i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
+															&nbsp;&nbsp;<span><i class="fa fa-trash text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Elimina" onclick="eliminaLista('${lista.id}')"></i></span>
+															&nbsp;&nbsp;<span><i class="fa fa-edit text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}', '${lista.nome}')"></i></span>
 														</div>
 													</div>
 												</div>

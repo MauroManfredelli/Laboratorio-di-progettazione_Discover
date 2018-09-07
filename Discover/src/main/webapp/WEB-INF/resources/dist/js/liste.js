@@ -31,8 +31,7 @@ function validaWishlist() {
 
 function archiviaLista(idLista) {
 	swal({
-		title: 'ATTENZIONE',
-		type: 'info',
+		title: '',
 		text: 'La lista selezionata verrà archiviata e aggiunta alle liste archiviate. Continuare?',
 		html: true,
 		showCancelButton: true,
@@ -57,6 +56,7 @@ function archiviaLista(idLista) {
 	        		$("#divLista"+idLista).fadeIn();
 	        		$("#divLista"+idLista+" #recuperaLista").removeClass("hidden");
 	        		$("#divLista"+idLista+" #archiviaLista").addClass("hidden");
+	        		$("#divLista"+idLista+" #confermaItinerario").addClass("hidden");
         			$("#nessunaListaArchiviata").addClass("hidden");
 	        		if($("#listeAttive .row .col-md-12 [id^=divLista]").length == 0) {
 	        			$("#nessunaListaAttiva").removeClass("hidden");
@@ -71,8 +71,7 @@ function archiviaLista(idLista) {
 
 function recuperaLista(idLista) {
 	swal({
-		title: 'ATTENZIONE',
-		type: 'info',
+		title: '',
 		text: 'La lista selezionata verrà recuperata e aggiunta alle liste attive. Continuare?',
 		html: true,
 		showCancelButton: true,
@@ -97,6 +96,7 @@ function recuperaLista(idLista) {
 	        		$("#divLista"+idLista).fadeIn();
 	        		$("#divLista"+idLista+" #recuperaLista").addClass("hidden");
 	        		$("#divLista"+idLista+" #archiviaLista").removeClass("hidden");
+	        		$("#divLista"+idLista+" #confermaItinerario").removeClass("hidden");
         			$("#nessunaListaAttiva").addClass("hidden");
 	        		if($("#nessunaListaArchiviata .row .col-md-12 [id^=divLista]").length == 0) {
 	        			$("#nessunaListaArchiviata").removeClass("hidden");
@@ -109,10 +109,60 @@ function recuperaLista(idLista) {
 	});
 }
 
+function confermaItinerario(idLista, idItinerario) {
+	if($("#divLista"+idLista+" #confermaItinerario i").hasClass("text-primary")) {
+		$.ajax({
+	    	type: 'GET',
+	        url : '/discover/liste/rimuoviConfermaItinerario',
+	       	data: {
+	   			"idItinerario": idItinerario
+	       	},
+	        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+	        success: function(result) {
+	        	$("#divLista"+idLista+" #confermaItinerario i").removeClass("text-primary").addClass("text-gray-disc");
+	        	mostraNotifica("itinerario non confermato", "danger");
+	        }
+		});
+	} else {
+		if($("#tipoLista"+idLista).val() == "GIORNI") {
+			swal({
+				title: '',
+				text: 'L\'itinerario verrà modificato in <b>Itinerario programmato</b> con data inizio uguale alla data odierna. Continuare?',
+				html: true,
+				showCancelButton: true,
+				cancelButtonText: 'Annulla',
+				confirmButtonText: 'Continua',
+				confirmButtonColor: '#0066cc',
+			}, function() {
+				confermaItinerarioAjax(idLista, idItinerario);
+				setTimeout(function() {
+					location.reload();
+				}, 400);
+			});
+		} else {
+			confermaItinerarioAjax(idLista, idItinerario);
+		}
+	}
+}
+
+function confermaItinerarioAjax(idLista, idItinerario) {
+	$.ajax({
+    	type: 'GET',
+        url : '/discover/liste/confermaItinerario',
+       	data: {
+   			"idItinerario": idItinerario
+       	},
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        success: function(result) {
+        	$("#divLista"+idLista+" #confermaItinerario i").addClass("text-primary").removeClass("text-gray-disc");
+        	mostraNotifica("itinerario confermato", "success");
+        }
+	});
+}
+
 function eliminaLista(idLista) {
 	swal({
-		title: 'ATTENZIONE',
-		type: 'info',
+		title: '',
 		text: 'La lista selezionata verrà eliminata e non sarà più possibile utilizzarla. Continuare?',
 		html: true,
 		showCancelButton: true,
@@ -131,9 +181,7 @@ function eliminaLista(idLista) {
 	        	if(result.status == "SUCCESS") {
 	        		mostraNotifica("Lista eliminata", "danger");
 	        		$("#divLista"+idLista).fadeOut();
-	        	} else {
-	        		
-	        	}
+	        	} else {}
 	        }
 		});
 	});

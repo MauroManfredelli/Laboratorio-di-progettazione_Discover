@@ -48,6 +48,10 @@ public class Lista implements Serializable {
     @Column(name = "ARCHIVIATA")
     private Boolean archiviata;
 	
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "CONFERMATO")
+    private Boolean confermato;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_PROPRIETARIO")
 	private MyUserAccount userProprietario;
@@ -187,6 +191,14 @@ public class Lista implements Serializable {
 
 	public void setFormattedDataFine(String formattedDataFine) {
 		this.formattedDataFine = formattedDataFine;
+	}
+
+	public Boolean getConfermato() {
+		return confermato;
+	}
+
+	public void setConfermato(Boolean confermato) {
+		this.confermato = confermato;
 	}
 
 }

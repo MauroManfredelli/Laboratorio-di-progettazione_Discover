@@ -61,11 +61,19 @@ public class Itinerario implements Serializable {
 	@Column(name = "NUMERO_GIORNI")
 	private Integer numeroGiorni;
 	
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "CONFERMATO")
+    private Boolean confermato;
+	
 	@OneToMany(mappedBy = "itinerario", fetch = FetchType.EAGER)
 	private List<Visita> visite;
 	
 	@Transient
 	private Map<String, List<Visita>> mapAttrazioni;
+	
+	public Itinerario() {
+		this.confermato = false;
+	}
 
 	public Integer getId() {
 		return id;
@@ -145,6 +153,14 @@ public class Itinerario implements Serializable {
 
 	public void setMapAttrazioni(Map<String, List<Visita>> mapAttrazioni) {
 		this.mapAttrazioni = mapAttrazioni;
+	}
+
+	public Boolean getConfermato() {
+		return confermato;
+	}
+
+	public void setConfermato(Boolean confermato) {
+		this.confermato = confermato;
 	}
 
 	public String getOrdineVisita(Date dataVisita) {

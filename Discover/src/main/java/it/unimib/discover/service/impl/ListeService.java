@@ -25,6 +25,7 @@ import it.unimib.discover.dao.impl.VisitaDAO;
 import it.unimib.discover.dao.impl.WishlistDAO;
 import it.unimib.discover.entity.Attrazione;
 import it.unimib.discover.entity.AttrazioneWishlist;
+import it.unimib.discover.entity.Foto;
 import it.unimib.discover.entity.Itinerario;
 import it.unimib.discover.entity.Lista;
 import it.unimib.discover.entity.MarkerPosizione;
@@ -132,6 +133,7 @@ public class ListeService {
 		} else {
 			Itinerario itinerario = itinerarioDAO.findByKey(lista.getIdItinerario());
 			itinerario.setArchiviata(true);
+			itinerario.setConfermato(false);
 			itinerarioDAO.persist(itinerario);
 		}
 	}
@@ -380,9 +382,9 @@ public class ListeService {
 			}
 		} else {
 			Integer giorno = 1;
-			while(giorno < itinerario.getNumeroGiorni()) {
+			while(giorno <= itinerario.getNumeroGiorni()) {
 				if(!mapAttrazioni.containsKey("giorno "+giorno)) {
-					mapAttrazioni.put(sdf.format("giorno "+giorno), null);
+					mapAttrazioni.put("giorno "+giorno, null);
 				}
 				giorno++;
 			}
@@ -440,22 +442,28 @@ public class ListeService {
 		visitaDAO.persist(visita);
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional
 	public Visita copiaVisita(Integer idVisita) {
 		Visita visitaRemote = visitaDAO.findByKey(idVisita);
 		Visita visita = new Visita(visitaRemote);
 		Itinerario itinerario = visita.getItinerario();
 		changeEtichettaIfExists(visita, itinerario.getVisite(), 2);
 		visitaDAO.persist(visita);
-		visita.setItinerario(null);
-		visita.getAttrazione().setRecensioni(null);
+		if(visita.getDataVisita() == null && visita.getGiorno() == null) {
+			visita.setOrdine("0-"+visitaRemote.getOra());
+		} else if(visita.getGiorno() == null) {
+			Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - itinerario.getDataInizio().getTime()) / (24 * 60 * 60 * 1000)) + 1;
+			visita.setOrdine(ordineGiorno+"-"+visitaRemote.getOra());
+		} else {
+			visita.setOrdine(visita.getGiorno()+"-"+visitaRemote.getOra());
+		}
 		return visita;
 	}
 
 	private void changeEtichettaIfExists(Visita visita, List<Visita> visite, Integer versione) {
 		for(Visita v : visite) {
 			if(visita.getEtichetta().equals(v.getEtichetta())) {
-				visita.setEtichetta(visita.getEtichetta().substring(0, visita.getEtichetta().length() - 2) + "_" + versione++);
+				visita.setEtichetta(visita.getEtichetta().substring(0, visita.getEtichetta().length() - 2) + "_" + ++versione);
 				changeEtichettaIfExists(visita, visite, versione);
 				return;
 			}
@@ -475,5 +483,103 @@ public class ListeService {
 		Visita visitaRemote = visitaDAO.findByKey(idVisita);
 		visitaRemote.setEtichetta(etichetta);
 		visitaDAO.persist(visitaRemote);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void salvaNotaPrec(Integer idVisita, String notaPrec) {
+		Visita visitaRemote = visitaDAO.findByKey(idVisita);
+		visitaRemote.setNotaPrec(notaPrec);
+		visitaDAO.persist(visitaRemote);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void salvaNota(Integer idVisita, String nota) {
+		Visita visitaRemote = visitaDAO.findByKey(idVisita);
+		visitaRemote.setNota(nota);
+		visitaDAO.persist(visitaRemote);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public boolean salvaModificaDataVisita(Integer idVisita, String dataVisita) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Visita visita = visitaDAO.findByKey(idVisita);
+		Itinerario itinerario = visita.getItinerario();
+		Date dataVisitaNew = sdf.parse(dataVisita);
+		if(dataVisitaNew.before(itinerario.getDataInizio()) || dataVisitaNew.after(dataVisitaNew)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public boolean salvaModificaGiornoVisita(Integer idVisita, Integer giornoVisita) {
+		Visita visita = visitaDAO.findByKey(idVisita);
+		Itinerario itinerario = visita.getItinerario();
+		if(giornoVisita <= 0 || giornoVisita > itinerario.getNumeroGiorni()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void confermaItinerario(Integer idItinerario) {
+		Itinerario itinerario = itinerarioDAO.findByKey(idItinerario);
+		itinerario.setConfermato(true);
+		if(itinerario.getDataInizio() == null) {
+			Date data = new Date();
+			itinerario.setDataInizio(data);
+			for(int giorno = 1; giorno < itinerario.getNumeroGiorni(); giorno++) {
+				for(Visita visita : itinerario.getVisite()) {
+					if(visita.getGiorno() != null && visita.getGiorno() == giorno) {
+						visita.setGiorno(null);
+						visita.setDataVisita(data);
+					}
+				}
+				data = this.addDays(data, 1);
+			}
+			itinerario.setDataFine(data);
+			itinerario.setNumeroGiorni(null);
+		}
+		itinerarioDAO.persist(itinerario);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void rimuoviConfermaItinerario(Integer idItinerario) {
+		Itinerario itinerario = itinerarioDAO.findByKey(idItinerario);
+		itinerario.setConfermato(false);
+		itinerarioDAO.persist(itinerario);
+		
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public boolean checkVisitaLive(Integer idItinerario) {
+		Itinerario itinerario = itinerarioDAO.findByKey(idItinerario);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		if(itinerario.getConfermato()) {
+			Date oggi = new Date();
+			for(Visita visita : itinerario.getVisite()) {
+				if(visita.getDataVisita() != null && sdf.format(visita.getDataVisita()).equals(sdf.format(oggi))) {
+					return true;
+				}
+			}
+			return false;
+		} else {
+			return false;
+		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<Visita> getMapAttrazioniItinerarioOggi(Itinerario itinerario) {
+		Map<String, List<Visita>> mapAttrazioni = this.getMapAttrazioniItinerario(itinerario);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String oggi = sdf.format(new Date());
+		for(String key : mapAttrazioni.keySet()) {
+			if(key.equals(oggi)) {
+				return mapAttrazioni.get(key);
+			}
+		}
+		return null;
 	}
 }

@@ -1,7 +1,9 @@
 package it.unimib.discover.controller.impl;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import it.unimib.discover.entity.Foto;
 import it.unimib.discover.entity.Itinerario;
 import it.unimib.discover.entity.Lista;
 import it.unimib.discover.entity.MyUserAccount;
@@ -133,9 +136,32 @@ public class ListeController {
 		}
 	}
 	
+	@RequestMapping(value="/liste/{id}/tutteLeDate")
+	public ModelAndView tutteLeDate(@PathVariable Integer id, HttpServletRequest request) throws ParseException {
+		ModelAndView modelAndView = new ModelAndView("secure/liste/itinerario");
+		Itinerario itinerario = listeService.getItinerarioById(id);
+		itinerario.setMapAttrazioni(listeService.getMapAttrazioniItinerario(itinerario));
+		modelAndView.addObject("itinerario", itinerario);
+		modelAndView.addObject("allDate", true);
+		modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
+        return modelAndView;
+	}
+	
 	@RequestMapping(value = "/liste/aggiornaVisite", method = RequestMethod.GET)
     public @ResponseBody ValidationResponse aggiornaVisite(@RequestParam(name="idItinerario") Integer idItinerario, @RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="key") String key,  HttpServletRequest request) throws ParseException {
 		listeService.aggiornaVisite(idItinerario, idVisita, key);
+		return new ValidationResponse("SUCCESS");
+    }
+	
+	@RequestMapping(value = "/liste/confermaItinerario", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse confermaItinerario(@RequestParam(name="idItinerario") Integer idItinerario, HttpServletRequest request) throws ParseException {
+		listeService.confermaItinerario(idItinerario);
+		return new ValidationResponse("SUCCESS");
+    }
+	
+	@RequestMapping(value = "/liste/rimuoviConfermaItinerario", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse rimuoviConfermaItinerario(@RequestParam(name="idItinerario") Integer idItinerario, HttpServletRequest request) throws ParseException {
+		listeService.rimuoviConfermaItinerario(idItinerario);
 		return new ValidationResponse("SUCCESS");
     }
 	
@@ -145,10 +171,40 @@ public class ListeController {
 		return new ValidationResponse("SUCCESS");
     }
 	
+	@RequestMapping(value = "/liste/salvaNotaPrec", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse salvaNotaPrec(@RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="notaPrec") String notaPrec, HttpServletRequest request) throws ParseException {
+		listeService.salvaNotaPrec(idVisita, notaPrec);
+		return new ValidationResponse("SUCCESS");
+    }
+	
+	@RequestMapping(value = "/liste/salvaNotaVisita", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse salvaNotaVisita(@RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="nota") String nota, HttpServletRequest request) throws ParseException {
+		listeService.salvaNota(idVisita, nota);
+		return new ValidationResponse("SUCCESS");
+    }
+	
 	@RequestMapping(value = "/liste/salvaModificaEtichetta", method = RequestMethod.GET)
     public @ResponseBody ValidationResponse salvaModificaEtichetta(@RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="etichetta") String etichetta, HttpServletRequest request) throws ParseException {
 		if(StringUtils.isNotBlank(etichetta)) {
 			listeService.salvaModificaEtichetta(idVisita, etichetta);
+			return new ValidationResponse("SUCCESS");
+		} else {
+			return new ValidationResponse("ERROR");
+		}
+    }
+	
+	@RequestMapping(value = "/liste/salvaModificaDataVisita", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse salvaModificaDataVisita(@RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="dataVisita") String dataVisita, HttpServletRequest request) throws ParseException {
+		if(StringUtils.isNotBlank(dataVisita) && listeService.salvaModificaDataVisita(idVisita, dataVisita)) {
+			return new ValidationResponse("SUCCESS");
+		} else {
+			return new ValidationResponse("ERROR");
+		}
+    }
+	
+	@RequestMapping(value = "/liste/salvaModificaGiornoVisita", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse salvaModificaGiornoVisita(@RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="giornoVisita") Integer giornoVisita, HttpServletRequest request) throws ParseException {
+		if(listeService.salvaModificaGiornoVisita(idVisita, giornoVisita)) {
 			return new ValidationResponse("SUCCESS");
 		} else {
 			return new ValidationResponse("ERROR");
@@ -163,7 +219,32 @@ public class ListeController {
 	
 	@RequestMapping(value = "/liste/copiaVisita", method = RequestMethod.GET)
     public @ResponseBody Visita copiaVisita(@RequestParam(name="idVisita") Integer idVisita, HttpServletRequest request) throws ParseException {
-		return listeService.copiaVisita(idVisita);
+		Visita visita = listeService.copiaVisita(idVisita);
+		visita.setItinerario(null);
+		visita.getAttrazione().setRecensioni(null);
+		for(Foto foto : visita.getAttrazione().getFotoPrincipali()) {
+			foto.setAttrazione(null);
+			foto.setRecensione(null);
+		}
+		return visita;
     }
+	
+	@RequestMapping(value = "/liste/visitaLive", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse visitaLive(@RequestParam(name="idItinerario") Integer idItinerario, HttpServletRequest request) throws ParseException {
+		if(listeService.checkVisitaLive(idItinerario)) {
+			return new ValidationResponse("SUCCESS");
+		} else {
+			return new ValidationResponse("ERROR");
+		}
+    }
+	
+	@RequestMapping(value="/liste/visitaLive/{idItinerario}")
+	public ModelAndView visitaLiveItinerario(@PathVariable Integer idItinerario, HttpServletRequest request) throws ParseException {
+		ModelAndView modelAndView = new ModelAndView("secure/liste/visitaLive");
+		Itinerario itinerario = listeService.getItinerarioById(idItinerario);
+		modelAndView.addObject("itinerario", itinerario);
+		modelAndView.addObject("visiteLive", listeService.getMapAttrazioniItinerarioOggi(itinerario));
+        return modelAndView;
+	}
 	
 }
