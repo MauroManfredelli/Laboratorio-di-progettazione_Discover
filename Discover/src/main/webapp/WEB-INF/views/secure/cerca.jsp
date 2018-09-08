@@ -42,7 +42,7 @@
 									<b>Nome:</b>
 								</div>
 								<div class="col-md-9">
-									<form:input path="nomeAttrazione" class="form-control" placeholder="Nome" style="max-width: 600px;" />
+									<form:input path="nomeAttrazione" class="form-control" placeholder="Tutte le attrazioni" style="max-width: 600px;" />
 								</div>
 							</div>
 							<div class="row" style="margin-bottom: 20px;">
@@ -50,15 +50,15 @@
 									<b>Località:</b>
 								</div>
 								<div class="col-md-9">
-									<form:input path="localita" class="form-control" placeholder="Località" style="max-width: 600px;" onchange="checkPosCentro()" />
+									<form:input path="localita" class="form-control" placeholder="Tutte le località" style="max-width: 600px;" onchange="checkPosCentro()" />
 								</div>
 							</div>
-							<div class="row <c:if test="${empty parametriRicerca.localita}">hidden</c:if>" style="margin-bottom: 20px;" id="lontananzaForm">
+							<div class="row" style="margin-bottom: 20px;" id="lontananzaForm">
 								<div class="col-md-3 text-right" style="font-size: 15px; margin-top: 5px; margin-bottom: 5px;" id="labelLunghezzaMassima">
 									<b>Lontananza (0 Km - 30 Km):</b>
 								</div>
 								<div class="col-md-5" style="margin-top: 5px;">
-									<input type="text" id="sliderLontananza" value="" class="slider form-control" data-slider-min="0" data-slider-max="30" data-slider-step="0" data-slider-value="[1,30]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-id="blue" style="max-width: 600px;">
+									<input type="text" id="sliderLontananza" value="" class="slider form-control" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="[0,30]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-id="blue" style="max-width: 600px;">
 									<form:hidden path="lontananzaMinima" />
 									<form:hidden path="lontananzaMassima" />
 								</div>

@@ -1,5 +1,9 @@
 $(document).ready(function() {
 	$("#headerWeb #btnCerca, #footerMobile #btnCerca").addClass("section-active");
+	if($("#lontananzaMinima").val() == "" || $("#lontananzaMinima").val() == null) {
+		$("#lontananzaMinima").val("0");
+		$("#lontananzaMassima").val("30");
+	}
 	$("#sliderLontananza").bootstrapSlider().on('slideStop', function(ev){
 	    var data = $('#sliderLontananza').attr("data");
 	    data = data.substring(data.indexOf(":") + 2);
@@ -8,12 +12,10 @@ $(document).ready(function() {
 	    $("#lontananzaMinima").val(lMin);
 	    $("#lontananzaMassima").val(lMax);
 	});
-	if($("#lontananzaMinima").val() != "") {
-		$("#sliderLontananza").bootstrapSlider("setValue", [parseInt($("#lontananzaMinima").val()), parseInt($("#lontananzaMassima").val())]);
-	} else {
-		$("#lontananzaMinima").val("0");
-		$("#lontananzaMassima").val("30");
-	}
+	$("#sliderLontananza").bootstrapSlider("setValue", [parseInt($("#lontananzaMinima").val()), parseInt($("#lontananzaMassima").val())]);
+	if($("#localita").val() == null || $("#localita").val() == '') {
+		$("#lontananzaForm").addClass("hidden");
+	} 
 	$("#boxRisultatiAttrazioni").css("max-height", $("#boxRicercaAttrazioni").css("height")).css("overflow-y", "auto").css("overflow-x", "hidden");
 	if ($('input[name=tipoAttrazione]').filter(':checked').length == $('input[name=tipoAttrazione]').length) {
         $('#checkAllTipiAttrazioni').iCheck('check');
