@@ -18,8 +18,28 @@
 		$(document).ready(function() {
 			if(idListaUtente != '') {
 				$("#idListaSelezionata").val(idListaUtente).trigger("chosen:updated");
+				checkAttrazioniLista();
 			}	
 		});
+		
+		function checkAttrazioniLista() {
+			var idLista = $("#idListaSelezionata").val();
+			$.ajax({
+		    	type: 'GET',
+		        url : '/discover/liste/getAttrazioniLista',
+		       	data: {
+		   			"idLista": idLista
+		       	},
+		        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+		        success: function(listAttrazioni) {
+		        	$("[id^=btnAggiungiAttrazioneLista]").removeClass("text-success").addClass("text-primary");
+		        	for(var i=0; i<listAttrazioni.length; i++) {
+		        		var idAttrazione = listAttrazioni[i];
+		        		$("#btnAggiungiAttrazioneLista"+idAttrazione).removeClass("text-primary").addClass("text-success");
+		        	}
+		        }
+			});
+		}
 		
 		function mostraScegliLista() {
 			if($("#scegliLista").hasClass("hidden")) {
@@ -40,7 +60,9 @@
 		   			"idLista": idLista
 		       	},
 		        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-		        success: function() {}
+		        success: function() {
+		        	checkAttrazioniLista();
+		        }
 			});
 		}
 		
@@ -70,6 +92,7 @@
 			        success: function(result) {
 			        	if(result.status == "SUCCESS") {
 			        		mostraNotifica("Attrazione aggiunta alla lista", "success");
+			        		$("#btnAggiungiAttrazioneLista"+idAttrazione).removeClass("text-primary").addClass("text-success");
 			        	} else {
 			        		swal({
 			        			title: 'ATTENZIONE',

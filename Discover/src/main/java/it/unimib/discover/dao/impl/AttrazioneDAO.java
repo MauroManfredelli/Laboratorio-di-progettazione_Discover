@@ -87,7 +87,7 @@ public class AttrazioneDAO extends AbstractEntityDao<Integer, Attrazione> {
 				if(percAttrazione < parametriRicerca.getPercentualeReazioniPositive()) {
 					continue;
 				}
-			} if(parametriRicerca.getLocalita() != null && parametriRicerca.getLontananzaMinima() != null && parametriRicerca.getLontananzaMassima() != null) {
+			} if(StringUtils.isNotEmpty(parametriRicerca.getLocalita()) && parametriRicerca.getLontananzaMinima() != null && parametriRicerca.getLontananzaMassima() != null) {
 				String lat1 = parametriRicerca.getLatCentro();
 				String lng1 = parametriRicerca.getLongCentro();
 				String lat2 = attrazione.getPosizione().getLatitudine();
@@ -161,6 +161,28 @@ public class AttrazioneDAO extends AbstractEntityDao<Integer, Attrazione> {
 				.setParameter("id", id);
 		Integer idAttrazione = (Integer) query.uniqueResult();
 		return this.findByKey(idAttrazione);
+	}
+
+	public List<Integer> getAttrazioniByItinerario(Integer idItinerario) {
+		String sql = "select a.ID " + 
+				"from attrazioni a  " + 
+				"	join visite v on a.ID=v.ID_ATTRAZIONE " + 
+				"where v.ID_ITINERARIO=:idItinerario ";
+		SQLQuery query = (SQLQuery) getSQLQuery(sql)
+				.addScalar("ID", IntegerType.INSTANCE)
+				.setParameter("idItinerario", idItinerario);
+		return query.list();
+	}
+
+	public List<Integer> getAttrazioniByWishlist(Integer idWishlist) {
+		String sql = "select a.ID " + 
+				"from attrazioni a  " + 
+				"	join rel_wishlist_attrazione rwa on a.ID=rwa.ID_ATTRAZIONE " + 
+				"where rwa.ID_WISHLIST=:idWishlist ";
+		SQLQuery query = (SQLQuery) getSQLQuery(sql)
+				.addScalar("ID", IntegerType.INSTANCE)
+				.setParameter("idWishlist", idWishlist);
+		return query.list();
 	}
 	
 }

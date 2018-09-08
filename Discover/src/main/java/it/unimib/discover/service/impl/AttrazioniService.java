@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.unimib.discover.dao.impl.AttrazioneDAO;
+import it.unimib.discover.dao.impl.ListaDAO;
 import it.unimib.discover.entity.Attrazione;
+import it.unimib.discover.entity.Lista;
 import it.unimib.discover.entity.MyUserAccount;
 import it.unimib.discover.entity.readonly.StatoAttrazione;
 import it.unimib.discover.entity.readonly.TipoAttrazione;
@@ -19,6 +21,9 @@ public class AttrazioniService {
 	
 	@Autowired
 	private AttrazioneDAO attrazioneDAO;
+	
+	@Autowired
+	private ListaDAO listaDAO;
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Attrazione getAttrazioneById(Integer id) {
@@ -44,6 +49,16 @@ public class AttrazioniService {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Attrazione> getAttrazioniByRicerca(ParametriRicerca parametriRicerca, MyUserAccount user) {
 		return attrazioneDAO.getAttrazioniByRicerca(parametriRicerca, user);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<Integer> getAttrazioniByLista(String idLista) {
+		Lista lista = listaDAO.findByKey(idLista);
+		if(lista.getIdItinerario() != null) {
+			return attrazioneDAO.getAttrazioniByItinerario(lista.getIdItinerario());
+		} else {
+			return attrazioneDAO.getAttrazioniByWishlist(lista.getIdWishlist());
+		}
 	}
 	
 }

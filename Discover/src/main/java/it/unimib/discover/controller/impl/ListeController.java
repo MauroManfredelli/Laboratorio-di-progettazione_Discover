@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import it.unimib.discover.entity.Attrazione;
 import it.unimib.discover.entity.Foto;
 import it.unimib.discover.entity.Itinerario;
 import it.unimib.discover.entity.Lista;
@@ -25,6 +26,7 @@ import it.unimib.discover.entity.Wishlist;
 import it.unimib.discover.model.ItinerarioModel;
 import it.unimib.discover.model.MarkerAttrazione;
 import it.unimib.discover.model.ValidationResponse;
+import it.unimib.discover.service.impl.AttrazioniService;
 import it.unimib.discover.service.impl.ListeService;
 import it.unimib.discover.validator.ItinerarioModelValidator;
 
@@ -33,6 +35,9 @@ public class ListeController {
 	
 	@Autowired
 	private ListeService listeService;
+	
+	@Autowired
+	private AttrazioniService attrazioniService;
 	
 	@Autowired
 	private ItinerarioModelValidator itinerarioModelValidator;
@@ -94,6 +99,11 @@ public class ListeController {
     public @ResponseBody ValidationResponse aggiornaIdListaUtente(@RequestParam(name="idLista") String idLista,  HttpServletRequest request) {
 		request.getSession().setAttribute("idListaUtente", idLista == null ? "" : idLista);
 		return new ValidationResponse("SUCCESS");
+    }
+	
+	@RequestMapping(value = "/liste/getAttrazioniLista", method = RequestMethod.GET)
+    public @ResponseBody List<Integer> getAttrazioniLista(@RequestParam(name="idLista") String idLista,  HttpServletRequest request) {
+		return attrazioniService.getAttrazioniByLista(idLista);
     }
 	
 	@RequestMapping(value = "/liste/archiviaLista", method = RequestMethod.GET)
