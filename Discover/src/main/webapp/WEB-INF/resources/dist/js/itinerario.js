@@ -449,7 +449,9 @@ function eliminaVisita(idVisita) {
         },
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         success: function(response) {
+        	var tabFrom = $("li[id=item"+idVisita+"]").closest("ol");
         	$("li[id=item"+idVisita+"]").remove();
+        	aggiornaOrdiniTabFrom(tabFrom);
         	mostraNotifica('Visita eliminata', 'danger');
         }
 	});

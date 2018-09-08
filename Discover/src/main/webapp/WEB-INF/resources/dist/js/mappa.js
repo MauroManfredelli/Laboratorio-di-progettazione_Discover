@@ -37,6 +37,17 @@ function initMap() {
 	      handleLocationError(false, infoWindow, map.getCenter());
 	}
 	
+	var autocomplete = new google.maps.places.Autocomplete(document.getElementById("localitaMappa"));
+
+    // Bind the map's bounds (viewport) property to the autocomplete object,
+    // so that the autocomplete requests use the current map bounds for the
+    // bounds option in the request.
+    autocomplete.bindTo('bounds', map);
+
+    // Set the data fields to return when the user selects a place.
+    autocomplete.setFields(
+        ['address_components', 'geometry', 'icon', 'name']);
+	
 	addMarkersAttrazioniToMap();
 }
 

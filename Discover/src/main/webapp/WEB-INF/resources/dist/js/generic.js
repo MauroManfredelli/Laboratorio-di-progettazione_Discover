@@ -26,7 +26,7 @@ function checkRunningOnMobile() {
 		$(".nav-tabs li a h5").removeAttr("style");
 		$("[id^=cotainerImmaginiLista]").attr("style", "max-height: 250px; overflow-x: hidden; overflow-y: auto;");
 		$("#mapContent").removeClass("p-0");
-		$("#mapCercaLocalita").css("bottom", "0px").addClass("m-0");
+		// $("#mapCercaLocalita").css("bottom", "0px").addClass("m-0");
 		$(".content").css("padding-bottom", "0px");
 	} else {
 		$("#footerMobile").addClass("hidden");
@@ -44,7 +44,7 @@ function checkRunningOnMobile() {
 		$("[id^=cotainerImmaginiLista]").removeAttr("style");
 		$("#mapContent").addClass("p-0");
 		$("#mapContent").closest(".content-wrapper").css("padding-bottom", "0px");
-		$("#mapCercaLocalita").css("bottom", "18px").removeClass("m-0");
+		// $("#mapCercaLocalita").css("bottom", "18px").removeClass("m-0");
 		$(".content").css("padding-bottom", "0px");
 	}
 }

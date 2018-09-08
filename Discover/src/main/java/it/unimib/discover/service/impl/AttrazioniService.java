@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.unimib.discover.dao.impl.AttrazioneDAO;
 import it.unimib.discover.entity.Attrazione;
+import it.unimib.discover.entity.MyUserAccount;
 import it.unimib.discover.entity.readonly.StatoAttrazione;
 import it.unimib.discover.entity.readonly.TipoAttrazione;
 import it.unimib.discover.model.ParametriRicerca;
@@ -41,8 +42,8 @@ public class AttrazioniService {
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public List<Attrazione> getAttrazioniByRicerca(ParametriRicerca parametriRicerca) {
-		return attrazioneDAO.getAttrazioniByRicerca(parametriRicerca);
+	public List<Attrazione> getAttrazioniByRicerca(ParametriRicerca parametriRicerca, MyUserAccount user) {
+		return attrazioneDAO.getAttrazioniByRicerca(parametriRicerca, user);
 	}
 	
 }

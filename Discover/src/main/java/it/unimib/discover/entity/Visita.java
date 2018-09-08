@@ -72,6 +72,7 @@ public class Visita implements Serializable, Comparable<Visita> {
 	}
 
 	public Visita(Attrazione attrazione, Itinerario itinerario) {
+		this.etichetta = attrazione.getNome();
 		this.attrazione = attrazione;
 		this.itinerario = itinerario;
 		this.conferma = false;

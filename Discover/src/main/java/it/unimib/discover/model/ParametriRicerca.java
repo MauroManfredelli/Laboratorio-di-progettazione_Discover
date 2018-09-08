@@ -19,6 +19,9 @@ public class ParametriRicerca implements Serializable {
 	private Double percentualeReazioniPositive;
 	private Boolean visitata;
 	
+	private String latCentro;
+	private String longCentro;
+	
 	public String getNomeAttrazione() {
 		return nomeAttrazione;
 	}
@@ -84,6 +87,18 @@ public class ParametriRicerca implements Serializable {
 	}
 	public void setVisitata(Boolean visitata) {
 		this.visitata = visitata;
+	}
+	public String getLatCentro() {
+		return latCentro;
+	}
+	public void setLatCentro(String latCentro) {
+		this.latCentro = latCentro;
+	}
+	public String getLongCentro() {
+		return longCentro;
+	}
+	public void setLongCentro(String longCentro) {
+		this.longCentro = longCentro;
 	}
 
 }

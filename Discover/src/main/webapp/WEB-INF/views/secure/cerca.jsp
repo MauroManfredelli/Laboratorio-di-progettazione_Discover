@@ -5,6 +5,12 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<%--<script
+	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&key=AIzaSyDyEIJOP_23NNYKbQFtwDl8A4_EZ3m_Smg"></script>--%>
+<script
+	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode,places&client=gme-gestoredelservizi1"></script>
+
 <!-- Bootstrap slider -->
 <link href="<%= request.getContextPath() %>/resources/plugin/bootstrap-slider/slider.css" rel="stylesheet" type="text/css" />
 <script src="<%= request.getContextPath() %>/resources/plugin/bootstrap-slider/bootstrap-slider.js" type="text/javascript"></script>
@@ -29,6 +35,8 @@
 					<div class="<c:if test='${listAttrazioni != null}'>col-md-6</c:if>">
 					<div class="box box-body" id="boxRicercaAttrazioni">
 						<form:form action="/discover/attrazioni/cerca" method="post" modelAttribute="parametriRicerca" id="ricercaAttrazioniForm" class="m-0">
+							<form:hidden path="latCentro" />
+							<form:hidden path="longCentro" />
 							<div class="row" style="margin-bottom: 20px;">
 								<div class="col-md-3 text-right" style="float: left; font-size: 15px; margin-top: 5px; margin-bottom: 5px;">
 									<b>Nome:</b>
@@ -42,15 +50,15 @@
 									<b>Località:</b>
 								</div>
 								<div class="col-md-9">
-									<form:input path="localita" class="form-control" placeholder="Località" style="max-width: 600px;" />
+									<form:input path="localita" class="form-control" placeholder="Località" style="max-width: 600px;" onchange="checkPosCentro()" />
 								</div>
 							</div>
-							<div class="row" style="margin-bottom: 20px;">
+							<div class="row <c:if test="${empty parametriRicerca.localita}">hidden</c:if>" style="margin-bottom: 20px;" id="lontananzaForm">
 								<div class="col-md-3 text-right" style="font-size: 15px; margin-top: 5px; margin-bottom: 5px;" id="labelLunghezzaMassima">
-									<b>Lontananza (1 Km - 30 Km):</b>
+									<b>Lontananza (0 Km - 30 Km):</b>
 								</div>
 								<div class="col-md-5" style="margin-top: 5px;">
-									<input type="text" id="sliderLontananza" value="" class="slider form-control" data-slider-min="1" data-slider-max="30" data-slider-step="1" data-slider-value="[1,30]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-id="blue" style="max-width: 600px;">
+									<input type="text" id="sliderLontananza" value="" class="slider form-control" data-slider-min="0" data-slider-max="30" data-slider-step="0" data-slider-value="[1,30]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-id="blue" style="max-width: 600px;">
 									<form:hidden path="lontananzaMinima" />
 									<form:hidden path="lontananzaMassima" />
 								</div>
@@ -187,18 +195,34 @@
 						                	<input type="radio" name="visitata" id="visitata1" value="true" class="icheck-checbox" />&nbsp;&nbsp;Visitata&nbsp;&nbsp;
 						                	<input type="radio" name="visitata" id="visitata2" value="false" class="icheck-checbox" />&nbsp;&nbsp;Non ancora visitata
 						                </label>
+						                <c:choose>
+							                <c:when test="${parametriRicerca.visitata == 'true'}">
+							                	<script>
+							                		$(document).ready(function() {
+							                			$('input[id=visitata1]').iCheck('check');
+							                		});
+							                	</script>
+							                </c:when>
+							                <c:when test="${parametriRicerca.visitata == 'false'}">
+							                	<script>
+							                		$(document).ready(function() {
+							                			$('input[id=visitata2]').iCheck('check');
+							                		});
+							                	</script>
+							                </c:when>
+						                </c:choose>
 						            </div>
 								</div>
 							</div>
 							
 							<div class="row" style="margin-bottom: 20px;" id="btnAltriFiltri" onclick="mostraAltriFiltri('true')">
 								<div class="col-md-5 text-center">
-									<a href="#" >Altri filtri...</a> 
+									<a href="javascript:void(0)" >Altri filtri...</a> 
 								</div>
 							</div>
 							<div class="row hidden" style="margin-bottom: 20px;" id="btnMenoFiltri" onclick="mostraAltriFiltri('false')">
 								<div class="col-md-5 text-center">
-									<a href="#" >Mostra meno.</a> 
+									<a href="javascript:void(0)" >Mostra meno.</a> 
 								</div>
 							</div>
 							
@@ -360,12 +384,12 @@
 			</div>
 			<div class="tab-pane" id="cercaItinerari" style="padding: 10px;">
 				<div class="alert alert-warning text-center">
-					<i class="fa fa-warning" style="font-size: 2.5em;"></i> <b style="font-size: 25px; padding-left: 10px;">Non diponibile</b>
+					<i class="fa fa-warning" style="font-size: 2.5em;"></i> <b style="font-size: 25px; padding-left: 10px;">Non disponibile</b>
 				</div>
 			</div>
 			<div class="tab-pane" id="cercaUtenti" style="padding: 10px;">
 				<div class="alert alert-warning text-center">
-					<i class="fa fa-warning" style="font-size: 2.5em;"></i> <b style="font-size: 25px; padding-left: 10px;">Non diponibile</b>
+					<i class="fa fa-warning" style="font-size: 2.5em;"></i> <b style="font-size: 25px; padding-left: 10px;">Non disponibile</b>
 				</div>
 			</div>
 		</div>

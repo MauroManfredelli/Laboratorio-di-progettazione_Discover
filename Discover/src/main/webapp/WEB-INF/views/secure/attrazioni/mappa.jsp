@@ -9,7 +9,7 @@
 <%--<script
 	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&key=AIzaSyDyEIJOP_23NNYKbQFtwDl8A4_EZ3m_Smg"></script>--%>
 <script
-	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&client=gme-gestoredelservizi1"></script>
+	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode,places&client=gme-gestoredelservizi1"></script>
 
  <style>
    #map {
@@ -25,7 +25,7 @@
 	
 	<div id="map"></div>
 	
-	<div id="mapCercaLocalita" style="position: fixed; left: 0px; bottom: 18px; max-width: 400px;" class="box box-primary">
+	<div id="mapCercaLocalita" style="position: fixed; left: 0px; top: 100px; max-width: 400px;" class="box box-primary">
 		<div class="row" style="padding-top: 15px; padding-bottom: 15px; padding-right: 10px;">
 			<div class="col-md-12">
 			<div class="input-group">
