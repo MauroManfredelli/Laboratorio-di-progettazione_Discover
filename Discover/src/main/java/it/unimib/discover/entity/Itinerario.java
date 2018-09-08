@@ -1,6 +1,7 @@
 package it.unimib.discover.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -165,8 +166,9 @@ public class Itinerario implements Serializable {
 
 	public String getOrdineVisita(Date dataVisita) {
 		Integer ordine = 1;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		for(Visita visita : this.visite) {
-			if(visita.getDataVisita() != null && visita.getDataVisita().equals(dataVisita)) {
+			if(visita.getDataVisita() != null && sdf.format(visita.getDataVisita()).equals(sdf.format(dataVisita))) {
 				ordine ++;
 			}
 		}
@@ -195,7 +197,7 @@ public class Itinerario implements Serializable {
 
 	public Visita getVisitaByOrdine(Integer ordine) {
 		for(Visita visita : this.visite) {
-			if(visita.getOra().equals(ordine+"")) {
+			if(visita.getOrdineNelGiorno().equals(ordine+"")) {
 				return visita;
 			}
 		}

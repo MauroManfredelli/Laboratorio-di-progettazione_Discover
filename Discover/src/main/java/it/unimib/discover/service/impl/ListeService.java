@@ -276,8 +276,8 @@ public class ListeService {
 				Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - dataMinima.getTime()) / (24 * 60 * 60 * 1000)) + 1;
 				Integer ordineNelGiorno = 1;
 				for(Visita visitaOther : itinerario.getVisite()) {
-					if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOra() != null &&
-							visitaOther.getDataVisita().equals(visita.getDataVisita()) && visitaOther.getOra().compareTo(visita.getOra()) > 0) {
+					if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOrdineNelGiorno() != null &&
+							visitaOther.getDataVisita().equals(visita.getDataVisita()) && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
 						ordineNelGiorno ++;
 					}
 				}
@@ -286,8 +286,8 @@ public class ListeService {
 				Integer ordineGiorno = visita.getGiorno();
 				Integer ordineNelGiorno = 1;
 				for(Visita visitaOther : itinerario.getVisite()) {
-					if(!visitaOther.equals(visita) && visitaOther.getGiorno() != null && visitaOther.getOra() != null &&
-							visitaOther.getGiorno() == visita.getGiorno() && visitaOther.getOra().compareTo(visita.getOra()) > 0) {
+					if(!visitaOther.equals(visita) && visitaOther.getGiorno() != null && visitaOther.getOrdineNelGiorno() != null &&
+							visitaOther.getGiorno() == visita.getGiorno() && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
 						ordineNelGiorno ++;
 					}
 				}
@@ -317,8 +317,8 @@ public class ListeService {
 				Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - dataMinima.getTime()) / (24 * 60 * 60 * 1000)) + 1;
 				Integer ordineNelGiorno = 1;
 				for(Visita visitaOther : itinerario.getVisite()) {
-					if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOra() != null &&
-							visitaOther.getDataVisita().equals(visita.getDataVisita()) && visitaOther.getOra().compareTo(visita.getOra()) > 0) {
+					if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOrdineNelGiorno() != null &&
+							visitaOther.getDataVisita().equals(visita.getDataVisita()) && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
 						ordineNelGiorno ++;
 					}
 				}
@@ -327,8 +327,8 @@ public class ListeService {
 				Integer ordineGiorno = visita.getGiorno();
 				Integer ordineNelGiorno = 1;
 				for(Visita visitaOther : itinerario.getVisite()) {
-					if(!visitaOther.equals(visita) && visitaOther.getGiorno() != null && visitaOther.getOra() != null &&
-							visitaOther.getGiorno() == visita.getGiorno() && visitaOther.getOra().compareTo(visita.getOra()) > 0) {
+					if(!visitaOther.equals(visita) && visitaOther.getGiorno() != null && visitaOther.getOrdineNelGiorno() != null &&
+							visitaOther.getGiorno() == visita.getGiorno() && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
 						ordineNelGiorno ++;
 					}
 				}
@@ -414,31 +414,42 @@ public class ListeService {
 		Itinerario itinerario = itinerarioDAO.findByKey(idItinerario);
 		Visita visita = visitaDAO.findByKey(idVisita);
 		if(key.contains("Non programm")) {
+			visita.setOrdineNelGiorno(itinerario.getOrdineVisitaNonProgramm());
 			if(visita.getDataVisita() != null) {
 				visita.setDataVisita(null);
 			} else {
 				visita.setGiorno(null);
 			}
-			visita.setOra(itinerario.getOrdineVisitaNonProgramm());
 			visitaDAO.persist(visita);
 		} else if(key.contains("giorno")) {
 			Integer giorno = Integer.valueOf(key.substring(key.indexOf(" ") + 1));
+			visita.setOrdineNelGiorno(itinerario.getOrdineVisita(giorno));
 			visita.setGiorno(giorno);
-			visita.setOra(itinerario.getOrdineVisita(giorno));
 			visitaDAO.persist(visita);
 		} else {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date dataVisita = sdf.parse(key);
+			visita.setOrdineNelGiorno(itinerario.getOrdineVisita(dataVisita));
 			visita.setDataVisita(dataVisita);
-			visita.setOra(itinerario.getOrdineVisita(dataVisita));
 			visitaDAO.persist(visita);
 		}
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
+	public void aggiornaVisiteVisitaLive(Integer idItinerario, Integer idVisita, String conferma) {
+		Visita visita = visitaDAO.findByKey(idVisita);
+		if(visita.getConferma()) {
+			visita.setConferma(false);
+		} else {
+			visita.setConferma(true);
+		}
+		visitaDAO.persist(visita);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void aggiornaVisiteStessaData(Integer idItinerario, Integer idVisita, String key, Integer ordine) {
 		Visita visita = visitaDAO.findByKey(idVisita);
-		visita.setOra(ordine+"");
+		visita.setOrdineNelGiorno(ordine+"");
 		visitaDAO.persist(visita);
 	}
 
@@ -450,12 +461,12 @@ public class ListeService {
 		changeEtichettaIfExists(visita, itinerario.getVisite(), 2);
 		visitaDAO.persist(visita);
 		if(visita.getDataVisita() == null && visita.getGiorno() == null) {
-			visita.setOrdine("0-"+visitaRemote.getOra());
+			visita.setOrdine("0-"+visitaRemote.getOrdineNelGiorno());
 		} else if(visita.getGiorno() == null) {
 			Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - itinerario.getDataInizio().getTime()) / (24 * 60 * 60 * 1000)) + 1;
-			visita.setOrdine(ordineGiorno+"-"+visitaRemote.getOra());
+			visita.setOrdine(ordineGiorno+"-"+visitaRemote.getOrdineNelGiorno());
 		} else {
-			visita.setOrdine(visita.getGiorno()+"-"+visitaRemote.getOra());
+			visita.setOrdine(visita.getGiorno()+"-"+visitaRemote.getOrdineNelGiorno());
 		}
 		return visita;
 	}
@@ -581,5 +592,20 @@ public class ListeService {
 			}
 		}
 		return null;
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void aggiornaVisiteStessaDataVisitaLiveDB(Integer idItinerario, Integer idVisita, Integer ordine) {}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public boolean confermaVisita(Integer idVisita) {
+		Visita visita = visitaDAO.findByKey(idVisita);
+		if(visita.getConferma()) {
+			visita.setConferma(false);
+		} else {
+			visita.setConferma(true);
+		}
+		visitaDAO.persist(visita);
+		return visita.getConferma();
 	}
 }

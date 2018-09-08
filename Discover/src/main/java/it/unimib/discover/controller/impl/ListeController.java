@@ -247,4 +247,26 @@ public class ListeController {
         return modelAndView;
 	}
 	
+	@RequestMapping(value = "/liste/aggiornaVisiteVisitaLive", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse aggiornaVisiteVisitaLive(@RequestParam(name="idItinerario") Integer idItinerario, @RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="conferma") String conferma,  HttpServletRequest request) throws ParseException {
+		listeService.aggiornaVisiteVisitaLive(idItinerario, idVisita, conferma);
+		return new ValidationResponse("SUCCESS");
+    }
+	
+	@RequestMapping(value = "/liste/aggiornaVisiteStessaDataVisitaLiveDB", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse aggiornaVisiteStessaDataVisitaLiveDB(@RequestParam(name="idItinerario") Integer idItinerario, @RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="ordine") Integer ordine,  HttpServletRequest request) throws ParseException {
+		listeService.aggiornaVisiteStessaDataVisitaLiveDB(idItinerario, idVisita, ordine);
+		return new ValidationResponse("SUCCESS");
+    }
+	
+	@RequestMapping(value = "/liste/confermaVisita", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse confermaVisita(@RequestParam(name="idVisita") Integer idVisita, HttpServletRequest request) throws ParseException {
+		boolean confermata = listeService.confermaVisita(idVisita);
+		if(confermata) {
+			return new ValidationResponse("CONFERMATA");
+		} else {
+			return new ValidationResponse("NON CONFERMATA");
+		}
+    }
+	
 }

@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -36,6 +37,9 @@ public class Visita implements Serializable, Comparable<Visita> {
 	@Column(name = "DATA_VISITA")
 	private Date dataVisita;
 	
+	@Column(name = "ORDINE")
+	private String ordineNelGiorno;
+	
 	@Column(name = "ORA")
 	private String ora;
 	
@@ -56,18 +60,26 @@ public class Visita implements Serializable, Comparable<Visita> {
 	@JoinColumn(name = "ID_ATTRAZIONE")
 	private Attrazione attrazione;
 	
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "CONFERMA")
+    private Boolean conferma;
+	
 	@Transient
 	private String ordine;
 
-	public Visita() {}
+	public Visita() {
+		this.conferma = false;
+	}
 
 	public Visita(Attrazione attrazione, Itinerario itinerario) {
 		this.attrazione = attrazione;
 		this.itinerario = itinerario;
+		this.conferma = false;
 	}
 
 	public Visita(Visita visita) {
 		this.giorno = visita.giorno;
+		this.ordineNelGiorno = visita.ordineNelGiorno;
 		this.ora = visita.ora;
 		this.dataVisita = visita.dataVisita;
 		this.etichetta = visita.etichetta+"_2";
@@ -75,6 +87,7 @@ public class Visita implements Serializable, Comparable<Visita> {
 		this.notaPrec = "";
 		this.itinerario = visita.itinerario;
 		this.attrazione = visita.attrazione;
+		this.conferma = false;
 	}
 
 	public Integer getId() {
@@ -101,12 +114,28 @@ public class Visita implements Serializable, Comparable<Visita> {
 		this.dataVisita = dataVisita;
 	}
 
+	public String getOrdineNelGiorno() {
+		return ordineNelGiorno;
+	}
+
+	public void setOrdineNelGiorno(String ordineNelGiorno) {
+		this.ordineNelGiorno = ordineNelGiorno;
+	}
+
 	public String getOra() {
 		return ora;
 	}
 
 	public void setOra(String ora) {
 		this.ora = ora;
+	}
+
+	public Boolean getConferma() {
+		return conferma;
+	}
+
+	public void setConferma(Boolean conferma) {
+		this.conferma = conferma;
 	}
 
 	public String getEtichetta() {
@@ -166,7 +195,7 @@ public class Visita implements Serializable, Comparable<Visita> {
 		} else if(o.dataVisita == null && o.giorno == null) {
 			return 1;
 		} else {
-			return ora.compareTo(o.ora);
+			return ordineNelGiorno.compareTo(o.ordineNelGiorno);
 		}
 	}
 

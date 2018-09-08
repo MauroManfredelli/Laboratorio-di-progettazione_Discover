@@ -600,8 +600,6 @@ function visitaLive(idItinerario) {
     				confirmButtonColor: '#0066cc',
     			});
         	}
-        	$("#btnConfermaItinerario").addClass("text-primary").removeClass("text-gray-disc");
-        	mostraNotifica("itinerario confermato", "success");
         }
 	});
 }
