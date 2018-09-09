@@ -1,5 +1,6 @@
 package it.unimib.discover.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,10 +55,14 @@ public class AttrazioniService {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Integer> getAttrazioniByLista(String idLista) {
 		Lista lista = listaDAO.findByKey(idLista);
-		if(lista.getIdItinerario() != null) {
-			return attrazioneDAO.getAttrazioniByItinerario(lista.getIdItinerario());
+		if(lista != null) {
+			if(lista.getIdItinerario() != null) {
+				return attrazioneDAO.getAttrazioniByItinerario(lista.getIdItinerario());
+			} else {
+				return attrazioneDAO.getAttrazioniByWishlist(lista.getIdWishlist());
+			}
 		} else {
-			return attrazioneDAO.getAttrazioniByWishlist(lista.getIdWishlist());
+			return new ArrayList<Integer>();
 		}
 	}
 	

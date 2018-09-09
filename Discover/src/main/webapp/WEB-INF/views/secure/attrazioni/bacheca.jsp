@@ -19,7 +19,7 @@
 	<jsp:include page="../sceltaLista.jsp"></jsp:include>
 	
 	<c:forEach items="${listAttrazioni}" var="attrazione" varStatus="indexAttrazione">
-		<div class="panel box box-primary">
+		<div class="panel rounded-box-desktop">
 		    <div class="box-header with-border">
 		    	<div style="padding-left: 20px;">
 			    	<h3 class="m-0">
@@ -30,16 +30,16 @@
 			        	<br>
 			        	<c:choose>
 			        		<c:when test="${attrazione.stato.id == '1'}">
-			        			<small class="text-plus text-primary" style="float: left; padding-top: 10px;"><i class="fa fa-check"></i> ${attrazione.stato.descrizione}</small>
+			        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-star"></i> ${attrazione.stato.descrizione}</small>
 			        		</c:when>
 			        		<c:when test="${attrazione.stato.id == '2'}">
-			        			<small class="text-info" style="float: left; padding-top: 10px;"><i class="fa fa-binoculars"></i> ${attrazione.stato.descrizione}</small>
+			        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-binoculars"></i> ${attrazione.stato.descrizione}</small>
 			        		</c:when>
 			        		<c:when test="${attrazione.stato.id == '3'}">
 			        			<small class="text-success" style="float: left; padding-top: 10px;"><i class="fa fa-check"></i> ${attrazione.stato.descrizione}</small>
 			        		</c:when>
 			        		<c:when test="${attrazione.stato.id == '4'}">
-			        			<small class="text-primary" style="float: left; padding-top: 10px;"><i class="fa fa-check"></i> ${attrazione.stato.descrizione}</small>
+			        			<small class="text-gray" style="float: left; padding-top: 10px;">${attrazione.stato.descrizione}</small>
 			        		</c:when>
 			        	</c:choose>
 			        	
@@ -56,7 +56,7 @@
 									class="<c:if test='${indexFoto.index == 0}'>active</c:if>"></li>
 							</c:forEach>
 						</ol>
-						<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #333; border-radius: 13px;">
+						<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #FFF; border-radius: 13px;">
 							<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 								<div class="item <c:if test='${indexFoto.index == 0}'>active</c:if>">
 									<img
@@ -66,7 +66,7 @@
 							</c:forEach>
 						</div>
 						<a class="left carousel-control" href="#carousel-example-generic${attrazione.id}"
-							data-slide="prev"> <span class="fa fa-angle-left"></span>
+							data-slide="prev" style="border-color: #000;"> <span class="fa fa-angle-left"></span>
 						</a> <a class="right carousel-control" href="#carousel-example-generic${attrazione.id}"
 							data-slide="next"> <span class="fa fa-angle-right"></span>
 						</a>
@@ -87,7 +87,7 @@
 						
 						<div class="row" style="padding-top: 15px;">
 							<div class="col-md-12" style="float: left; font-size: 18px;">
-								<b>${attrazione.posizione.descrizione}</b>
+								${attrazione.posizione.descrizione}
 							</div>
 						</div>
 						
@@ -98,8 +98,8 @@
 						</div>
 						
 						<div class="row">
-							<div class="col-md-12" style="float: left; font-size: 18px;">
-								<b>${fn:replace(attrazione.accesso, '_', ' ')}</b>
+							<div class="col-md-12" style="float: left; font-size: 18px; text-transform: capitalize">
+								${fn:toLowerCase(fn:replace(attrazione.accesso, '_', ' '))}
 							</div>
 						</div>
 						

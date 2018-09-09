@@ -1,6 +1,13 @@
 $(document).ready(function() {
 	initMap();
 	setDraggable();
+	var liList = $("li[id^=item]");
+	if(liList.length > 0) {
+		var li = liList[0];
+		var ol = $(li).closest("ol");
+		var nav = $("li[href='#"+$(ol).attr("id")+"']");
+		$(nav).click();
+	}
 });
 
 function setDraggable() {
@@ -49,7 +56,7 @@ function dragElementTo() {
 		if(elementDragged == "" || elementDragTo == "") {
 			dragElementTo();
 		} else {
-			var href = $(elementDragTo).find("a").attr("href");
+			var href = $(elementDragTo).attr("href");
 			var destTab = $("#"+href.substring(1, href.length));
 			if($(elementDragFrom).attr("key") == "Tutteledate" ||
 					$(destTab).attr("key") == "Tutteledate") {
@@ -149,7 +156,7 @@ function aggiornaOrdineTabDest(tabDest, liElement) {
 	var giorno;
 	for(var i=0; i<navList.length; i++) {
 		var nav = navList[i];
-		if($(nav).find("a").attr("href") == "#"+tabDest.attr("id")) {
+		if($(nav).attr("href") == "#"+tabDest.attr("id")) {
 			giorno = (i + 1);
 			break;
 		}
@@ -177,6 +184,9 @@ function aggiornaMarkersMappa() {
 	var liList = $("li[id^=item]");
 	for(var j=0; j<liList.length; j++) {
 		var li = liList[j];
+		if($(li).closest("ol").attr("key") == "Tutteledate") {
+			continue;
+		}
 		var id = $(li).attr("idVisita");
 		var ordine = $(li).find("[id=spanOrdine]").attr("ordine");
 		var tipoMarker = (ordine.substring(0,1) == '0' ? 'marker_black' : 'marker_red');
@@ -184,6 +194,7 @@ function aggiornaMarkersMappa() {
 			var marker = markersAttrazioni[i];
 			if(marker.id == 'marker'+id) {
 				// marker.icon = '/discover/resources/dist/img/markers/'+tipoMarker+"_"+ordine+'.png';
+				marker.setMap(null);
 				marker = new google.maps.Marker({
 					id: 'marker'+id,
 					position: marker.position,
@@ -193,6 +204,7 @@ function aggiornaMarkersMappa() {
 					title:"Localizzazione attrazione",
 					draggable: false
 				});
+				markersAttrazioni[i] = marker;
 			}
 		}
 	}
@@ -375,7 +387,7 @@ function salvaModificaGiornoVisita(tabFrom, element) {
         	if(response.status == "SUCCESS") {
         		elementDragFrom = $("#"+tabFrom);
         		elementDragged = $("#"+element);
-        		var idTabDest = $("ol[key='giorno"+$("#giornoVisitaModal #giornoVisita").val()+"']").attr("id");
+        		var idTabDest = $("ol[key='Giorno"+$("#giornoVisitaModal #giornoVisita").val()+"']").attr("id");
                 elementDragTo = $("a[href='#"+idTabDest+"']").parent("li");
                 dragElementTo();
                 $("#giornoVisitaModal").modal("hide");

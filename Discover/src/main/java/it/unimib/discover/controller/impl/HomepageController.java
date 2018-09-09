@@ -40,7 +40,7 @@ public class HomepageController {
     		request.getSession().setAttribute("idListaUtente", "");
     	}
     	if(listeUtenteObj == null) {
-    		request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId()));
+    		request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId(), ""));
     	}
     	List<Attrazione> attrazioniBacheca = attrazioniService.getAttrazioniBacheca();
     	modelAndView.addObject("listAttrazioni", attrazioniBacheca);

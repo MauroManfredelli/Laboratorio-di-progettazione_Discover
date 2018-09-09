@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div class="col-md-3 col-md-offset-9" style="width: auto; position: fixed; top: 105px; z-index: 1; right: 0px;  background-color: #FFF; padding-top: 10px; padding-bottom: 10px; border: 1px solid #3c8dbc; border-right: none; border-top-left-radius: 20px; border-bottom-left-radius: 20px;" id="inputSelectLista">
-	<i class="fa fa-suitcase text-info" onclick="mostraScegliLista()" id="btnMostraScegliLista" style="cursor: pointer;"> Lista selezionata</i>
+	<i class="fa fa-suitcase text-primary" onclick="mostraScegliLista()" id="btnMostraScegliLista" style="cursor: pointer;"><i class="fa fa-check-circle"></i> Lista selezionata</i>
 	<span id="scegliLista" class="hidden">
 		<label>Lista selezionata:&nbsp;&nbsp;<i class="fa fa-times-circle text-danger" onclick="mostraScegliLista()" style="cursor: pointer;"></i></label>
 		<select id="idListaSelezionata" class="form-control chosen chosen-select" data-live-search="true" onchange="saveSceltaLista()">
@@ -18,8 +18,8 @@
 		$(document).ready(function() {
 			if(idListaUtente != '') {
 				$("#idListaSelezionata").val(idListaUtente).trigger("chosen:updated");
-				checkAttrazioniLista();
 			}	
+			checkAttrazioniLista();
 		});
 		
 		function checkAttrazioniLista() {
@@ -62,6 +62,7 @@
 		        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 		        success: function() {
 		        	checkAttrazioniLista();
+		        	mostraScegliLista();
 		        }
 			});
 		}
@@ -70,8 +71,7 @@
 			var idLista = $("#idListaSelezionata").val();
 			if(idLista == "") {
 				swal({
-        			title: 'ERRORE',
-        			type: 'error',
+        			title: '',
         			text: 'Selezionare una lista a cui aggiungere l\'attrazione!',
         			html: true,
         			showCancelButton: false,
@@ -94,15 +94,8 @@
 			        		mostraNotifica("Attrazione aggiunta alla lista", "success");
 			        		$("#btnAggiungiAttrazioneLista"+idAttrazione).removeClass("text-primary").addClass("text-success");
 			        	} else {
-			        		swal({
-			        			title: 'ATTENZIONE',
-			        			type: 'warning',
-			        			text: 'La lista selezionata contiene già l\'attrazione selezionata.',
-			        			html: true,
-			        			showCancelButton: false,
-			        			confirmButtonText: 'Continua',
-			        			confirmButtonColor: '#0066cc',
-			        		});
+			        		mostraNotifica("Attrazione rimossa dalla lista", "success");
+			        		$("#btnAggiungiAttrazioneLista"+idAttrazione).addClass("text-primary").removeClass("text-success");
 			        	}
 			        }
 				});

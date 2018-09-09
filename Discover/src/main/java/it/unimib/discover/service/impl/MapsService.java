@@ -61,7 +61,7 @@ public class MapsService {
 		List<MarkerAttrazione> markers = new ArrayList<MarkerAttrazione>();
 		List<Visita> visite = visitaDAO.getByIdItinerario(idItinerario);
 		for(Visita visita : visite) {
-			if(sdf.format(new Date()).equals(sdf.format(visita.getDataVisita()))) {
+			if(visita.getDataVisita() != null && sdf.format(new Date()).equals(sdf.format(visita.getDataVisita()))) {
 				Attrazione attrazione = visita.getAttrazione();
 				MarkerPosizione posizione = attrazione.getPosizione();
 				MarkerAttrazione markerAttrazione = new MarkerAttrazione();

@@ -27,4 +27,14 @@ public class AttrazioneWishlistDAO extends AbstractEntityDao<Integer, Attrazione
 		}
 	}
 
+	public void deleyeByWishlistAttrazione(Integer idWishlist, Integer idAttrazione) {
+		String sql = "delete " + 
+				"from rel_wishlist_attrazione " +
+				"where ID_WISHLIST=:idWishlist and ID_ATTRAZIONE=:idAttrazione ";
+		SQLQuery query = (SQLQuery) getSQLQuery(sql)
+				.setParameter("idWishlist", idWishlist)
+				.setParameter("idAttrazione", idAttrazione);
+		query.executeUpdate();
+	}
+
 }

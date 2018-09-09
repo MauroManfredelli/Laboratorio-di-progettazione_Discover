@@ -45,29 +45,38 @@
 			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px;">
 				<i class="fa fa-arrow-left hidden" style="font-size: 30px; cursor: pointer;"></i>
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${itinerario.nome}</span>
-				<i class="fa fa-check-circle <c:choose><c:when test="${itinerario.confermato == 'true'}">text-primary</c:when><c:otherwise>text-gray-disc</c:otherwise></c:choose>" style="font-size: 30px; padding-left: 10px; cursor: pointer;" id="btnConfermaItinerario" onclick="confermaItinerario('${itinerario.id}')"></i>
-				<i class="fa fa-location-arrow text-primary" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="visitaLive('${itinerario.id}')"></i>
-				<i class="fa fa-edit text-primary" style="font-size: 30px; padding-left: 10px; cursor: pointer;"></i>
-				<i class="fa fa-times text-primary pull-right" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
+				<i class="fa fa-check-circle <c:choose><c:when test="${itinerario.confermato == 'true'}">text-success</c:when><c:otherwise>text-primary</c:otherwise></c:choose>" data-toggle="tooltip" title="Conferma itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" id="btnConfermaItinerario" onclick="confermaItinerario('${itinerario.id}')"></i>
+				<i class="fa fa-location-arrow text-primary" data-toggle="tooltip" title="LIVE" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="visitaLive('${itinerario.id}')"></i>
+				<i class="fa fa-edit text-primary" data-toggle="tooltip" title="Modifica itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;"></i>
+				<i class="fa fa-times text-primary pull-right" data-toggle="tooltip" title="Chiudi" data-placement="left" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
 			</div>
 		</div>
 	</div>
-	<div style="position: fixed; height: 100%; max-height: 100%; width: 100%; max-width: 500px; overflow-x:hidden; overflow-y: auto; top: 150px;">
+	<div style="position: fixed; height: 100%; max-height: 100%; width: 100%; max-width: 500px; overflow-x:hidden; overflow-y: auto; top: 146px;">
 		<div class="nav-tabs-custom tabbable tabs-left">
-			<ul id="itinerarioNavTabs" class="nav nav-tabs light-blue-bg m-0" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px); overflow-y: auto;">
+			<ul id="itinerarioNavTabs" class="nav nav-tabs nav-iti light-blue-bg m-0" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px); overflow-y: auto;">
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
 					<c:if test="${key eq 'Non programm.'}">
-						<li id="nonProgramm" class="m-0 font-weight-bold dropable-tab active" style="font-size: 15px; color: #ccc; border-bottom: 1px solid #ddd;"><a href="#data${indexKey.index}" data-toggle="tab" class="m-0">${key}</a></li>
+						<li id="nonProgramm" class="m-0 dropable-tab active" style="font-size: 15px; border-bottom: 1px solid #ddd; padding: 10px; cursor: pointer;" href="#data${indexKey.index}" data-toggle="tab">${key}</li>
 					</c:if>
 				</c:forEach>
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
 					<c:if test="${not (key eq 'Tutte le date' or key eq 'Non programm.')}">
-						<li id="headerData${indexKey.index}" class="m-0 font-weight-bold dropable-tab" style="font-size: 15px; color: #ccc; border-bottom: 1px solid #ddd;"><a href="#data${indexKey.index}" data-toggle="tab" class="m-0">${key}</a></li>
+						<li id="headerData${indexKey.index}" class="m-0 dropable-tab" style="font-size: 15px; border-bottom: 1px solid #ddd; padding: 10px; cursor: pointer;" href="#data${indexKey.index}" data-toggle="tab">
+							<c:choose>
+								<c:when test="${key.indexOf('Concluso') > -1}">
+									<i style="color: #808080;">${key}</i>
+								</c:when>
+								<c:otherwise>
+									${key}
+								</c:otherwise>
+							</c:choose>
+						</li>
 					</c:if>
 				</c:forEach>
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
 					<c:if test="${key eq 'Tutte le date'}">
-						<li id="allDate" class="m-0 font-weight-bold dropable-tab" style="font-size: 15px; color: #ccc; border-bottom: 1px solid #ddd;" onclick="location.assign('/discover/liste/${itinerario.id}/tutteLeDate')"><a href="#data${indexKey.index}" data-toggle="tab" class="m-0">${key}</a></li>
+						<li id="allDate" class="m-0" style="font-size: 15px; border-bottom: 1px solid #ddd; padding: 10px; cursor: pointer;" onclick="location.assign('/discover/liste/${itinerario.id}/tutteLeDate')" href="#data${indexKey.index}" data-toggle="tab">Riepilogo</li>
 					</c:if>
 				</c:forEach>
 			</ul>
@@ -100,7 +109,7 @@
 														<b><fmt:formatDate type="date" value="${visita.dataVisita}" pattern="dd/MM/yyyy" />:</b>
 													</c:when>
 													<c:when test="${not empty visita.giorno}">
-														<b><c:out value="giorno ${visita.giorno}"></c:out>:</b>
+														<b><c:out value="Giorno ${visita.giorno}"></c:out>:</b>
 													</c:when>
 													<c:otherwise>
 														<b>Non programmate:</b>
@@ -146,18 +155,18 @@
 											</div>
 											<input type="hidden" id="notaVisita${visita.id}" value="${visita.nota}" />
 											<div style="margin-top: 20px;">
-												<i class="fa fa-file" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
-												<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
+												&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
+												<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
 												<c:if test="${key != 'Tutte le date'}">
-													<i class="fa fa-pencil" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita('${visita.id}')"></i>
-													<i class="fa fa-trash" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita('${visita.id}')"></i>
-													<i class="fa fa-copy" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita('${visita.id}')"></i>
+													<i class="fa fa-pencil" data-toggle="tooltip" title="Modifica visita" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita('${visita.id}')"></i>
+													<i class="fa fa-trash" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita('${visita.id}')"></i>
+													<i class="fa fa-copy" data-toggle="tooltip" title="Copia visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita('${visita.id}')"></i>
 													<c:choose>
 														<c:when test="${not empty visita.itinerario.dataInizio}">
-															<i class="fa fa-calendar" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaDataVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
+															<i class="fa fa-calendar" data-toggle="tooltip" title="Cambia data" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaDataVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
 														</c:when>
 														<c:when test="${not empty visita.itinerario.numeroGiorni}">
-															<i class="fa fa-calendar" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaGiornoVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
+															<i class="fa fa-calendar" data-toggle="tooltip" title="Cambia giorno" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaGiornoVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
 														</c:when>
 													</c:choose>
 												</c:if>
@@ -180,7 +189,7 @@
 			$("li.active").removeClass("active");
 			$(".tab-pane.active").removeClass("active");
 			$("#allDate").addClass("active");
-			$($("#allDate > a").attr("href")+".tab-pane").addClass("active");
+			$($("#allDate").attr("href")+".tab-pane").addClass("active");
 		})
 	</script>
 </c:if>

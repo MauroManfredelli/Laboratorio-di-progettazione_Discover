@@ -27,4 +27,14 @@ public class VisitaDAO extends AbstractEntityDao<Integer, Visita> {
 		}
 	}
 
+	public void deleteByItinerarioAttrazione(Integer idItinerario, Integer idAttrazione) {
+		String sql = "delete " + 
+				"from visite " +
+				"where ID_ITINERARIO=:idItinerario and ID_ATTRAZIONE=:idAttrazione ";
+		SQLQuery query = (SQLQuery) getSQLQuery(sql)
+				.setParameter("idItinerario", idItinerario)
+				.setParameter("idAttrazione", idAttrazione);
+		query.executeUpdate();
+	}
+
 }

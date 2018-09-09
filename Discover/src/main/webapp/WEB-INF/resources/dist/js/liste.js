@@ -1,7 +1,25 @@
 
 $(document).ready(function() {
-	
+	$("#liHeadListe").addClass("section-active").css("margin-bottom", "1px");
+	if(inputOrdinaListe != '') {
+		$("#inputOrdinaListe").val(inputOrdinaListe).trigger("chosen:updated");
+	}
 });
+
+function ordinaListe() {
+	var inputOrdinaListe = $("#inputOrdinaListe").val();
+	$.ajax({
+    	type: 'GET',
+        url : '/discover/liste/salvaOrdinaListe',
+       	data: {
+   			"inputOrdinaListe": inputOrdinaListe
+       	},
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        success: function() {
+        	location.reload();
+        }
+	});
+}
 
 function creaWishlist() {
 	$("#wishlistModal #nome").val("");
@@ -110,7 +128,7 @@ function recuperaLista(idLista) {
 }
 
 function confermaItinerario(idLista, idItinerario) {
-	if($("#divLista"+idLista+" #confermaItinerario i").hasClass("text-primary")) {
+	if($("#divLista"+idLista+" #confermaItinerario i").hasClass("text-success")) {
 		$.ajax({
 	    	type: 'GET',
 	        url : '/discover/liste/rimuoviConfermaItinerario',
@@ -119,7 +137,7 @@ function confermaItinerario(idLista, idItinerario) {
 	       	},
 	        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 	        success: function(result) {
-	        	$("#divLista"+idLista+" #confermaItinerario i").removeClass("text-primary").addClass("text-gray-disc");
+	        	$("#divLista"+idLista+" #confermaItinerario i").removeClass("text-success").addClass("text-primary");
 	        	mostraNotifica("itinerario non confermato", "danger");
 	        }
 		});
@@ -154,7 +172,7 @@ function confermaItinerarioAjax(idLista, idItinerario) {
        	},
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         success: function(result) {
-        	$("#divLista"+idLista+" #confermaItinerario i").addClass("text-primary").removeClass("text-gray-disc");
+        	$("#divLista"+idLista+" #confermaItinerario i").addClass("text-success").removeClass("text-primary");
         	mostraNotifica("itinerario confermato", "success");
         }
 	});
@@ -235,6 +253,17 @@ function modificaItinerario(lista) {
 }
 
 function creaItinerario() {
+	if($("#itinerarioModal [name=idWishlist]").val() == undefined) {
+		swal({
+			title: '',
+			text: '<b>Non è possibile creare un itinerario!</b><br><br>Per poter creare un itinerario è necessario:<ol style="text-align: center; margin-top: 5px; "><li style="text-align: left;"> creare una wishlist;</li><li style="text-align: left;">inserire nella wishlist le attrazioni che si vogliono visitare.</li></ol><b>Al momento non sono presenti wishlist valide per la creazione di itinerari!</b>',
+			html: true,
+			showCancelButton: false,
+			confirmButtonText: 'Continua',
+			confirmButtonColor: '#0066cc',
+		});
+		return;
+	}
 	$("#itinerarioModal #id").val("");
 	$("#itinerarioModal #nome").val("");
 	$("#itinerarioModal #numeroGorni").val("");

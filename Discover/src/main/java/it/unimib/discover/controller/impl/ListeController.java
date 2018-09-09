@@ -42,19 +42,26 @@ public class ListeController {
 	@Autowired
 	private ItinerarioModelValidator itinerarioModelValidator;
 	
-	private void addParametersIndexListe(ModelAndView modelAndView, String idUser) {
+	private void addParametersIndexListe(ModelAndView modelAndView, String idUser, String ordineListe) {
 		modelAndView.addObject("wishlist", new Wishlist());
 		modelAndView.addObject("itinerario", new ItinerarioModel());
 		modelAndView.addObject("wishlistUtente", listeService.getWishlistAttiveByUser(idUser));
-		modelAndView.addObject("liste", listeService.getListeByUser(idUser));
-		modelAndView.addObject("listeArchiviate", listeService.getListeArchiviateByUser(idUser));
+		modelAndView.addObject("liste", listeService.getListeByUser(idUser, ordineListe));
+		modelAndView.addObject("listeArchiviate", listeService.getListeArchiviateByUser(idUser,ordineListe));
 	}
 	
 	@RequestMapping(value="/liste")
 	public ModelAndView cerca(HttpServletRequest request) throws ParseException {
 		ModelAndView modelAndView = new ModelAndView("secure/liste/indexListe");
+		Object inputOrdinaListeObj = request.getSession().getAttribute("inputOrdinaListe");
+		String inputOrdinaListe = "";
+    	if(inputOrdinaListeObj == null) {
+    		request.getSession().setAttribute("inputOrdinaListe", "");
+    	} else {
+    		inputOrdinaListe = inputOrdinaListeObj.toString();
+    	}
 		MyUserAccount user = (MyUserAccount) request.getSession().getAttribute("currentUser");
-		this.addParametersIndexListe(modelAndView, user.getId());
+		this.addParametersIndexListe(modelAndView, user.getId(), inputOrdinaListe);
         return modelAndView;
 	}
 	
@@ -63,8 +70,15 @@ public class ListeController {
 		ModelAndView modelAndView = new ModelAndView("secure/liste/indexListe");
 		MyUserAccount user = (MyUserAccount) request.getSession().getAttribute("currentUser");
 		listeService.salvaWishlist(wishlist, user);
-		request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId()));
-		this.addParametersIndexListe(modelAndView, user.getId());
+		Object inputOrdinaListeObj = request.getSession().getAttribute("inputOrdinaListe");
+		String inputOrdinaListe = "";
+    	if(inputOrdinaListeObj == null) {
+    		request.getSession().setAttribute("inputOrdinaListe", "");
+    	} else {
+    		inputOrdinaListe = inputOrdinaListeObj.toString();
+    	}
+		request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId(), ""));
+		this.addParametersIndexListe(modelAndView, user.getId(), inputOrdinaListe);
         return modelAndView;
 	}
 	
@@ -91,6 +105,7 @@ public class ListeController {
 			listeService.addAttrazioneToLista(Integer.valueOf(idAttrazione), idLista);
 			return new ValidationResponse("SUCCESS");
 		} else {
+			listeService.removeAttrazioneFromLista(Integer.valueOf(idAttrazione), idLista);
 			return new ValidationResponse("ERROR");
 		}
     }
@@ -98,6 +113,12 @@ public class ListeController {
 	@RequestMapping(value = "/liste/aggiornaIdListaUtente", method = RequestMethod.GET)
     public @ResponseBody ValidationResponse aggiornaIdListaUtente(@RequestParam(name="idLista") String idLista,  HttpServletRequest request) {
 		request.getSession().setAttribute("idListaUtente", idLista == null ? "" : idLista);
+		return new ValidationResponse("SUCCESS");
+    }
+	
+	@RequestMapping(value = "/liste/salvaOrdinaListe", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse salvaOrdinaListe(@RequestParam(name="inputOrdinaListe") String inputOrdinaListe,  HttpServletRequest request) {
+		request.getSession().setAttribute("inputOrdinaListe", inputOrdinaListe == null ? "" : inputOrdinaListe);
 		return new ValidationResponse("SUCCESS");
     }
 	

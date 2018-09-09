@@ -28,6 +28,8 @@ function checkRunningOnMobile() {
 		$("#mapContent").removeClass("p-0");
 		// $("#mapCercaLocalita").css("bottom", "0px").addClass("m-0");
 		$(".content").css("padding-bottom", "0px");
+		$("#btnMostraScegliLista").html("&nbsp;<i class='fa fa-check'></i>");
+		$(".rounded-box-desktop").removeClass("rounded-box-desktop").addClass("rounded-box-mobile");
 	} else {
 		$("#footerMobile").addClass("hidden");
 		$("#headerWeb").removeClass("hidden");
@@ -46,6 +48,8 @@ function checkRunningOnMobile() {
 		$("#mapContent").closest(".content-wrapper").css("padding-bottom", "0px");
 		// $("#mapCercaLocalita").css("bottom", "18px").removeClass("m-0");
 		$(".content").css("padding-bottom", "0px");
+		$("#btnMostraScegliLista").html("&nbsp;<i class='fa fa-check'></i> Lista selezionata");
+		$(".rounded-box-mobile").addClass("rounded-box-desktop").removeClass("rounded-box-mobile");
 	}
 }
 

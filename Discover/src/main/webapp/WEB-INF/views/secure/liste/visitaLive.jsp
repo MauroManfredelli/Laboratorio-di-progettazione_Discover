@@ -30,10 +30,10 @@
 	<div style="position: fixed; top: 90px; width: 100%;">
 		<div class="col-md-12 p-0" style="border: none">
 			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px;">
-				<i class="fa fa-arrow-left" style="font-size: 30px; cursor: pointer;" onclick="location.assign('/discover/liste/itinerario${itinerario.id}')"></i>
+				<i class="fa fa-arrow-left" data-toggle="tooltip" title="Torna a itinerario" data-placement="right" style="font-size: 30px; cursor: pointer;" onclick="location.assign('/discover/liste/itinerario${itinerario.id}')"></i>
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${itinerario.nome} <img src="<%= request.getContextPath() %>/resources/dist/img/live.png" style="margin-bottom: 5px; margin-left: 10px; width: 50px;"></span>
 				
-				<i class="fa fa-times text-primary pull-right" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
+				<i class="fa fa-times text-primary pull-right" data-placement="left" data-toggle="tooltip" title="Chiudi" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
 			</div>
 		</div>
 	</div>
@@ -81,12 +81,12 @@
 									</div>
 									<input type="hidden" id="notaVisita${visita.id}" value="${visita.nota}" />
 									<div style="margin-top: 20px;">
-										<i class="fa fa-file" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
-										<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
+										<i class="fa fa-file" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
+										<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
 										
-										<i class="fa fa-compass" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')"></i>
-										<i class="fa fa-map-marker" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
-										<i class="fa fa-trash" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
+										<i class="fa fa-compass" data-toggle="tooltip" title="Raggiungi" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')"></i>
+										<i class="fa fa-map-marker" data-toggle="tooltip" title="Conferma visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
+										<i class="fa fa-trash" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
 										
 									</div>
 								</div>
@@ -139,12 +139,12 @@
 									</div>
 									<input type="hidden" id="notaVisita${visita.id}" value="${visita.nota}" />
 									<div style="margin-top: 20px;">
-										<i class="fa fa-file" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
-										<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
+										&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
+										<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
 										
-										<i class="fa fa-compass hidden" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')"></i>
-										<i class="fa fa-map-marker text-primary" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
-										<i class="fa fa-trash hidden" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
+										<i class="fa fa-compass hidden" data-toggle="tooltip" title="Raggiungi" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')"></i>
+										<i class="fa fa-map-marker text-primary" data-toggle="tooltip" title="Rimuovi conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
+										<i class="fa fa-trash hidden" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
 									</div>
 								</div>
 							</li>

@@ -20,19 +20,18 @@
 		        	<br>
 		        	<c:choose>
 		        		<c:when test="${attrazione.stato.id == '1'}">
-		        			<small class="text-plus text-primary" style="float: left; padding-top: 10px;"><i class="fa fa-check"></i> ${attrazione.stato.descrizione}</small>
+		        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-star"></i> ${attrazione.stato.descrizione}</small>
 		        		</c:when>
 		        		<c:when test="${attrazione.stato.id == '2'}">
-		        			<small class="text-info" style="float: left; padding-top: 10px;"><i class="fa fa-binoculars"></i> ${attrazione.stato.descrizione}</small>
+		        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-binoculars"></i> ${attrazione.stato.descrizione}</small>
 		        		</c:when>
 		        		<c:when test="${attrazione.stato.id == '3'}">
 		        			<small class="text-success" style="float: left; padding-top: 10px;"><i class="fa fa-check"></i> ${attrazione.stato.descrizione}</small>
 		        		</c:when>
 		        		<c:when test="${attrazione.stato.id == '4'}">
-		        			<small class="text-primary" style="float: left; padding-top: 10px;"><i class="fa fa-check"></i> ${attrazione.stato.descrizione}</small>
+		        			<small class="text-gray" style="float: left; padding-top: 10px;">${attrazione.stato.descrizione}</small>
 		        		</c:when>
 		        	</c:choose>
-		        	
 		      	</h3>
 			</div>
 	    </div>
@@ -46,7 +45,7 @@
 								class="<c:if test='${indexFoto.index == 0}'>active</c:if>"></li>
 						</c:forEach>
 					</ol>
-					<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #333; border-radius: 13px;">
+					<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #FFF; border-radius: 13px;">
 						<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 							<div class="item <c:if test='${indexFoto.index == 0}'>active</c:if>">
 								<img
@@ -77,7 +76,7 @@
 					
 					<div class="row" style="padding-top: 15px;">
 						<div class="col-md-12" style="float: left; font-size: 18px;">
-							<b>${attrazione.posizione.descrizione}</b>
+							${attrazione.posizione.descrizione}
 						</div>
 					</div>
 					
@@ -88,8 +87,8 @@
 					</div>
 					
 					<div class="row">
-						<div class="col-md-12" style="float: left; font-size: 18px;">
-							<b>${fn:replace(attrazione.accesso, '_', ' ')}</b>
+						<div class="col-md-12" style="float: left; font-size: 18px; text-transform: capitalize">
+							${fn:toLowerCase(fn:replace(attrazione.accesso, '_', ' '))}
 						</div>
 					</div>
 					
@@ -147,8 +146,8 @@
 				</div>
 			
 				<div class="col-md-12" style="padding-top: 20px;">
-					<div class="nav-tabs-custom">
-						<ul class="nav nav-tabs">
+					<div class="nav-tabs-custom" style="box-shadow: none; border: none;">
+						<ul class="nav nav-tabs" style="border: none;">
 							<li class="active m-0"><a href="#recensioni" data-toggle="tab"
 								aria-expanded="true"><h5 class="m-0">Recensioni</h5></a></li>
 							<li class=""><a href="#foto" data-toggle="tab"
@@ -156,8 +155,8 @@
 							<li class=""><a href="#domande" data-toggle="tab"
 								aria-expanded="false"><h5 class="m-0">Domande</h5></a></li>
 						</ul>
-						<div class="tab-content" style="padding-bottom: 0px; padding-top: 0px;">
-							<div class="tab-pane active row" id="recensioni">
+						<div class="tab-content" style="padding-bottom: 0px; padding-top: 0px; margin-left: -10px;">
+							<div class="tab-pane active" id="recensioni">
 								<c:if test="${attrazione.stato.id == '3' or attrazione.stato.id == '4'}">
 									<div class="col-md-6" style="padding-left: 25px; font-size: 12px; padding-bottom: 5px;">
 										<div class="checkbox icheck">
@@ -191,7 +190,7 @@
 								    </div>
 								</c:if>
 								<c:forEach items="${attrazione.recensioni}" var="recensione" varStatus="indexRecensione">
-									<div class="col-md-12 box box-default m-0" style="">
+									<div class="col-md-12 box box-default" style="margin-top: -5px; margin-bottom: 0px;">
 										<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
 											<div class="col-md-1 text-center" style="float: left;">
 												<img src="${recensione.userInserimento.imageUrl}" class="img-circle" alt="User Image" style="width: 60px; cursor: pointer;">
@@ -228,12 +227,12 @@
 							</div>
 							<div class="tab-pane" id="foto" style="padding: 10px;">
 								<div class="alert alert-warning text-center">
-									<i class="fa fa-warning" style="font-size: 2.5em;"></i> <b style="font-size: 25px; padding-left: 10px;">Non diponibile</b>
+									<i class="fa fa-warning" style="font-size: 2.5em;"></i> <b style="font-size: 25px; padding-left: 10px;">Non disponibile</b>
 								</div>
 							</div>
 							<div class="tab-pane" id="domande" style="padding: 10px;">
 								<div class="alert alert-warning text-center">
-									<i class="fa fa-warning" style="font-size: 2.5em;"></i> <b style="font-size: 25px; padding-left: 10px;">Non diponibile</b>
+									<i class="fa fa-warning" style="font-size: 2.5em;"></i> <b style="font-size: 25px; padding-left: 10px;">Non disponibile</b>
 								</div>
 							</div>
 						</div>

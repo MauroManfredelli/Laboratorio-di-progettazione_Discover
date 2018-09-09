@@ -41,8 +41,8 @@ public class AttrazioneDAO extends AbstractEntityDao<Integer, Attrazione> {
 			}
 			in += ")";
 			sql += "and a.ID_STATO_ATTRAZIONE in "+in+" ";
-		} if(parametriRicerca.getVisitata() != null) {
-			if(parametriRicerca.getVisitata()) {
+		} if(parametriRicerca.getVisitata() != null && !parametriRicerca.getVisitata().isEmpty() && parametriRicerca.getVisitata().size() == 1) {
+			if(parametriRicerca.getVisitata().contains(1)) {
 				sql += "and (exists (select 'x' from recensioni where VISITA_CONFERMATA=1 AND USER_INSERIMENTO=:user) or exists (select * from visite v join itinerari i on v.ID_ITINERARIO=i.ID where v.conferma=1 and i.USER_PROPRIETARIO=:user and v.id_attrazione = a.id)) ";
 			} else {
 				sql += "and not exists (select 'x' from recensioni where VISITA_CONFERMATA=1 AND USER_INSERIMENTO=:user) and not exists (select * from visite v join itinerari i on v.ID_ITINERARIO=i.ID where v.conferma=1 and i.USER_PROPRIETARIO=:user and v.id_attrazione = a.id) ";

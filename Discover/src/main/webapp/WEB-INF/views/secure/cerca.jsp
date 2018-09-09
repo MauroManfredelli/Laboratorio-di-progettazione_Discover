@@ -21,19 +21,34 @@
 <!-- Main content -->
 <section class="content">
 	<jsp:include page="sceltaLista.jsp"></jsp:include>
-
-	<div class="nav-tabs-custom">
-		<ul class="nav nav-tabs">
+	
+	<c:if test="${listAttrazioni != null && empty listAttrazioni}">
+		<script>
+			$(document).ready(function() {
+				swal({
+					title: '',
+					text: 'La ricerca non ha prodotto risultati.',
+					html: true,
+					showCancelButton: false,
+					confirmButtonText: 'Continua',
+					confirmButtonColor: '#0066cc',
+				});
+			});
+		</script>
+	</c:if>
+	
+	<div class="nav-tabs-custom" style="box-shadow: none; border: none;">
+		<ul class="nav nav-tabs light-blue-bg" style="border: none;">
 			<li class="active"><a href="#cercaAttrazioni" data-toggle="tab"><h5 class="m-0">Attrazioni</h5></a></li>
 			<li><a href="#cercaItinerari" data-toggle="tab"><h5 class="m-0">Itinerari</h5></a></li>
 			<li><a href="#cercaUtenti" data-toggle="tab"><h5 class="m-0">Utenti</h5></a></li>
 		</ul>
-		<div class="tab-content">
+		<div class="tab-content light-blue-bg p-0" style="border: none;">
 			<div class="tab-pane active" id="cercaAttrazioni">
-				<div class="row">
-					<div class="col-md-12">
-					<div class="<c:if test='${listAttrazioni != null}'>col-md-6</c:if>">
-					<div class="box box-body" id="boxRicercaAttrazioni">
+				<div>
+					<div class="col-md-12 p-0">
+					<div class="<c:if test='${listAttrazioni != null and not empty listAttrazioni}'>col-md-5</c:if>" style="padding-left: 0px;">
+					<div class="box box-body" id="boxRicercaAttrazioni" style="border: none;">
 						<form:form action="/discover/attrazioni/cerca" method="post" modelAttribute="parametriRicerca" id="ricercaAttrazioniForm" class="m-0">
 							<form:hidden path="latCentro" />
 							<form:hidden path="longCentro" />
@@ -55,10 +70,10 @@
 							</div>
 							<div class="row" style="margin-bottom: 20px;" id="lontananzaForm">
 								<div class="col-md-3 text-right" style="font-size: 15px; margin-top: 5px; margin-bottom: 5px;" id="labelLunghezzaMassima">
-									<b>Lontananza (0 Km - 30 Km):</b>
+									<b>Lontananza <span id="resSlider">(0 Km - 50 Km)</span>:</b>
 								</div>
 								<div class="col-md-5" style="margin-top: 5px;">
-									<input type="text" id="sliderLontananza" value="" class="slider form-control" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="[0,30]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-id="blue" style="max-width: 600px;">
+									<input type="text" id="sliderLontananza" value="" class="slider form-control" data-slider-min="0" data-slider-max="50" data-slider-step="1" data-slider-value="[0,50]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-id="blue" data-slider-tooltip="hide" style="max-width: 600px;">
 									<form:hidden path="lontananzaMinima" />
 									<form:hidden path="lontananzaMassima" />
 								</div>
@@ -190,28 +205,19 @@
 									
 								</div>
 								<div class="col-md-9">
-									<div class="radio icheck">
+									<div class="checkbox icheck">
 						            	<label>
-						                	<input type="radio" name="visitata" id="visitata1" value="true" class="icheck-checbox" />&nbsp;&nbsp;Visitata&nbsp;&nbsp;
-						                	<input type="radio" name="visitata" id="visitata2" value="false" class="icheck-checbox" />&nbsp;&nbsp;Non ancora visitata
+						                	<form:checkbox path="visitata" id="visitata1" value="1" class="icheck-checbox" />&nbsp;&nbsp;Visitata&nbsp;&nbsp;
+						                	<form:checkbox path="visitata" id="visitata2" value="2" class="icheck-checbox" />&nbsp;&nbsp;Non ancora visitata
 						                </label>
-						                <c:choose>
-							                <c:when test="${parametriRicerca.visitata == 'true'}">
-							                	<script>
-							                		$(document).ready(function() {
-							                			$('input[id=visitata1]').iCheck('check');
-							                		});
-							                	</script>
-							                </c:when>
-							                <c:when test="${parametriRicerca.visitata == 'false'}">
-							                	<script>
-							                		$(document).ready(function() {
-							                			$('input[id=visitata2]').iCheck('check');
-							                		});
-							                	</script>
-							                </c:when>
-						                </c:choose>
 						            </div>
+						            <c:if test="${empty parametriRicerca.visitata}">
+					                	<script>
+					                		$(document).ready(function() {
+					                			$('input[name=visitata]').iCheck('check');
+					                		});
+					                	</script>
+					                </c:if>
 								</div>
 							</div>
 							
@@ -228,7 +234,7 @@
 							
 							<div class="row" style="margin-bottom: 20px;">
 								<div class="col-md-5 text-center">
-									<button type="button" class="btn btn-success" onclick="cercaAttrazioni()">
+									<button type="button" class="btn btn-primary" onclick="cercaAttrazioni()">
 										<i class="fa fa-search"></i> Cerca
 									</button>
 								</div>
@@ -237,8 +243,8 @@
 					</div>
 					</div>
 					
-					<div class="col-md-6 p-0 <c:if test='${listAttrazioni == null}'>d-none</c:if>">
-						<div class="box box-body p-0" id="boxRisultatiAttrazioni" style="border-top: none;">
+					<div class="col-md-7 p-0 <c:if test='${listAttrazioni == null or empty listAttrazioni}'>d-none</c:if>" style="padding-right: 0px; overflow: hidden;">
+						<div id="boxRisultatiAttrazioni">
 							<c:forEach items="${listAttrazioni}" var="attrazione" varStatus="indexAttrazione">
 								<script>
 									$(document).ready(function() {
@@ -246,8 +252,8 @@
 										 		     .css("padding-right", "30px");
 									})
 								</script>
-								<div class="panel box box-primary m-0">
-								    <div class="box-header with-border">
+								<div class="panel rounded-box-desktop" style="padding-right: 10px;">
+								    <div class="box-header with-border" >
 								    	<div style="padding-left: 20px;">
 									    	<h3 class="m-0">
 									        	<a style="cursor: pointer; color: #444;" href="/discover/attrazione/${attrazione.id}"><b style="float: left;">${attrazione.nome}</b></a>
@@ -257,19 +263,18 @@
 									        	<br>
 									        	<c:choose>
 									        		<c:when test="${attrazione.stato.id == '1'}">
-									        			<small class="text-plus text-primary" style="float: left; padding-top: 10px;"><i class="fa fa-check"></i> ${attrazione.stato.descrizione}</small>
+									        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-star"></i> ${attrazione.stato.descrizione}</small>
 									        		</c:when>
 									        		<c:when test="${attrazione.stato.id == '2'}">
-									        			<small class="text-info" style="float: left; padding-top: 10px;"><i class="fa fa-binoculars"></i> ${attrazione.stato.descrizione}</small>
+									        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-binoculars"></i> ${attrazione.stato.descrizione}</small>
 									        		</c:when>
 									        		<c:when test="${attrazione.stato.id == '3'}">
 									        			<small class="text-success" style="float: left; padding-top: 10px;"><i class="fa fa-check"></i> ${attrazione.stato.descrizione}</small>
 									        		</c:when>
 									        		<c:when test="${attrazione.stato.id == '4'}">
-									        			<small class="text-primary" style="float: left; padding-top: 10px;"><i class="fa fa-check"></i> ${attrazione.stato.descrizione}</small>
+									        			<small class="text-gray" style="float: left; padding-top: 10px;">${attrazione.stato.descrizione}</small>
 									        		</c:when>
 									        	</c:choose>
-									        	
 									      	</h3>
 										</div>
 								    </div>
@@ -283,7 +288,7 @@
 															class="<c:if test='${indexFoto.index == 0}'>active</c:if>"></li>
 													</c:forEach>
 												</ol>
-												<div class="carousel-inner" style="height: 250px; max-height: 300px; background-color: #333; border-radius: 13px;">
+												<div class="carousel-inner" style="height: 250px; max-height: 300px; background-color: #fff; border-radius: 13px;">
 													<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 														<div class="item <c:if test='${indexFoto.index == 0}'>active</c:if>">
 															<img
@@ -314,7 +319,7 @@
 												
 												<div class="row" style="padding-top: 15px;">
 													<div class="col-md-12" style="float: left; font-size: 18px;">
-														<b>${attrazione.posizione.descrizione}</b>
+														${attrazione.posizione.descrizione}
 													</div>
 												</div>
 												
@@ -325,8 +330,8 @@
 												</div>
 												
 												<div class="row">
-													<div class="col-md-12" style="float: left; font-size: 18px;">
-														<b>${fn:replace(attrazione.accesso, '_', ' ')}</b>
+													<div class="col-md-12" style="float: left; font-size: 18px; text-transform: capitalize">
+														${fn:toLowerCase(fn:replace(attrazione.accesso, '_', ' '))}
 													</div>
 												</div>
 												

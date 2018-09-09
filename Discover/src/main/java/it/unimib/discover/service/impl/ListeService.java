@@ -61,8 +61,8 @@ public class ListeService {
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public List<Lista> getListeByUser(String id) {
-		List<Lista> liste = listaDAO.getListeByUser(id);
+	public List<Lista> getListeByUser(String id, String ordineListe) {
+		List<Lista> liste = listaDAO.getListeByUser(id, ordineListe);
 		for(Lista lista : liste) {
 			if(lista.getIdWishlist() != null) {
 				lista.setAttrazioni(attrazioneDAO.getPrimeAttrazioniOfWishlist(lista.getIdWishlist()));
@@ -74,8 +74,8 @@ public class ListeService {
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public List<Lista> getListeArchiviateByUser(String id) {
-		List<Lista> liste = listaDAO.getListeArchiviateByUser(id);
+	public List<Lista> getListeArchiviateByUser(String id, String ordineListe) {
+		List<Lista> liste = listaDAO.getListeArchiviateByUser(id, ordineListe);
 		for(Lista lista : liste) {
 			if(lista.getIdWishlist() != null) {
 				lista.setAttrazioni(attrazioneDAO.getPrimeAttrazioniOfWishlist(lista.getIdWishlist()));
@@ -119,6 +119,16 @@ public class ListeService {
 			itinerario = itinerarioDAO.findByKey(lista.getIdItinerario());
 			Visita visita = new Visita(attrazione, itinerario);
 			visitaDAO.persist(visita);
+		}
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void removeAttrazioneFromLista(Integer idAttrazione, String idLista) {
+		Lista lista = listaDAO.findByKey(idLista);
+		if(lista.getIdWishlist() != null) {
+			attrazioneWishlistDAO.deleyeByWishlistAttrazione(lista.getIdWishlist(), idAttrazione);
+		} else {
+			visitaDAO.deleteByItinerarioAttrazione(lista.getIdItinerario(), idAttrazione);
 		}
 	}
 
@@ -199,7 +209,7 @@ public class ListeService {
 					}
 				} else {
 					visita.setDataVisita(null);
-					if(visita.getGiorno() > itinerario.getNumeroGiorni()) {
+					if(visita.getGiorno() != null && visita.getGiorno() > itinerario.getNumeroGiorni()) {
 						visita.setGiorno(null);
 					}
 				}
@@ -300,6 +310,7 @@ public class ListeService {
 							ordineNelGiorno ++;
 						}
 					}
+					visita.setOrdine(ordineNelGiorno+"");
 					markerAttrazione.setOrdineMarker("0-"+ordineNelGiorno);
 				}
 				markers.add(markerAttrazione);
@@ -346,16 +357,22 @@ public class ListeService {
 					visita.setOrdine("0-"+ordineNelGiorno);
 				}
 			}
+			Date oggi = new Date();
 			for(Visita visita: itinerario.getVisite()) {
 				if(visita.getDataVisita() != null) {
 					String dataVisita = sdf.format(visita.getDataVisita());
+					if(sdf.format(oggi).equals(sdf.format(visita.getDataVisita()))) {
+						dataVisita += " (Attivo)";
+					} else if(visita.getDataVisita().before(oggi)) {
+						dataVisita += " (Concluso)";
+					}
 					if(mapAttrazioni.containsKey(dataVisita)) {
 						mapAttrazioni.get(dataVisita).add(visita);
 					} else {
 						mapAttrazioni.put(dataVisita, Lists.newArrayList(visita));
 					}
 				} else if(visita.getGiorno() != null) {
-					String giorno = "giorno "+visita.getGiorno();
+					String giorno = "Giorno "+visita.getGiorno();
 					if(mapAttrazioni.containsKey(giorno)) {
 						mapAttrazioni.get(giorno).add(visita);
 					} else {
@@ -377,16 +394,22 @@ public class ListeService {
 			if(itinerario.getDataInizio() != null) {
 				Date dataInizio = itinerario.getDataInizio();
 				while(!dataInizio.after(itinerario.getDataFine())) {
-					if(!mapAttrazioni.containsKey(sdf.format(dataInizio))) {
-						mapAttrazioni.put(sdf.format(dataInizio), null);
+					String keyData = sdf.format(dataInizio);
+					if(sdf.format(oggi).equals(sdf.format(dataInizio))) {
+						keyData += " (Attivo)";
+					} else if(dataInizio.before(oggi)) {
+						keyData += " (Concluso)";
+					}
+					if(!mapAttrazioni.containsKey(keyData)) {
+						mapAttrazioni.put(keyData, null);
 					}
 					dataInizio = this.addDays(dataInizio, 1);
 				}
 			} else {
 				Integer giorno = 1;
 				while(giorno <= itinerario.getNumeroGiorni()) {
-					if(!mapAttrazioni.containsKey("giorno "+giorno)) {
-						mapAttrazioni.put("giorno "+giorno, null);
+					if(!mapAttrazioni.containsKey("Giorno "+giorno)) {
+						mapAttrazioni.put("Giorno "+giorno, null);
 					}
 					giorno++;
 				}
@@ -424,7 +447,7 @@ public class ListeService {
 				visita.setGiorno(null);
 			}
 			visitaDAO.persist(visita);
-		} else if(key.contains("giorno")) {
+		} else if(key.contains("Giorno")) {
 			Integer giorno = Integer.valueOf(key.substring(key.indexOf(" ") + 1));
 			visita.setOrdineNelGiorno(itinerario.getOrdineVisita(giorno));
 			visita.setGiorno(giorno);
@@ -590,7 +613,11 @@ public class ListeService {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		String oggi = sdf.format(new Date());
 		for(String key : mapAttrazioni.keySet()) {
-			if(key.equals(oggi)) {
+			String keyCmp = key;
+			if(key.contains("(")) {
+				keyCmp = key.substring(0, key.indexOf("(") - 1);
+			}
+			if(keyCmp.equals(oggi)) {
 				return mapAttrazioni.get(key);
 			}
 		}

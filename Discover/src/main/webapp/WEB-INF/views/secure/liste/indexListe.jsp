@@ -24,13 +24,21 @@
 		</div>
 	</div>
 
-	<div class="nav-tabs-custom" style="margin-top: 10px;">
-		<ul class="nav nav-tabs">
-			<li class="active"><a href="#listeAttive" data-toggle="tab"><h5 class="m-0">Liste attive</h5></a></li>
-			<li><a href="#listeArchiviate" data-toggle="tab"><h5 class="m-0">Liste archiviate</h5></a></li>
-			<li class="pull-right" style="display: inline-block; width: 200px; margin-top: 5px; margin-bottom: 10px;">
-				<label class="font-weight-bold" style="padding-right: 20px;">Cerca:</label>
-				<input type="text" id="inputCercaListe" class="form-control" onkeydown="cercaListe(this)" style="display: inline-block; width: 130px;" />
+	<div class="nav-tabs-custom" style="margin-top: 10px; box-shadow: none; border: none;">
+		<ul class="nav nav-tabs light-blue-bg" style="border: none;">
+			<li class="active" style="border: none;"><a href="#listeAttive" data-toggle="tab"><h5 class="m-0">Liste attive</h5></a></li>
+			<li style="border: none;"><a href="#listeArchiviate" data-toggle="tab"><h5 class="m-0">Liste archiviate</h5></a></li>
+			<li class="pull-right" style="display: inline-block; width: 250px; margin-top: 5px; margin-bottom: 3px; border: none;">
+				<select id="inputOrdinaListe" class="form-control chosen chosen-select" data-live-search="none" onchange="ordinaListe()" style="border: none;">
+					<option value="" style="border: none;">-</option>
+					<option value="dataCreazione" style="border: none;">Data creazione</option>
+					<option value="nome" style="border: none;">Nome</option>
+					<option value="numeroAttrazioni" style="border: none;">Numero attrazioni</option>
+				</select>
+				<script>var inputOrdinaListe = "${inputOrdinaListe}";</script>
+			</li>
+			<li class="pull-right light-blue-bg" style="display: inline-block; width: 90px; margin-top: 15px; margin-bottom: 5px; border: none;">
+				<label class="font-weight-bold" style="padding-right: 10px;">Ordina per:</label>
 			</li>
 		</ul>
 		<div class="tab-content p-0">
@@ -56,14 +64,14 @@
 							<c:otherwise>
 								<c:forEach items="${liste}" var="lista" varStatus="indexLista">
 									<div id="divLista${lista.id}">
-										<div class="box col-md-12 m-0" style="box-shadow: none">
-											<div class="box-body" style="border: none;">
+										<div class="box col-md-12 m-0" style="box-shadow: none; margin-top: -4px; padding-top: 10px;">
+											<div class="box-body m-0" style="border: none; padding-left: 0px;">
 	    										<c:choose>
 	    											<c:when test="${empty lista.attrazioni}">
-	    												<div class="col-md-6">
+	    												<div class="col-md-6 p-0">
 	    													<div id="carousel-example-generic-empty${lista.id}" class="carousel slide" 
 																		data-ride="carousel">
-																<div class="carousel-inner" style="height: 200px; max-height: 200px; background-color: #333;">
+																<div class="carousel-inner" style="height: 200px; max-height: 200px; background-color: #fff;">
 																	<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 																		Nessuna attrazione
 																	</c:forEach>
@@ -72,7 +80,7 @@
 	    												</div>
 	    											</c:when>
 	    											<c:otherwise>
-	    												<div class="col-md-6" id="cotainerImmaginiLista${lista.id}">
+	    												<div class="col-md-6 p-0" id="cotainerImmaginiLista${lista.id}">
 	    													<div id="carousel-example-generic${lista.id}" class="carousel slide col-md-12" 
 																	data-ride="carousel" style="padding: 0px; border-radius: 13px;">
 																<ol class="carousel-indicators">
@@ -83,7 +91,7 @@
 																		</c:forEach>
 																	</c:forEach>
 																</ol>
-																<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #333;">
+																<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #fff;">
 	    															<c:forEach items="${lista.attrazioni}" var="attrazione" varStatus="indexAttrazione">
 																		<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 																			<div class="item <c:if test='${indexFoto.index == 0 and indexAttrazione.index == 0}'>active</c:if>">
@@ -108,7 +116,7 @@
 														<div class="box-body" style="border: none;">
 															<div class="row">
 																<div class="col-md-12" style="float: left; font-size: 25px;">
-																	<a href="/discover/liste/${lista.id}"><b>${lista.nome}</b></a>
+																	<a href="/discover/liste/${lista.id}" style="color: #333;"><b>${lista.nome}</b></a>
 																</div>
 															</div>
 															
@@ -118,14 +126,14 @@
 																		<c:when test="${empty lista.idWishlist}">
 																			<c:choose>
 																				<c:when test="${not empty lista.dataInizio}">
-																					<span style="text-decoration: underline;" class="font-weight-bold">Itininerario programmato:</span><br>
+																					<span class="font-weight-bold">Itininerario programmato:</span><br>
 																					<input type="hidden" id="tipoLista${lista.id}" value="PROGRAMMATO" />
 																					<span style="padding-left: 20px;">
 																						<fmt:formatDate type="date" value="${lista.dataInizio}" pattern="dd/MM/yyyy" /> - <fmt:formatDate type="date" value="${lista.dataFine}" pattern="dd/MM/yyyy" />
 																					</span>
 																				</c:when>
 																				<c:otherwise>
-																					<span style="text-decoration: underline;" class="font-weight-bold">Itinerario senza data:</span><br>
+																					<span class="font-weight-bold">Itinerario senza data:</span><br>
 																					<input type="hidden" id="tipoLista${lista.id}" value="GIORNI" />
 																					<span style="padding-left: 20px;">
 																						<c:out value="${lista.numeroGiorni}"></c:out> giorni
@@ -134,7 +142,7 @@
 																			</c:choose>
 																		</c:when>
 																		<c:otherwise>
-																			<span style="text-decoration: underline;" class="font-weight-bold">Wishlist</span>
+																			<span class="font-weight-bold">Wishlist</span>
 																			<input type="hidden" id="tipoLista${lista.id}" value="WISHLIST" />
 																		</c:otherwise>
 																	</c:choose>
@@ -143,17 +151,17 @@
 															
 															<div class="row">
 																<div class="col-md-12" style="float: left; font-size: 22px;">
-																	<span class="font-weight-bold"><c:out value="${lista.numeroAttrazioni}"></c:out> attrazioni</span>
+																	<span><c:out value="${lista.numeroAttrazioni}"></c:out> attrazioni</span>
 																</div>
 															</div>
 														</div>
 			    									</div>
 	    										</div>
-	    										<div class="box-footer" style="border: none;">
+	    										<div class="box-footer p-0" style="border: none;">
 													<div class="row">
 														<div class="col-md-12" style="text-align: right; font-size: 30px;">
 															<c:if test="${not empty lista.idItinerario}">
-																<span id="confermaItinerario"><i class="fa fa-check-circle <c:choose><c:when test="${lista.confermato == 'true'}">text-primary</c:when><c:otherwise>text-gray-disc</c:otherwise></c:choose>" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
+																<span id="confermaItinerario"><i class="fa fa-check-circle <c:choose><c:when test="${lista.confermato == 'true'}">text-success</c:when><c:otherwise>text-primary</c:otherwise></c:choose>" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
 															</c:if>
 															<span id="archiviaLista">&nbsp;&nbsp;<i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
 															<span class="hidden" id="recuperaLista">&nbsp;&nbsp;<i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
@@ -171,7 +179,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane" id="listeArchiviate">
+			<div class="tab-pane" id="listeArchiviate" style="border-top-right-radius: 20px;">
 				<div class="row">
 					<div class="col-md-12" id="containerToAppend">
 						<div id="nessunaListaArchiviata" class="hidden alert alert-info col-md-offset-4 col-md-4" style="background-color: #FFF !important; color: #00c0ef !important; border-radius: 13px; margin-top: 20px;">
@@ -193,14 +201,14 @@
 							<c:otherwise>
 								<c:forEach items="${listeArchiviate}" var="lista" varStatus="indexLista">
 									<div id="divLista${lista.id}">
-										<div class="box col-md-12 m-0" style="box-shadow: none">
-											<div class="box-body" style="border: none;">
+										<div class="box col-md-12 m-0" style="box-shadow: none; margin-top: -3px; padding-top: 10px;">
+											<div class="box-body m-0" style="border: none; padding-left: 0px;">
 	    										<c:choose>
 	    											<c:when test="${empty lista.attrazioni}">
-	    												<div class="col-md-6">
+	    												<div class="col-md-6 p-0">
 	    													<div id="carousel-example-generic-empty${lista.id}" class="carousel slide" 
 																		data-ride="carousel">
-																<div class="carousel-inner" style="height: 200px; max-height: 200px; background-color: #333;">
+																<div class="carousel-inner" style="height: 200px; max-height: 200px; background-color: #fff;">
 																	<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 																		Nessuna attrazione
 																	</c:forEach>
@@ -209,7 +217,7 @@
 	    												</div>
 	    											</c:when>
 	    											<c:otherwise>
-	    												<div class="col-md-6" id="cotainerImmaginiLista${lista.id}">
+	    												<div class="col-md-6 p-0" id="cotainerImmaginiLista${lista.id}">
 		    												<div id="carousel-example-generic${lista.id}" class="carousel slide col-md-12" 
 																	data-ride="carousel" style="padding: 0px; border-radius: 13px;">
 																<ol class="carousel-indicators">
@@ -220,7 +228,7 @@
 																		</c:forEach>
 																	</c:forEach>
 																</ol>
-																<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #333;">
+																<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #fff;">
 	    															<c:forEach items="${lista.attrazioni}" var="attrazione" varStatus="indexAttrazione">
 																		<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 																			<div class="item <c:if test='${indexFoto.index == 0 and indexAttrazione.index == 0}'>active</c:if>">
@@ -244,7 +252,7 @@
 													<div class="box" style="border: none; box-shadow: none">
 														<div class="box-body" style="border: none;">
 															<div class="row">
-																<div class="col-md-12" style="float: left; font-size: 25px;">
+																<div class="col-md-12" style="float: left; font-size: 25px; color: #333;">
 																	<!-- <a href="/discover/liste/${lista.id}"> --><b>${lista.nome}</b><!-- </a> -->
 																</div>
 															</div>
@@ -255,14 +263,14 @@
 																		<c:when test="${empty lista.idWishlist}">
 																			<c:choose>
 																				<c:when test="${not empty lista.dataInizio}">
-																					<span style="text-decoration: underline;" class="font-weight-bold">Itininerario programmato:</span><br>
+																					<span class="font-weight-bold">Itininerario programmato:</span><br>
 																					<input type="hidden" id="tipoLista${lista.id}" value="PROGRAMMATO" />
 																					<span style="padding-left: 20px;">
 																						<fmt:formatDate type="date" value="${lista.dataInizio}" pattern="dd/MM/yyyy" /> - <fmt:formatDate type="date" value="${lista.dataFine}" pattern="dd/MM/yyyy" />
 																					</span>
 																				</c:when>
 																				<c:otherwise>
-																					<span style="text-decoration: underline;" class="font-weight-bold">Itinerario senza data:</span><br>
+																					<span class="font-weight-bold">Itinerario senza data:</span><br>
 																					<span style="padding-left: 20px;">
 																						<c:out value="${lista.numeroGiorni}"></c:out> giorni
 																						<input type="hidden" id="tipoLista${lista.id}" value="GIORNI" />
@@ -271,7 +279,7 @@
 																			</c:choose>
 																		</c:when>
 																		<c:otherwise>
-																			<span style="text-decoration: underline;" class="font-weight-bold">Wishlist</span>
+																			<span class="font-weight-bold">Wishlist</span>
 																			<input type="hidden" id="tipoLista${lista.id}" value="WISHLIST" />
 																		</c:otherwise>
 																	</c:choose>
@@ -280,17 +288,17 @@
 															
 															<div class="row">
 																<div class="col-md-12" style="float: left; font-size: 22px;">
-																	<span class="font-weight-bold"><c:out value="${lista.numeroAttrazioni}"></c:out> attrazioni</span>
+																	<span><c:out value="${lista.numeroAttrazioni}"></c:out> attrazioni</span>
 																</div>
 															</div>
 														</div>
 			    									</div>
 	    										</div>
-	    										<div class="box-footer" style="border: none;">
+	    										<div class="box-footer p-0" style="border: none;">
 													<div class="row">
 														<div class="col-md-12" style="text-align: right; font-size: 30px;">
 															<c:if test="${not empty lista.idItinerario}">
-																<span id="confermaItinerario" class="hidden"><i class="fa fa-check-circle text-gray-disc" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
+																<span id="confermaItinerario" class="hidden"><i class="fa fa-check-circle text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
 															</c:if>
 															<span class="hidden" id="archiviaLista">&nbsp;&nbsp;<i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
 															<span id="recuperaLista">&nbsp;&nbsp;<i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>

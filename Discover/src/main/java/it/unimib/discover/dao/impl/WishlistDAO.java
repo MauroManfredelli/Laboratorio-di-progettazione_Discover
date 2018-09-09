@@ -12,9 +12,9 @@ import it.unimib.discover.entity.Wishlist;
 public class WishlistDAO extends AbstractEntityDao<Integer, Wishlist> {
 
 	public List<Wishlist> getWishlistAttiveByUser(String id) {
-		String sql = "select * " + 
-				"from wishlist " +
-				"where USER_PROPRIETARIO=:user and ARCHIVIATA = 0 ";
+		String sql = "select w.* " + 
+				"from wishlist w " +
+				"where w.USER_PROPRIETARIO=:user and w.ARCHIVIATA = 0 and exists (select 'x' from rel_wishlist_attrazione wa where wa.ID_WISHLIST=w.ID)";
 		SQLQuery query = (SQLQuery) getSQLQuery(sql)
 				.addEntity(Wishlist.class)
 				.setParameter("user", id);

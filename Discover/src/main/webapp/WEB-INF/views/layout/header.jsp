@@ -162,7 +162,7 @@
           </ul>
         </li>
         <!-- Liste e viaggi -->
-        <li>
+        <li id="liHeadListe">
           <a href="/discover/liste" style="padding: 10px; color: #333;">
           	<i class="fa fa-suitcase" style="font-size: 1.5em;"></i>
           </a>
@@ -261,9 +261,9 @@
   	<a href="/discover" type="button" class="btn btn-lg btn-default col-md-3" id="btnBacheca" style="background-color: #FCFDFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 11px; border-radius: 0px;">
 		<i class="fa fa-list"></i> <span>Bacheca</span>
 	</a>
-	<button type="button" class="btn btn-lg btn-default col-md-3" id="btnBachecaDiscover" style="background-color: #FCFDFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 8px; border-radius: 0px;">
+	<a href="javascript:void(0)" type="button" class="btn btn-lg btn-default col-md-3" id="btnBachecaDiscover" style="background-color: #FCFDFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 8px; border-radius: 0px;">
 		<img src="<%= request.getContextPath() %>/resources/dist/img/bacheca_discover.png" style="width: 20px; padding-bottom: 5px;"/> Bacheca Discover
-	</button>
+	</a>
 	<a href="/discover/cerca"  type="button" class="btn btn-lg btn-default col-md-3" id="btnCerca" style="background-color: #FCFDFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 11px; border-radius: 0px;">
 		<i class="fa fa-search"></i> Cerca
 	</a>
@@ -276,9 +276,9 @@
   	<a href="/discover" type="button" class="btn btn-lg btn-default col-md-3" id="btnBacheca" style="background-color: #FCFDFF; width: 25%; font-size: 0.7em;">
 		<i class="fa fa-list" style="padding-bottom: 5px;"></i> Bacheca
 	</a>
-	<button type="button" class="btn btn-lg btn-default col-md-3" id="btnBachecaDiscover" style="background-color: #FCFDFF; width: 25%; font-size: 0.7em;">
+	<a href="javascript:void(0)" type="button" class="btn btn-lg btn-default col-md-3" id="btnBachecaDiscover" style="background-color: #FCFDFF; width: 25%; font-size: 0.7em;">
 		<img src="<%= request.getContextPath() %>/resources/dist/img/bacheca_discover.png" style="width: 11px; padding-bottom: 5px;"/> Discover
-	</button>
+	</a>
 	<a href="/discover/cerca" type="button" class="btn btn-lg btn-default col-md-3" id="btnCerca" style="background-color: #FCFDFF; width: 25%; font-size: 0.7em;">
 		<i class="fa fa-search" style="padding-bottom: 5px;"></i> Cerca
 	</a>

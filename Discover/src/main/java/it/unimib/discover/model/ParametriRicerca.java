@@ -17,7 +17,7 @@ public class ParametriRicerca implements Serializable {
 	private Integer numeroVisite;
 	private Integer numeroRecensioni;
 	private Double percentualeReazioniPositive;
-	private Boolean visitata;
+	private List<Integer> visitata;
 	
 	private String latCentro;
 	private String longCentro;
@@ -82,10 +82,10 @@ public class ParametriRicerca implements Serializable {
 	public void setPercentualeReazioniPositive(Double percentualeReazioniPositive) {
 		this.percentualeReazioniPositive = percentualeReazioniPositive;
 	}
-	public Boolean getVisitata() {
+	public List<Integer> getVisitata() {
 		return visitata;
 	}
-	public void setVisitata(Boolean visitata) {
+	public void setVisitata(List<Integer> visitata) {
 		this.visitata = visitata;
 	}
 	public String getLatCentro() {
