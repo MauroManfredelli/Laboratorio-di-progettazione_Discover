@@ -288,6 +288,13 @@ public class ListeService {
 				markerAttrazione.setLocalita(posizione.getDescrizione());
 				markerAttrazione.setNome(visita.getEtichetta());
 				markerAttrazione.setImagePath(attrazione.getFotoPrincipali().get(0).getPath());
+				if(attrazione.getStato().getId().equals(1l) || attrazione.getStato().getId().equals(2l)) {
+					markerAttrazione.setReazioniPositive(attrazione.getReazioniPositive()+"");
+					markerAttrazione.setReazioniNegative(attrazione.getReazioniNegative()+"");
+				} else {
+					markerAttrazione.setValutazioneMedia(attrazione.getValutazioneMedia()+"");
+				}
+				markerAttrazione.setVisiteConfermate(attrazione.getNumeroVisite()+"");
 				if(visita.getDataVisita() != null || visita.getGiorno() != null) {
 					markerAttrazione.setTipoMarker("marker_red");
 				} else {

@@ -268,7 +268,7 @@
 		<i class="fa fa-search"></i> Cerca
 	</a>
 	<a href="/discover/mappa" type="button" class="btn btn-lg btn-default col-md-3" id="btnIntornoMe" style="background-color: #FCFDFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 11px; border-radius: 0px;">
-		<i class="fa fa-compass"></i> Introno a me
+		<i class="fa fa-compass"></i> Intorno a me
 	</a>
   </nav>
   

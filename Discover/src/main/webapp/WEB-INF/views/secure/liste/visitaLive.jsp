@@ -17,6 +17,13 @@
      height: 750px;
      width: 100%;
    }
+   
+   .glyphicon {
+    	display:none;
+	}
+	.arrow_show {
+	    display: inline;
+	}
 </style>
 <!-- Content Header (Page header) -->
 <section class="content-header p-0"></section>
@@ -40,9 +47,9 @@
 	<div id="accordion" style="position: fixed; background-color: #FFF; height: 100%; max-height: 100%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px;">
 		<div class="panel box box-primary m-0">
 			<div class="box-header with-border dropable-tab">
-				<h4 class="box-title">
-					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapseNonVisitate" style="color: #333; font-size: 18px;"> <b>Da visitare</b> </a>
+				<h4 class="box-title col-md-12 p-0">
+					<a data-toggle="collapse" id="headNonVisitate"
+						href="#collapseNonVisitate" style="color: #333; font-size: 18px;"> <b>Da visitare</b> <span class="pull-right"><em class="glyphicon glyphicon-chevron-right"></em><em class="glyphicon glyphicon-chevron-down arrow_show"></em></span></a>
 				</h4>
 			</div>
 			<div id="collapseNonVisitate" class="panel-collapse collapse in">
@@ -59,7 +66,7 @@
 								})
 							</script>
 							<li id="item${visita.id}" class="item-draggable list-group-item m-0 light-blue-bg" style="position: inherit; z-index: 999;" idVisita="${visita.id}">
-								<div class="noDrag" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">
+								<div class="noDrag" style="width: 109%; background-color: #FFF; margin-left: -15px; padding: 10px; margin-top: -10px;">
 									<input type="hidden" id="notaPrec${visita.id}" value="${visita.notaPrec}" />
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
@@ -100,12 +107,12 @@
 		</div>
 		<div class="panel box box-primary m-0">
 			<div class="box-header with-border dropable-tab">
-				<h4 class="box-title">
-					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapseVisitate" style="color: #333; font-size: 18px;"> <b>Visitate</b> </a>
+				<h4 class="box-title col-md-12 p-0">
+					<a data-toggle="collapse" id="headVisitate"
+						href="#collapseVisitate" style="color: #333; font-size: 18px;"> <b>Visitate</b>  <span class="pull-right"><em class="glyphicon glyphicon-chevron-right"></em><em class="glyphicon glyphicon-chevron-down arrow_show"></em></span></a>
 				</h4>
 			</div>
-			<div id="collapseVisitate" class="panel-collapse collapse">
+			<div id="collapseVisitate" class="panel-collapse collapse in">
 				<ol class="box-body p-0 m-0">
 					<li id="nessunaVisitaConfermata" class="notSortable list-group-item m-0 light-azure-bg text-center text-primary" style="border: none; padding-top: 30px; position: inherit;">
 						<div><i class="fa fa-info-circle" style="font-size: 4em;"></i></div>
@@ -119,7 +126,7 @@
 								})
 							</script>
 							<li id="item${visita.id}" class="item-draggable list-group-item m-0 light-blue-bg" style="position: inherit;" idVisita="${visita.id}">
-								<div class="noDrag" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">
+								<div class="noDrag" style="width: 109%; background-color: #FFF; margin-left: -15px; padding: 10px; margin-top: -10px;">
 									<input type="hidden" id="notaPrec${visita.id}" value="${visita.notaPrec}" />
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
@@ -161,4 +168,5 @@
 </section>
 
 <jsp:include page="/WEB-INF/views/secure/modali/modaleNotaVisita.jsp"/>
+<jsp:include page="/WEB-INF/views/secure/modali/modaleNotaPrec.jsp"/>
 <script src="<%=request.getContextPath()%>/resources/dist/js/visitaLive.js" type="text/javascript"></script>

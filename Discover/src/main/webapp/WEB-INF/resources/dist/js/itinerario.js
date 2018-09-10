@@ -294,7 +294,19 @@ function addMarker(attrazione) {
 	});
 	
 	google.maps.event.addListener(marker,'click', function() {
-		var contentString = marker.formatted_address + "<br>coordinate: " + marker.getPosition().toUrlValue(6) + "<br><a href='/discover/attrazione/"+attrazione.idAttrazione+"' >Visualizza dettagli</a>";
+		var contentString = "<div style='max-width: 300px'>"+
+					marker.formatted_address + "<br><br>"+
+					"<div class='col-md-6'>"+
+						"<img src='"+attrazione.imagePath+"' style='display: block; margin: 0 auto; width: 140px;'>"+
+					"</div>"+
+					"<div class='col-md-6'>"+
+						(attrazione.reazioniPositive != null ? "<i class='fa fa-thumbs-o-up'></i> "+attrazione.reazioniPositive+"<br>" : "")+
+						(attrazione.reazioniNegative != null ? "<i class='fa fa-thumbs-o-down'></i> "+attrazione.reazioniNegative+"<br>" : "")+
+						(attrazione.valutazioneMedia != null ? "<i class='fa fa-star'></i> "+attrazione.valutazioneMedia+"<br>" : "")+
+						"<i class='fa fa-map-marker'></i> "+attrazione.visiteConfermate+"<br>"+
+						"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' ><b>Visualizza dettagli</b></a>"+
+					"</div>"+
+				"</div>";
 		infoWindow.setContent(contentString);
 		infoWindow.open(map, marker);
 	});
@@ -573,7 +585,7 @@ var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box
 					'</li>';
 
 function confermaItinerario(idItinerario) {
-	if($("#btnConfermaItinerario").hasClass("text-primary")) {
+	if($("#btnConfermaItinerario").hasClass("text-success")) {
 		$.ajax({
 	    	type: 'GET',
 	        url : '/discover/liste/rimuoviConfermaItinerario',
@@ -582,7 +594,7 @@ function confermaItinerario(idItinerario) {
 	       	},
 	        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 	        success: function(result) {
-	        	$("#btnConfermaItinerario").removeClass("text-primary").addClass("text-gray-disc");
+	        	$("#btnConfermaItinerario").removeClass("text-success").addClass("text-primary");
 	        	mostraNotifica("itinerario non confermato", "danger");
 	        }
 		});
@@ -617,7 +629,7 @@ function confermaItinerarioAjax(idItinerario) {
        	},
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         success: function(result) {
-        	$("#btnConfermaItinerario").addClass("text-primary").removeClass("text-gray-disc");
+        	$("#btnConfermaItinerario").addClass("text-success").removeClass("text-primary");
         	mostraNotifica("itinerario confermato", "success");
         }
 	});

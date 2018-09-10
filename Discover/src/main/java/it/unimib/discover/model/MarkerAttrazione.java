@@ -16,6 +16,11 @@ public class MarkerAttrazione implements Serializable {
 	private String ordineMarker;
 	private String imagePath;
 	
+	private String reazioniPositive;
+	private String reazioniNegative;
+	private String valutazioneMedia;
+	private String visiteConfermate;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -69,6 +74,30 @@ public class MarkerAttrazione implements Serializable {
 	}
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	public String getReazioniPositive() {
+		return reazioniPositive;
+	}
+	public void setReazioniPositive(String reazioniPositive) {
+		this.reazioniPositive = reazioniPositive;
+	}
+	public String getReazioniNegative() {
+		return reazioniNegative;
+	}
+	public void setReazioniNegative(String reazioniNegative) {
+		this.reazioniNegative = reazioniNegative;
+	}
+	public String getValutazioneMedia() {
+		return valutazioneMedia;
+	}
+	public void setValutazioneMedia(String valutazioneMedia) {
+		this.valutazioneMedia = valutazioneMedia;
+	}
+	public String getVisiteConfermate() {
+		return visiteConfermate;
+	}
+	public void setVisiteConfermate(String visiteConfermate) {
+		this.visiteConfermate = visiteConfermate;
 	}
 	
 }
