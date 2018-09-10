@@ -21,12 +21,12 @@ public class MyUserAccountMapper implements RowMapper<MyUserAccount> {
         String password = rs.getString("password");
         String imageUrl = rs.getString("image_url");
         String role = rs.getString("role");
-        Integer punti = rs.getInt("punti");
-        Integer livello = rs.getInt("livello");
+        // Integer punti = rs.getInt("punti");
+        // Integer livello = rs.getInt("livello");
  
         return new MyUserAccount(id, email,userName, firstName,
                 lastName, password,
-                imageUrl, role, punti, livello );
+                imageUrl, role/*, punti, livello*/ );
     }
  
 }

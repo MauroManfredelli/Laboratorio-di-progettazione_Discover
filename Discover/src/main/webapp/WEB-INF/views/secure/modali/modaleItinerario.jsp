@@ -124,7 +124,7 @@
       						<button type="button" class="btn btn-default" data-dismiss="modal">
       							<i class="fa fa-times"></i> Chiudi
       						</button>
-      						<button type="button" class="btn btn-success" onclick="salvaItinerario()">
+      						<button type="button" class="btn btn-primary" onclick="salvaItinerario()">
       							<i class="fa fa-save"></i> Salva
       						</button>
       					</div>

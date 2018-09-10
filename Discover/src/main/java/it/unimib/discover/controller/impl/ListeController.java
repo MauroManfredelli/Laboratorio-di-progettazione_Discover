@@ -99,6 +99,11 @@ public class ListeController {
         return listeService.getListaById(idLista);
 	}
 	
+	@RequestMapping( value = "/liste/getListaByIdItinerario", method = RequestMethod.GET )
+	public @ResponseBody Lista getListaByIdItinerario(@RequestParam(name="idItinerario") String idItinerario, HttpServletRequest request) {
+        return listeService.getListaByIdItinerario(idItinerario);
+	}
+	
 	@RequestMapping(value = "/liste/aggiungiAttrazioneToLista", method = RequestMethod.GET)
     public @ResponseBody ValidationResponse aggiungiAttrazioneToLista(@RequestParam(name="idAttrazione") String idAttrazione, @RequestParam(name="idLista") String idLista,  HttpServletRequest request) {
 		if(!listeService.containsAttrazione(Integer.valueOf(idAttrazione), idLista)) {
@@ -158,6 +163,11 @@ public class ListeController {
 			Itinerario itinerario = listeService.getItinerarioById(lista.getIdItinerario());
 			itinerario.setMapAttrazioni(listeService.getMapAttrazioniItinerario(itinerario));
 			modelAndView.addObject("itinerario", itinerario);
+			if(itinerario.getNumeroGiorni() != null) {
+				modelAndView.addObject("giorniItinerario", listeService.getMapGiorniItinerario(itinerario));
+			} else {
+				modelAndView.addObject("dateItinerario", listeService.getMapDateItinerario(itinerario));
+			}
 			modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
 	        return modelAndView;
 		} else {
@@ -213,9 +223,9 @@ public class ListeController {
     }
 	
 	@RequestMapping(value = "/liste/salvaModificaEtichetta", method = RequestMethod.GET)
-    public @ResponseBody ValidationResponse salvaModificaEtichetta(@RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="etichetta") String etichetta, HttpServletRequest request) throws ParseException {
+    public @ResponseBody ValidationResponse salvaModificaEtichetta(@RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="etichetta") String etichetta, @RequestParam(name="ora") String ora, HttpServletRequest request) throws ParseException {
 		if(StringUtils.isNotBlank(etichetta)) {
-			listeService.salvaModificaEtichetta(idVisita, etichetta);
+			listeService.salvaModificaEtichetta(idVisita, etichetta, ora);
 			return new ValidationResponse("SUCCESS");
 		} else {
 			return new ValidationResponse("ERROR");
@@ -224,7 +234,7 @@ public class ListeController {
 	
 	@RequestMapping(value = "/liste/salvaModificaDataVisita", method = RequestMethod.GET)
     public @ResponseBody ValidationResponse salvaModificaDataVisita(@RequestParam(name="idVisita") Integer idVisita, @RequestParam(name="dataVisita") String dataVisita, HttpServletRequest request) throws ParseException {
-		if(StringUtils.isNotBlank(dataVisita) && listeService.salvaModificaDataVisita(idVisita, dataVisita)) {
+		if(dataVisita != null && listeService.salvaModificaDataVisita(idVisita, dataVisita)) {
 			return new ValidationResponse("SUCCESS");
 		} else {
 			return new ValidationResponse("ERROR");

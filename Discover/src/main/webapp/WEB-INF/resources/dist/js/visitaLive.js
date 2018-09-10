@@ -7,6 +7,7 @@ function setDraggable() {
 	$('.item-draggable').draggable({
         cursor: 'move',
         revert: '10',
+        cancel: ".noDrag",
         start: function (event, ui) {
             $(this).css({
                 'opacity': '0.7'
@@ -77,16 +78,17 @@ function dragElementTo() {
 			if($(elementDragTo).attr("id") == "collapseVisitate") {
 				confermata = true;
 				$(clonedElement).find("[id=spanOrdine]").addClass("btn-black").removeClass("btn-danger");
-				$(clonedElement).find("[id=btnConfermaVisita]").addClass("text-primary");
+				$(clonedElement).find("[id=btnConfermaVisita]").addClass("text-success");
 				$(clonedElement).find("[id=btnIndicazioniVisita]").addClass("hidden");
 				$(clonedElement).find("[id=btnEliminaVisita]").addClass("hidden");
 			} else {
 				confermata = false;
 				$(clonedElement).find("[id=spanOrdine]").removeClass("btn-black").addClass("btn-danger");
-				$(clonedElement).find("[id=btnConfermaVisita]").removeClass("text-primary");
+				$(clonedElement).find("[id=btnConfermaVisita]").removeClass("text-success");
 				$(clonedElement).find("[id=btnIndicazioniVisita]").removeClass("hidden");
 				$(clonedElement).find("[id=btnEliminaVisita]").removeClass("hidden");
 			}
+			$(clonedElement).find(".tooltip").remove();
 			aggiornaVisiteDB(elementDragTo, clonedElement);
 			// aggiornaOrdiniTabFrom(elementDragFrom);
 			// aggiornaOrdineTabDest(destTab, clonedElement);
@@ -96,6 +98,7 @@ function dragElementTo() {
 			elementDragTo="";
 			elementDragFrom="";
 			setDraggable();
+			$("[data-toggle='tooltip']").tooltip();
 		}
 	}, 200);
 }
@@ -208,6 +211,12 @@ function mostraNotaVisita(idVisita) {
 	$("#notaVisitaModal").modal("toggle");
 }
 
+function mostraNotaPrecedente(idVisita) {
+	$("#notaVisitaPrecedenteModal #idVisita").val(idVisita);
+	$("#notaVisitaPrecedenteModal #notaPrec").html($("#notaPrec"+idVisita).val());
+	$("#notaVisitaPrecedenteModal").modal("toggle");
+}
+
 $('#notaVisitaModal').on('hide.bs.modal', function (e) {
 	var idVisita = $("#notaVisitaModal #idVisita").val();
 	if($("#notaVisitaModal #notaVisita").val() != $("#notaVisita"+idVisita).val()) {
@@ -229,22 +238,26 @@ $('#notaVisitaModal').on('hide.bs.modal', function (e) {
 	}
 });
 
-function salvaNotaPrec(el, idVisita) {
-	$.ajax({
-    	type: 'GET',
-        url : '/discover/liste/salvaNotaPrec',
-        data: {
-        	"idVisita": idVisita,
-        	"notaPrec": $(el).val()
-        },
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        success: function(response) {
-        	if(response.status == "SUCCESS") {
-	        	mostraNotifica('Nota aggiornata', 'primary');
-        	}
-        }
-	});
-}
+$('#notaVisitaPrecedenteModal').on('hide.bs.modal', function (e) {
+	var idVisita = $("#notaVisitaPrecedenteModal #idVisita").val();
+	if($("#notaVisitaPrecedenteModal #notaPrec").val() != $("#notaPrec"+idVisita).val()) {
+		$.ajax({
+	    	type: 'GET',
+	        url : '/discover/liste/salvaNotaPrec',
+	        data: {
+	        	"idVisita": idVisita,
+	        	"notaPrec": $("#notaVisitaPrecedenteModal #notaPrec").val()
+	        },
+	        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+	        success: function(response) {
+	        	if(response.status == "SUCCESS") {
+	        		$("#notaPrec"+idVisita).val($("#notaVisitaPrecedenteModal #notaPrec").val());
+		        	mostraNotifica('Nota precedente aggiornata', 'primary');
+	        	}
+	        }
+		});
+	}
+});
 
 function eliminaVisita(idVisita) {
 	$.ajax({

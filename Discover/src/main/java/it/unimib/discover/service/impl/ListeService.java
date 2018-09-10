@@ -261,6 +261,17 @@ public class ListeService {
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
+	public Lista getListaByIdItinerario(String idItinerario) {
+		Lista lista = listaDAO.getListaByIdItinerario(idItinerario);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		if(lista.getDataInizio() != null) {
+			lista.setFormattedDataInizio(sdf.format(lista.getDataInizio()));
+			lista.setFormattedDataFine(sdf.format(lista.getDataFine()));
+		}
+		return lista;
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<MarkerAttrazione> getMarkersAttrazioniByItinerario(Integer idItinerario) {
 		Itinerario itinerario = itinerarioDAO.findByKey(idItinerario);
 		List<MarkerAttrazione> markers = new ArrayList<MarkerAttrazione>();
@@ -516,9 +527,10 @@ public class ListeService {
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void salvaModificaEtichetta(Integer idVisita, String etichetta) {
+	public void salvaModificaEtichetta(Integer idVisita, String etichetta, String ora) {
 		Visita visitaRemote = visitaDAO.findByKey(idVisita);
 		visitaRemote.setEtichetta(etichetta);
+		visitaRemote.setOra(ora != null && !ora.equals("") ? ora : "");
 		visitaDAO.persist(visitaRemote);
 	}
 
@@ -541,6 +553,9 @@ public class ListeService {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Visita visita = visitaDAO.findByKey(idVisita);
 		Itinerario itinerario = visita.getItinerario();
+		if(dataVisita.equals("")) {
+			return true;
+		}
 		Date dataVisitaNew = sdf.parse(dataVisita);
 		if(dataVisitaNew.before(itinerario.getDataInizio()) || dataVisitaNew.after(dataVisitaNew)) {
 			return false;
@@ -553,7 +568,7 @@ public class ListeService {
 	public boolean salvaModificaGiornoVisita(Integer idVisita, Integer giornoVisita) {
 		Visita visita = visitaDAO.findByKey(idVisita);
 		Itinerario itinerario = visita.getItinerario();
-		if(giornoVisita <= 0 || giornoVisita > itinerario.getNumeroGiorni()) {
+		if(giornoVisita != null && (giornoVisita <= 0 || giornoVisita > itinerario.getNumeroGiorni())) {
 			return false;
 		} else {
 			return true;
@@ -627,7 +642,7 @@ public class ListeService {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void aggiornaVisiteStessaDataVisitaLiveDB(Integer idItinerario, Integer idVisita, Integer ordine) {}
 
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional
 	public boolean confermaVisita(Integer idVisita) {
 		Visita visita = visitaDAO.findByKey(idVisita);
 		if(visita.getConferma()) {
@@ -637,5 +652,24 @@ public class ListeService {
 		}
 		visitaDAO.persist(visita);
 		return visita.getConferma();
+	}
+
+	public Map<String, String> getMapGiorniItinerario(Itinerario itinerario) {
+		Map<String, String> mapGiorniItinerario = new TreeMap<String, String>();
+		for(int giorno = 1; giorno<=itinerario.getNumeroGiorni(); giorno++) {
+			mapGiorniItinerario.put(giorno+"", "Giorno "+giorno);
+		}
+		return mapGiorniItinerario;
+	}
+
+	public Map<String, String> getMapDateItinerario(Itinerario itinerario) {
+		Map<String, String> mapDateItinerario = new TreeMap<String, String>();
+		Date data = itinerario.getDataInizio();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		while(!data.after(itinerario.getDataFine())) {
+			mapDateItinerario.put(sdf.format(data), sdf.format(data));
+			data = this.addDays(data, 1);
+		}
+		return mapDateItinerario;
 	}
 }

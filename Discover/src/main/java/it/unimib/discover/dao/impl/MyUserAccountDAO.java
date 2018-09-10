@@ -27,7 +27,7 @@ public class MyUserAccountDAO extends JdbcDaoSupport {
  
    public MyUserAccount findById(String id) {
        String sql = "Select id,email,user_name, first_name,last_name,"//
-               + " password,role,image_url,punti,livello"//
+               + " password,role,image_url"//
                + " from User_Accounts u "//
                + " where id = ? ";
        Object[] params = new Object[] { id };

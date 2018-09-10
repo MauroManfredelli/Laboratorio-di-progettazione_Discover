@@ -26,26 +26,23 @@
    				<div class="row form-group">
 					<div class="col-md-12">
 						<label>Data visita:</label>
-	                    <div class="input-group">
-	                        <div class="input-group-addon">
-	                        	<i class="fa fa-calendar"></i>
-	                        </div>
-	                      	<input id="dataVisita" type="text" class="form-control" data-inputmask="'alias': 'gg/mm/aaaa'" data-mask/>
+	                    <div>
+	                        <select id="dataVisita" class="form-control chosen chosen-select">
+								<option value="">-</option>
+								<c:forEach items="${dateItinerario.keySet()}" var="key">
+									<option value="${key}">${key}</option>
+								</c:forEach>
+							</select>
 	                    </div>
-	                    <script>
-	                    	$(document).ready(function() {
-	                            $("#dataVisitaModal #dataVisita").inputmask("dd/mm/yyyy", {"placeholder": "gg/mm/aaaa"});
-	                    	})
-	                    </script>
 					</div>
    				</div>
    				<div class="row" style="border-top: 1px solid #ddd; padding-top: 10px;">
    					<div class="col-md-12 text-right">
-   						<button type="button" class="btn btn-primary" onclick="salvaModificaDataVisita()" id="btnSalva">
-   							<i class="fa fa-save"></i> Salva
-   						</button>
    						<button type="button" class="btn btn-default" data-dismiss="modal">
    							<i class="fa fa-repeat"></i> Annulla
+   						</button>
+   						<button type="button" class="btn btn-primary" onclick="salvaModificaDataVisita()" id="btnSalva">
+   							<i class="fa fa-save"></i> Salva
    						</button>
    					</div>
    				</div>

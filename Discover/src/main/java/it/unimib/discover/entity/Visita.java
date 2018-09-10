@@ -62,14 +62,12 @@ public class Visita implements Serializable, Comparable<Visita> {
 	
 	@Type(type = "org.hibernate.type.NumericBooleanType")
     @Column(name = "CONFERMA")
-    private Boolean conferma;
+    private boolean conferma;
 	
 	@Transient
 	private String ordine;
 
-	public Visita() {
-		this.conferma = false;
-	}
+	public Visita() {}
 
 	public Visita(Attrazione attrazione, Itinerario itinerario) {
 		this.etichetta = attrazione.getNome();
@@ -131,11 +129,11 @@ public class Visita implements Serializable, Comparable<Visita> {
 		this.ora = ora;
 	}
 
-	public Boolean getConferma() {
+	public boolean getConferma() {
 		return conferma;
 	}
 
-	public void setConferma(Boolean conferma) {
+	public void setConferma(boolean conferma) {
 		this.conferma = conferma;
 	}
 

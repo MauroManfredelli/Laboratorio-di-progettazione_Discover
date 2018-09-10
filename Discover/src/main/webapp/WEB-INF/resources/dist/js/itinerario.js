@@ -1,12 +1,14 @@
 $(document).ready(function() {
 	initMap();
 	setDraggable();
-	var liList = $("li[id^=item]");
-	if(liList.length > 0) {
-		var li = liList[0];
-		var ol = $(li).closest("ol");
-		var nav = $("li[href='#"+$(ol).attr("id")+"']");
-		$(nav).click();
+	if($("#allDateInput").val() != 'true') {
+		var liList = $("li[id^=item]");
+		if(liList.length > 0) {
+			var li = liList[0];
+			var ol = $(li).closest("ol");
+			var nav = $("li[href='#"+$(ol).attr("id")+"']");
+			$(nav).click();
+		}
 	}
 });
 
@@ -14,7 +16,9 @@ function setDraggable() {
 	$('.item-draggable').draggable({
         cursor: 'move',
         revert: '10',
+        cancel: ".noDrag",
         start: function (event, ui) {
+        	
             $(this).css({
                 'opacity': '0.4'
             });
@@ -33,7 +37,7 @@ function setDraggable() {
         accept: '.item-draggable',
         hoverClass: 'item-hovered',
         drop: function (event, ui) {
-            var tab_id = $(this).attr('id');
+            // var tab_id = $(this).attr('id');
             // alert(tab_id);
             elementDragTo = $(this);
             dragElementTo();
@@ -43,7 +47,8 @@ function setDraggable() {
 	for(var i=0; i<sortableList.length; i++) {
 		if($(sortableList[i]).attr("key") != 'Tutteledate') {
 			$(sortableList[i]).sortable({
-				exclude : $(".notSortable")
+				exclude : $(".notSortable, .noDrag"),
+				handle: '.sort-handle',
 			});
 		}
 	}
@@ -79,6 +84,7 @@ function dragElementTo() {
 			elementDragTo="";
 			elementDragFrom="";
 			setDraggable();
+			$("[data-toggle='tooltip']").tooltip();
 			$(destTab).find("[id^=nessunaAttrazione]").addClass("hidden");
 		}
 	}, 200);
@@ -305,6 +311,12 @@ function mostraNotaVisita(idVisita) {
 	$("#notaVisitaModal").modal("toggle");
 }
 
+function mostraNotaPrecedente(idVisita) {
+	$("#notaVisitaPrecedenteModal #idVisita").val(idVisita);
+	$("#notaVisitaPrecedenteModal #notaPrec").html($("#notaPrec"+idVisita).val());
+	$("#notaVisitaPrecedenteModal").modal("toggle");
+}
+
 $('#notaVisitaModal').on('hide.bs.modal', function (e) {
 	var idVisita = $("#notaVisitaModal #idVisita").val();
 	if($("#notaVisitaModal #notaVisita").val() != $("#notaVisita"+idVisita).val()) {
@@ -320,6 +332,27 @@ $('#notaVisitaModal').on('hide.bs.modal', function (e) {
 	        	if(response.status == "SUCCESS") {
 	        		$("#notaVisita"+idVisita).val($("#notaVisitaModal #notaVisita").val());
 		        	mostraNotifica('Nota visita aggiornata', 'primary');
+	        	}
+	        }
+		});
+	}
+});
+
+$('#notaVisitaPrecedenteModal').on('hide.bs.modal', function (e) {
+	var idVisita = $("#notaVisitaPrecedenteModal #idVisita").val();
+	if($("#notaVisitaPrecedenteModal #notaPrec").val() != $("#notaPrec"+idVisita).val()) {
+		$.ajax({
+	    	type: 'GET',
+	        url : '/discover/liste/salvaNotaPrec',
+	        data: {
+	        	"idVisita": idVisita,
+	        	"notaPrec": $("#notaVisitaPrecedenteModal #notaPrec").val()
+	        },
+	        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+	        success: function(response) {
+	        	if(response.status == "SUCCESS") {
+	        		$("#notaPrec"+idVisita).val($("#notaVisitaPrecedenteModal #notaPrec").val());
+		        	mostraNotifica('Nota precedente aggiornata', 'primary');
 	        	}
 	        }
 		});
@@ -354,8 +387,12 @@ function salvaModificaDataVisita(tabFrom, element) {
         	if(response.status == "SUCCESS") {
         		elementDragFrom = $("#"+tabFrom);
         		elementDragged = $("#"+element);
-        		var idTabDest = $("ol[key='"+$("#dataVisitaModal #dataVisita").val()+"']").attr("id");
-                elementDragTo = $("a[href='#"+idTabDest+"']").parent("li");
+        		var dataVisitaVal = $("#dataVisitaModal #dataVisita").val();
+        		if(dataVisitaVal == "") {
+        			dataVisitaVal = "Nonprogramm.";
+        		}
+        		var idTabDest = $("ol[key='"+dataVisitaVal+"']").attr("id");
+                elementDragTo = $("li[href='#"+idTabDest+"']");
                 dragElementTo();
                 $("#dataVisitaModal").modal("hide");
 	        	mostraNotifica('Data di visita aggiornata', 'primary');
@@ -387,8 +424,14 @@ function salvaModificaGiornoVisita(tabFrom, element) {
         	if(response.status == "SUCCESS") {
         		elementDragFrom = $("#"+tabFrom);
         		elementDragged = $("#"+element);
-        		var idTabDest = $("ol[key='Giorno"+$("#giornoVisitaModal #giornoVisita").val()+"']").attr("id");
-                elementDragTo = $("a[href='#"+idTabDest+"']").parent("li");
+        		var giornoVisitaVal = $("#giornoVisitaModal #giornoVisita").val()
+        		if(giornoVisitaVal == "") {
+        			giornoVisitaVal = "Nonprogramm.";
+        		} else {
+        			giornoVisitaVal = "Giorno"+giornoVisitaVal;
+        		}
+        		var idTabDest = $("ol[key='"+giornoVisitaVal+"']").attr("id");
+                elementDragTo = $("li[href='#"+idTabDest+"']");
                 dragElementTo();
                 $("#giornoVisitaModal").modal("hide");
 	        	mostraNotifica('Giorno di visita aggiornata', 'primary');
@@ -406,50 +449,40 @@ function salvaModificaGiornoVisita(tabFrom, element) {
 	});
 }
 
-function salvaNotaPrec(el, idVisita) {
-	$.ajax({
-    	type: 'GET',
-        url : '/discover/liste/salvaNotaPrec',
-        data: {
-        	"idVisita": idVisita,
-        	"notaPrec": $(el).val()
-        },
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        success: function(response) {
-        	if(response.status == "SUCCESS") {
-	        	mostraNotifica('Nota aggiornata', 'primary');
-        	}
-        }
-	});
-}
-
 function modificaDettagliVisita(idVisita) {
-	$("#showEtichetta"+idVisita).addClass("hidden");
-	$("#etichetta"+idVisita).removeClass("hidden");
+	$("#dettagliVisitaModal #idVisita").val(idVisita);
+	if($("#showEtichetta"+idVisita).html().indexOf("(") > -1) {
+		$("#dettagliVisitaModal #etichettaVisita").val($("#showEtichetta"+idVisita).html().substring(0, $("#showEtichetta"+idVisita).html().indexOf("(") - 1));
+		$("#dettagliVisitaModal #oraVisita").val($("#showEtichetta"+idVisita).html().substring($("#showEtichetta"+idVisita).html().indexOf("(") + 1, $("#showEtichetta"+idVisita).html().length - 1));
+	} else {
+		$("#dettagliVisitaModal #etichettaVisita").val($("#showEtichetta"+idVisita).html());
+	}
+	$("#dettagliVisitaModal").modal("toggle");
 }
 
-function salvaModificaEtichetta(idVisita) {
+function salvaDettagliVisita() {
+	var idVisita = $("#dettagliVisitaModal #idVisita").val();
 	$.ajax({
     	type: 'GET',
         url : '/discover/liste/salvaModificaEtichetta',
         data: {
         	"idVisita": idVisita,
-        	"etichetta": $("#etichetta"+idVisita+" input").val()
+        	"etichetta": $("#dettagliVisitaModal #etichettaVisita").val(),
+        	"ora": $("#dettagliVisitaModal #oraVisita").val()
         },
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         success: function(response) {
         	if(response.status == "SUCCESS") {
-	        	$("#showEtichetta"+idVisita).html($("#etichetta"+idVisita+" input").val());
-	        	mostraNotifica('Etichetta modificata', 'success');
-	        	annullaModificaEtichetta(idVisita);
+        		var etichetta = $("#dettagliVisitaModal #etichettaVisita").val();
+        		if($("#dettagliVisitaModal #oraVisita").val() != "") {
+        			etichetta += " (" + $("#dettagliVisitaModal #oraVisita").val() + ")";
+        		}
+	        	$("#showEtichetta"+idVisita).html(etichetta);
+	        	mostraNotifica('Dettagli visita modificati', 'success');
+	        	$("#dettagliVisitaModal").modal("hide");
         	}
         }
 	});
-}
-
-function annullaModificaEtichetta(idVisita) {
-	$("#showEtichetta"+idVisita).removeClass("hidden");
-	$("#etichetta"+idVisita).addClass("hidden");
 }
 
 function eliminaVisita(idVisita) {
@@ -483,7 +516,11 @@ function copiaVisita(idVisita) {
 			liCloned = liCloned.replace(/_ORDINE_/g, visita.ordine);
 			liCloned = liCloned.replace(/_NOTAPREC_/g, visita.notaPrec);
 			liCloned = liCloned.replace(/_ORDINESHOW_/g, visita.ordine.replace("-", "."));
-			liCloned = liCloned.replace(/_ETICHETTA_/g, visita.etichetta);
+			var etichetta = visita.etichetta;
+			if(visita.ora != null && visita.ora != "") {
+				etichetta += " (" +visita.ora+")";
+			}
+			liCloned = liCloned.replace(/_ETICHETTA_/g, etichetta );
 			liCloned = liCloned.replace(/_URLFOTO_/g, visita.attrazione.fotoPrincipali[0].path.replace(/ /g, "/"));
 			liCloned = liCloned.replace(/_IDATTRAZIONE_/g, visita.attrazione.id);
 			$("li[id=item"+idVisita+"]").closest("ol").append(liCloned);
@@ -503,15 +540,17 @@ function copiaVisita(idVisita) {
 }
 
 var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box box-body m-0 light-blue-bg" style="position: inherit;" idVisita="_IDVISITA_">'+
-						'<div style="width: 107%; margin-left: -11px; margin-top: -13px;">'+
-							'<textarea rows="3" id="notaPrec" class="form-control" placeholder="Nota" onblur="salvaNotaPrec(this, \'_IDVISITA_\')" style="min-width: 100%; max-width: 100%; min-height: 60px; height: 60px;">_NOTAPREC_</textarea>'+
+						'<div class="noDrag" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">'+
+							'<input type="hidden" id="notaPrec_IDVISITA_" value="_NOTAPREC_" />'+
+							'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+							'<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente(\'_IDVISITA_\')"></i>'+
 						'</div>'+
 						'<div style="margin-top: 10px;">'+
 							'<div class="text-center">'+
 								'<i class="fa fa-align-justify" style="font-size: 1.5em;  cursor: pointer;"></i>'+
 							'</div>'+
 						'</div>'+
-						'<div>'+
+						'<div class="noDrag">'+
 							'<div style="margin-top: 10px;">'+
 								'<span id="spanOrdine" ordine="_ORDINE_" class="btn " style="font-size: 1.5em; border-radius: 20px; padding: 3px;">'+
 									'_ORDINESHOW_'+
@@ -521,19 +560,10 @@ var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box
 									'style="margin-left: 5px; margin-right: 5px; height: 50px; width: 50px; border-radius: 10px;">'+
 								'<span style="font-size: 1.3em;" id="etichettaVisita">'+
 									'<b id="showEtichetta_IDVISITA_">_ETICHETTA_</b>'+
-									'<div class="input-group hidden" id="etichetta_IDVISITA_">'+
-										'<input class="form-control" style="display: inline-block;" />'+
-										'<div class="input-group-addon" style="background-color: #ddd; color: #000; cursor: pointer;" onclick="salvaModificaEtichetta(\'_IDVISITA_\')">'+
-						                	'<i class="fa fa-save"></i>'+
-						                '</div>'+
-						                '<div class="input-group-addon" style="background-color: #ddd; color: #000; cursor: pointer;" onclick="annullaModificaEtichetta(\'_IDVISITA_\')">'+
-						                	'<i class="fa fa-repeat"></i>'+
-						               '</div>'+
-						            '</div>'+
 								'</span>'+
 							'</div>'+
 							'<div style="margin-top: 20px;">'+
-								'<i class="fa fa-file" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita(\'_IDVISITA_\')"></i>'+
+								'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita(\'_IDVISITA_\')"></i>'+
 								'<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign(\'/discover/attrazione/_IDATTRAZIONE_\')"></i>'+
 								'<i class="fa fa-pencil" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita(\'_IDVISITA_\')"></i>'+
 								'<i class="fa fa-trash" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita(\'_IDVISITA_\')"></i>'+
@@ -615,5 +645,75 @@ function visitaLive(idItinerario) {
     			});
         	}
         }
+	});
+}
+
+$('#divisione1, #divisione2').on('ifChecked', function (event) {
+	var divisione = $("#itinerarioModal [name=divisione]:checked").val();
+	if(divisione == '1') {
+		$("#itinerarioModal #formDate").removeClass("hidden");
+		$("#itinerarioModal #formGiorni").addClass("hidden");
+		
+	} else if(divisione == '2') {
+		$("#itinerarioModal #formGiorni").removeClass("hidden");
+		$("#itinerarioModal #formDate").addClass("hidden");
+	}
+});
+
+function modificaItinerario(idItinerario) {
+	$.ajax({
+    	type: 'GET',
+        url : '/discover/liste/getListaByIdItinerario',
+       	data: {
+   			"idItinerario": idItinerario
+       	},
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        success: function(lista) {
+			$("#itinerarioModal #id").val(lista.idItinerario);
+			$("#itinerarioModal #nome").val(lista.nome);
+			$("#itinerarioModal #numeroGorni").val(lista.numeroGiorni);
+			if(lista.formattedDataInizio != null) {
+				$("#itinerarioModal #dateRange").val(lista.formattedDataInizio + " - " +lista.formattedDataFine);
+				$("#itinerarioModal #dataInizio").val(lista.formattedDataInizio);
+				$("#itinerarioModal #dataFine").val(lista.formattedDataFine);
+				$("#itinerarioModal #dateRange").daterangepicker().startDate = lista.formattedDataInizio;
+				$("#itinerarioModal #dateRange").daterangepicker().endDate = lista.formattedDataFine;
+			}
+			$("#itinerarioModal .form-group").removeClass("has-error");
+			$("#itinerarioModal").find("div[id^=formErrore]").addClass("hidden");
+			$("#itinerarioModal #formDate").addClass("hidden");
+			$("#itinerarioModal #formGiorni").addClass("hidden");
+			$("#itinerarioModal [type=radio], #itinerarioModal [type=checkbox]").iCheck('uncheck');
+			$("#itinerarioModal #divisione"+(lista.numeroGiorni != null ? "2" : "1")).iCheck('check');
+			$("#itinerarioModal #formWishlist").addClass("hidden");
+			$("#itinerarioModal").modal("toggle");
+        }
+	});
+}
+
+function salvaItinerario() {
+	var dateRange = $("#itinerarioModal #dateRange").val();
+	$("#itinerarioModal #dataInizio").val(dateRange.substring(0, dateRange.indexOf("-") - 1));
+	$("#itinerarioModal #dataFine").val(dateRange.substring(dateRange.indexOf("-") + 1, dateRange.length));
+	$("#modalItinerarioForm").ajaxSubmit({
+		type: 'GET',
+		success: function(response){
+			$("#itinerarioModal .form-group").removeClass("has-error");
+			$("#itinerarioModal").find("div[id^=formErrore]").addClass("hidden");
+			if(response.status == "ERROR") {
+				for (var i = 0; i < response.errorMessages.length; i++) {
+					var item = response.errorMessages[i];
+					var errorMessage = item.errorMessage;
+					var field = $("#itinerarioModal [name="+item.fieldName+"]");
+					$(field).closest(".form-group").addClass("has-error");
+					$(field).closest(".form-group").find("div[id^=formErrore]").removeClass("hidden");
+				}
+			} else {
+				mostraNotifica("Itinerario modificato", "success");
+				setTimeout(function() {
+					location.reload();
+				}, 1000);
+			}
+		}
 	});
 }

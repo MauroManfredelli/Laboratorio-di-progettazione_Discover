@@ -24,6 +24,8 @@
 <!-- Main content -->
 <section class="content" id="mapContent">
 
+	<script src="http://malsup.github.com/jquery.form.js"></script> 
+
 	<script>
 		var mapAttrazioni = "${itinerario.mapAttrazioni}";
 	</script>
@@ -47,12 +49,12 @@
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${itinerario.nome}</span>
 				<i class="fa fa-check-circle <c:choose><c:when test="${itinerario.confermato == 'true'}">text-success</c:when><c:otherwise>text-primary</c:otherwise></c:choose>" data-toggle="tooltip" title="Conferma itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" id="btnConfermaItinerario" onclick="confermaItinerario('${itinerario.id}')"></i>
 				<i class="fa fa-location-arrow text-primary" data-toggle="tooltip" title="LIVE" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="visitaLive('${itinerario.id}')"></i>
-				<i class="fa fa-edit text-primary" data-toggle="tooltip" title="Modifica itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;"></i>
+				<i class="fa fa-edit text-primary" data-toggle="tooltip" title="Modifica itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="modificaItinerario('${itinerario.id}')"></i>
 				<i class="fa fa-times text-primary pull-right" data-toggle="tooltip" title="Chiudi" data-placement="left" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
 			</div>
 		</div>
 	</div>
-	<div style="position: fixed; height: 100%; max-height: 100%; width: 100%; max-width: 500px; overflow-x:hidden; overflow-y: auto; top: 146px;">
+	<div style="position: fixed; height: 100%; max-height: 100%; width: 100%; max-width: 530px; overflow-x:hidden; overflow-y: auto; top: 146px;">
 		<div class="nav-tabs-custom tabbable tabs-left">
 			<ul id="itinerarioNavTabs" class="nav nav-tabs nav-iti light-blue-bg m-0" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px); overflow-y: auto;">
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
@@ -120,17 +122,19 @@
 									</c:if>
 									<c:set var="keyCmp" value="Tutte le date" />
 									<li id="item${visita.id}<c:if test="${key eq 'Tutte le date'}">AllDate</c:if>" class="<c:if test='${key != keyCmp}'>item-draggable</c:if> list-group-item box box-body m-0 light-blue-bg" style="position: inherit;" idVisita="${visita.id}">
-										<div style="width: 107%; margin-left: -11px; margin-top: -13px;">
-											<textarea rows="3" id="notaPrec" class="form-control" placeholder="Nota" onblur="salvaNotaPrec(this, '${visita.id}')" style="min-width: 100%; max-width: 100%; min-height: 60px; height: 60px;">${visita.notaPrec}</textarea>
+										<div class="noDrag" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">
+											<input type="hidden" id="notaPrec${visita.id}" value="${visita.notaPrec}" />
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
 										</div>
-										<div>
+										<div class="sort-handle">
 											<c:if test="${key != 'Tutte le date'}">
 												<div class="text-center" style="margin-top: 10px;">
 													<i class="fa fa-align-justify" style="font-size: 1.5em;  cursor: pointer;"></i>
 												</div>
 											</c:if>
 										</div>
-										<div>
+										<div class="noDrag">
 											<div style="margin-top: 10px;">
 												<span id="spanOrdine" ordine="${visita.ordine}" class="btn <c:choose><c:when test='${empty visita.giorno and empty visita.dataVisita}'>btn-black</c:when><c:otherwise>btn-danger</c:otherwise></c:choose>" style="font-size: 1.5em; border-radius: 20px; padding: 3px;">
 													${fn:replace(visita.ordine, '-', '.')}
@@ -139,23 +143,13 @@
 													src="${visita.attrazione.fotoPrincipali[0].path}"
 													style="margin-left: 5px; margin-right: 5px; height: 50px; width: 50px; border-radius: 10px;">
 												<span style="font-size: 1.3em;" id="etichettaVisita">
-													<b <c:if test='${key != keyCmp}'>id="showEtichetta${visita.id}"</c:if>>${visita.etichetta}</b>
-													<c:if test='${key != keyCmp}'>
-														<div class="input-group hidden" id="etichetta${visita.id}" style="margin-top: 10px;">
-															<input class="form-control" style="display: inline-block;" placeholder="Modifica etichetta" />
-															<div class="input-group-addon text-primary" style="color: #FFF; background-color: #337ab7; cursor: pointer;" onclick="salvaModificaEtichetta('${visita.id}')">
-											                	<i class="fa fa-save"></i>
-											                </div>
-															<div class="input-group-addon" style="background-color: #ddd; color: #000; cursor: pointer;" onclick="annullaModificaEtichetta('${visita.id}')">
-											                	<i class="fa fa-repeat"></i>
-											                </div>
-														</div>
-													</c:if>
+													<b <c:if test='${key != keyCmp}'>id="showEtichetta${visita.id}"</c:if>>${visita.etichetta} <c:if test="${not empty visita.ora}"> (${visita.ora})</c:if></b>
 												</span>
 											</div>
 											<input type="hidden" id="notaVisita${visita.id}" value="${visita.nota}" />
 											<div style="margin-top: 20px;">
-												&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
+												&nbsp;&nbsp;&nbsp;&nbsp;
+												<i class="fa fa-file" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
 												<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
 												<c:if test="${key != 'Tutte le date'}">
 													<i class="fa fa-pencil" data-toggle="tooltip" title="Modifica visita" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita('${visita.id}')"></i>
@@ -170,6 +164,9 @@
 														</c:when>
 													</c:choose>
 												</c:if>
+												<c:if test="${visita.conferma}">
+													<i class="fa fa-check-circle text-success" style="font-size: 1.5em; padding-left: 10px;" id="iconConferma"> <span style="font-size: 0.8em; margin-bottom: 2px;">Confermata</span></i>
+												</c:if>
 											</div>
 										</div>
 									</li>
@@ -183,6 +180,7 @@
 	</div>
 </section>
 
+<input type="hidden" id="allDateInput" value="${allDate}" />
 <c:if test="${not empty allDate and allDate}">
 	<script>
 		$(document).ready(function() {
@@ -194,7 +192,10 @@
 	</script>
 </c:if>
 
+<jsp:include page="/WEB-INF/views/secure/modali/modaleItinerario.jsp"/>
+<jsp:include page="/WEB-INF/views/secure/modali/modaleDettagliVisita.jsp"/>
 <jsp:include page="/WEB-INF/views/secure/modali/modaleGiornoVisita.jsp"/>
 <jsp:include page="/WEB-INF/views/secure/modali/modaleDataVisita.jsp"/>
 <jsp:include page="/WEB-INF/views/secure/modali/modaleNotaVisita.jsp"/>
+<jsp:include page="/WEB-INF/views/secure/modali/modaleNotaPrec.jsp"/>
 <script src="<%=request.getContextPath()%>/resources/dist/js/itinerario.js" type="text/javascript"></script>

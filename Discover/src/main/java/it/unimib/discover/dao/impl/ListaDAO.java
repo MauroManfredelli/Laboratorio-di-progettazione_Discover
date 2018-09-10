@@ -62,4 +62,14 @@ public class ListaDAO extends AbstractEntityDao<String, Lista> {
 		return !query.list().isEmpty();
 	}
 
+	public Lista getListaByIdItinerario(String idItinerario) {
+		String sql = "select * " + 
+				"from vw_liste_utente " +
+				"where ID_ITINERARIO=:idItinerario ";
+		SQLQuery query = (SQLQuery) getSQLQuery(sql)
+				.addEntity(Lista.class)
+				.setParameter("idItinerario", idItinerario);
+		return (Lista) query.uniqueResult();
+	}
+
 }

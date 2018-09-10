@@ -37,7 +37,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="accordion" style="position: fixed; background-color: #FFF; height: 100%; max-height: 100%; width: 100%; max-width: 350px; overflow-x:hidden; overflow-y: auto; top: 150px;">
+	<div id="accordion" style="position: fixed; background-color: #FFF; height: 100%; max-height: 100%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px;">
 		<div class="panel box box-primary m-0">
 			<div class="box-header with-border dropable-tab">
 				<h4 class="box-title">
@@ -59,15 +59,17 @@
 								})
 							</script>
 							<li id="item${visita.id}" class="item-draggable list-group-item m-0 light-blue-bg" style="position: inherit; z-index: 999;" idVisita="${visita.id}">
-								<div style="width: 110%; margin-left: -15px; margin-top: -11px;">
-									<textarea rows="3" id="notaPrec" class="form-control" placeholder="Nota" onblur="salvaNotaPrec(this, '${visita.id}')" style="min-width: 100%; max-width: 100%; min-height: 60px; height: 60px;">${visita.notaPrec}</textarea>
+								<div class="noDrag" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">
+									<input type="hidden" id="notaPrec${visita.id}" value="${visita.notaPrec}" />
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
 								</div>
 								<div>
 									<div class="text-center" style="margin-top: 10px;">
 										<i class="fa fa-align-justify" style="font-size: 1.5em;  cursor: pointer;"></i>
 									</div>
 								</div>
-								<div>
+								<div class="noDrag">
 									<div style="margin-top: 10px;">
 										<span id="spanOrdine" ordine="${visita.ordine}" class="btn btn-danger" style="font-size: 1.5em; border-radius: 20px; padding: 3px;">
 											&nbsp;&nbsp;${fn:substring(visita.ordine, 2, 3)}&nbsp;&nbsp;
@@ -85,7 +87,7 @@
 										<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
 										
 										<i class="fa fa-compass" data-toggle="tooltip" title="Raggiungi" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')"></i>
-										<i class="fa fa-map-marker" data-toggle="tooltip" title="Conferma visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
+										<i class="fa fa-map-marker" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
 										<i class="fa fa-trash" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
 										
 									</div>
@@ -117,15 +119,17 @@
 								})
 							</script>
 							<li id="item${visita.id}" class="item-draggable list-group-item m-0 light-blue-bg" style="position: inherit;" idVisita="${visita.id}">
-								<div style="width: 110%; margin-left: -15px; margin-top: -11px;">
-									<textarea rows="3" id="notaPrec" class="form-control" placeholder="Nota" onblur="salvaNotaPrec(this, '${visita.id}')" style="min-width: 100%; max-width: 100%; min-height: 60px; height: 60px;">${visita.notaPrec}</textarea>
+								<div class="noDrag" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">
+									<input type="hidden" id="notaPrec${visita.id}" value="${visita.notaPrec}" />
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
 								</div>
 								<div>
 									<div class="text-center" style="margin-top: 10px;">
 										<i class="fa fa-align-justify" style="font-size: 1.5em;  cursor: pointer;"></i>
 									</div>
 								</div>
-								<div>
+								<div class="noDrag">
 									<div style="margin-top: 10px;">
 										<span id="spanOrdine" ordine="${visita.ordine}" class="btn btn-black" style="font-size: 1.5em; border-radius: 20px; padding: 3px;">
 											&nbsp;&nbsp;${fn:substring(visita.ordine, 2, 3)}&nbsp;&nbsp;
@@ -134,7 +138,7 @@
 											src="${visita.attrazione.fotoPrincipali[0].path}"
 											style="margin-left: 5px; margin-right: 5px; height: 50px; width: 50px; border-radius: 10px;">
 										<span style="font-size: 1.3em;" id="etichettaVisita">
-											<b>${visita.etichetta}</b>
+											<b>${visita.etichetta} <c:if test="${not empty visita.ora}"> (${visita.ora})</c:if></b>
 										</span>
 									</div>
 									<input type="hidden" id="notaVisita${visita.id}" value="${visita.nota}" />
@@ -143,7 +147,7 @@
 										<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
 										
 										<i class="fa fa-compass hidden" data-toggle="tooltip" title="Raggiungi" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')"></i>
-										<i class="fa fa-map-marker text-primary" data-toggle="tooltip" title="Rimuovi conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
+										<i class="fa fa-map-marker text-success" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
 										<i class="fa fa-trash hidden" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
 									</div>
 								</div>

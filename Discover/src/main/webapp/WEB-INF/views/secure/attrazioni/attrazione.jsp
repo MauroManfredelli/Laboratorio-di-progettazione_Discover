@@ -158,35 +158,37 @@
 						<div class="tab-content" style="padding-bottom: 0px; padding-top: 0px; margin-left: -10px;">
 							<div class="tab-pane active" id="recensioni">
 								<c:if test="${attrazione.stato.id == '3' or attrazione.stato.id == '4'}">
-									<div class="col-md-6" style="padding-left: 25px; font-size: 12px; padding-bottom: 5px;">
-										<div class="checkbox icheck">
-							            	<label>
-							                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i>&nbsp;&nbsp;70 (70%)
-							                </label>
-							            </div>
-										<div class="checkbox icheck">
-							            	<label>
-							                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i>&nbsp;&nbsp;10 (10%)
-											</label>
+									<div class="col-md-12 box box-default" style="margin-top: -5px; margin-bottom: 0px;">
+										<div class="col-md-6" style="padding-left: 25px; font-size: 12px; padding-bottom: 5px;">
+											<div class="checkbox icheck">
+								            	<label>
+								                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i>&nbsp;&nbsp;70 (70%)
+								                </label>
+								            </div>
+											<div class="checkbox icheck">
+								            	<label>
+								                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i>&nbsp;&nbsp;10 (10%)
+												</label>
+											</div>
+											<div class="checkbox icheck">
+								            	<label>
+								                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i>&nbsp;&nbsp;10 (10%)
+												</label>
+											</div>
+											<div class="checkbox icheck">
+								            	<label>
+								                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i>&nbsp;&nbsp;10 (10%)
+												</label>
+											</div>
+											<div class="checkbox icheck">
+								            	<label>
+								                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #f39c12"></i>&nbsp;&nbsp;0 (0%)
+												</label>
+											</div>
 										</div>
-										<div class="checkbox icheck">
-							            	<label>
-							                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i>&nbsp;&nbsp;10 (10%)
-											</label>
-										</div>
-										<div class="checkbox icheck">
-							            	<label>
-							                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #f39c12"></i><i class="fa fa-star" style="color: #f39c12"></i>&nbsp;&nbsp;10 (10%)
-											</label>
-										</div>
-										<div class="checkbox icheck">
-							            	<label>
-							                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #FFF"></i><i class="fa fa-star" style="color: #f39c12"></i>&nbsp;&nbsp;0 (0%)
-											</label>
-										</div>
-									</div>
-								    <div class="col-md-6 text-right" style="margin-top: 20px; margin-bottom: 20px;">
-								    	<button type="button" class="btn btn-primary"><i class="fa fa-comment"></i> Aggiungi recensione</button>
+									    <div class="col-md-6 text-right" style="margin-top: 20px; margin-bottom: 20px;">
+									    	<button type="button" class="btn btn-primary"><i class="fa fa-comment"></i> Aggiungi recensione</button>
+									    </div>
 								    </div>
 								</c:if>
 								<c:forEach items="${attrazione.recensioni}" var="recensione" varStatus="indexRecensione">
