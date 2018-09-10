@@ -40,7 +40,7 @@
 				<i class="fa fa-arrow-left" data-toggle="tooltip" title="Torna a itinerario" data-placement="right" style="font-size: 30px; cursor: pointer;" onclick="location.assign('/discover/liste/itinerario${itinerario.id}')"></i>
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${itinerario.nome} <img src="<%= request.getContextPath() %>/resources/dist/img/live.png" style="margin-bottom: 5px; margin-left: 10px; width: 50px;"></span>
 				
-				<i class="fa fa-times text-primary pull-right" data-placement="left" data-toggle="tooltip" title="Chiudi" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
+				<i class="fa fa-times pull-right" data-placement="left" data-toggle="tooltip" title="Chiudi" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
 			</div>
 		</div>
 	</div>

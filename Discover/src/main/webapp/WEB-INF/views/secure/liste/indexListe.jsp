@@ -116,7 +116,7 @@
 														<div class="box-body" style="border: none;">
 															<div class="row">
 																<div class="col-md-12" style="float: left; font-size: 25px;">
-																	<a href="/discover/liste/${lista.id}" style="color: #333;"><b>${lista.nome}</b></a>
+																	<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="text-name"><b>${lista.nome}</b></span></a>
 																</div>
 															</div>
 															
@@ -161,7 +161,7 @@
 													<div class="row">
 														<div class="col-md-12" style="text-align: right; font-size: 30px;">
 															<c:if test="${not empty lista.idItinerario}">
-																<span id="confermaItinerario"><i class="fa fa-check-circle <c:choose><c:when test="${lista.confermato == 'true'}">text-success</c:when><c:otherwise>text-primary</c:otherwise></c:choose>" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
+																<span id="confermaItinerario"><i class="fa fa-check-circle <c:choose><c:when test="${lista.confermato == 'true'}">text-success</c:when><c:otherwise>text-action</c:otherwise></c:choose>" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
 															</c:if>
 															<span id="archiviaLista">&nbsp;&nbsp;<i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
 															<span class="hidden" id="recuperaLista">&nbsp;&nbsp;<i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
@@ -253,7 +253,7 @@
 														<div class="box-body" style="border: none;">
 															<div class="row">
 																<div class="col-md-12" style="float: left; font-size: 25px; color: #333;">
-																	<!-- <a href="/discover/liste/${lista.id}"> --><b>${lista.nome}</b><!-- </a> -->
+																	<!-- <a href="/discover/liste/${lista.id}"> --><span class="text-name"><b>${lista.nome}</b></span><!-- </a> -->
 																</div>
 															</div>
 															
@@ -298,12 +298,12 @@
 													<div class="row">
 														<div class="col-md-12" style="text-align: right; font-size: 30px;">
 															<c:if test="${not empty lista.idItinerario}">
-																<span id="confermaItinerario" class="hidden"><i class="fa fa-check-circle text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
+																<span id="confermaItinerario" class="hidden"><i class="fa fa-check-circle text-action" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
 															</c:if>
-															<span class="hidden" id="archiviaLista">&nbsp;&nbsp;<i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
-															<span id="recuperaLista">&nbsp;&nbsp;<i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
-															&nbsp;&nbsp;<span><i class="fa fa-trash text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Elimina" onclick="eliminaLista('${lista.id}')"></i></span>
-															&nbsp;&nbsp;<span><i class="fa fa-edit text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}', '${lista.nome}')"></i></span>
+															<span class="hidden" id="archiviaLista">&nbsp;&nbsp;<i class="fa fa-download text-action" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
+															<span id="recuperaLista">&nbsp;&nbsp;<i class="fa fa-upload text-action" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
+															&nbsp;&nbsp;<span><i class="fa fa-trash text-action" style="cursor: pointer;" data-toggle="tooltip" title="Elimina" onclick="eliminaLista('${lista.id}')"></i></span>
+															&nbsp;&nbsp;<span><i class="fa fa-edit text-action" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}', '${lista.nome}')"></i></span>
 														</div>
 													</div>
 												</div>

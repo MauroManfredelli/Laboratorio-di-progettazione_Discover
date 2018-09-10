@@ -136,11 +136,11 @@
 					
 					<div class="row" style="padding-top: 15px;">
 						<div class="col-md-12" style="text-align: right; font-size: 30px;">
-							&nbsp;&nbsp;<span><i class="fa fa-thumbs-o-up text-primary" data-toggle="tooltip" title="Mi piace"  style="cursor: pointer;"></i></span>
-							&nbsp;&nbsp;<span><i class="fa fa-thumbs-o-down text-primary" data-toggle="tooltip" title="Non mi piace"  style="cursor: pointer;"></i></span>
-							&nbsp;&nbsp;<span><i class="fa fa-comment text-primary" data-toggle="tooltip" title="Aggiungi recensione"  style="cursor: pointer;"></i></span>
-							&nbsp;&nbsp;<span><i class="fa fa-suitcase text-primary" data-toggle="tooltip" title="Aggiungi alla lista" id="btnAggiungiAttrazioneLista${attrazione.id}" style="cursor: pointer;" onclick="aggiungiAttrazioneToLista('${attrazione.id}')"></i></span>
-							&nbsp;&nbsp;<span><i class="fa fa-map-marker text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Conferma visita"></i></span>
+							&nbsp;&nbsp;<span><i class="fa fa-thumbs-o-up text-action" data-toggle="tooltip" title="Mi piace"  style="cursor: pointer;"></i></span>
+							&nbsp;&nbsp;<span><i class="fa fa-thumbs-o-down text-action" data-toggle="tooltip" title="Non mi piace"  style="cursor: pointer;"></i></span>
+							&nbsp;&nbsp;<span><i class="fa fa-comment text-action" data-toggle="tooltip" title="Aggiungi recensione"  style="cursor: pointer;"></i></span>
+							&nbsp;&nbsp;<span><i class="fa fa-suitcase text-action" data-toggle="tooltip" title="Aggiungi alla lista" id="btnAggiungiAttrazioneLista${attrazione.id}" style="cursor: pointer;" onclick="aggiungiAttrazioneToLista('${attrazione.id}')"></i></span>
+							&nbsp;&nbsp;<span><i class="fa fa-map-marker text-action" style="cursor: pointer;" data-toggle="tooltip" title="Conferma visita"></i></span>
 						</div>
 					</div>
 				</div>

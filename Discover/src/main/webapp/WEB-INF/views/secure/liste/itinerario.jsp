@@ -47,10 +47,10 @@
 			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px;">
 				<i class="fa fa-arrow-left hidden" style="font-size: 30px; cursor: pointer;"></i>
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${itinerario.nome}</span>
-				<i class="fa fa-check-circle <c:choose><c:when test="${itinerario.confermato == 'true'}">text-success</c:when><c:otherwise>text-primary</c:otherwise></c:choose>" data-toggle="tooltip" title="Conferma itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" id="btnConfermaItinerario" onclick="confermaItinerario('${itinerario.id}')"></i>
-				<i class="fa fa-location-arrow text-primary" data-toggle="tooltip" title="LIVE" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="visitaLive('${itinerario.id}')"></i>
-				<i class="fa fa-edit text-primary" data-toggle="tooltip" title="Modifica itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="modificaItinerario('${itinerario.id}')"></i>
-				<i class="fa fa-times text-primary pull-right" data-toggle="tooltip" title="Chiudi" data-placement="left" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
+				<i class="fa fa-check-circle <c:choose><c:when test="${itinerario.confermato == 'true'}">text-success</c:when><c:otherwise>text-action</c:otherwise></c:choose>" data-toggle="tooltip" title="Conferma itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" id="btnConfermaItinerario" onclick="confermaItinerario('${itinerario.id}')"></i>
+				<i class="fa fa-location-arrow" data-toggle="tooltip" title="LIVE" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="visitaLive('${itinerario.id}')"></i>
+				<i class="fa fa-edit" data-toggle="tooltip" title="Modifica itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="modificaItinerario('${itinerario.id}')"></i>
+				<i class="fa fa-times pull-right" data-toggle="tooltip" title="Chiudi" data-placement="left" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
 			</div>
 		</div>
 	</div>

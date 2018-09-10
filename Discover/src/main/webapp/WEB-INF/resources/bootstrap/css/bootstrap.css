@@ -1329,6 +1329,11 @@ mark,
 .text-primary {
   color: #337ab7;
 }
+.text-action {
+  color: #5DA641;
+}
+.text-action{color:#939292}
+.text-name:hover{color:#337ab7}
 a.text-primary:hover {
   color: #286090;
 }
