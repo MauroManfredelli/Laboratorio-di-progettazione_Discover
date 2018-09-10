@@ -210,6 +210,7 @@ insert into USER_ACCOUNTS values ('1', 'susanna.bella@esempio.at', 'Susanna Bell
 insert into USER_ACCOUNTS values ('2', 'rebecca.brambilla@esempio.at', 'Rebecca Brambilla', 'Rebecca', 'Brambilla', 'password', 'ROLE_USER', 'Y',600, 'DISCOVER', '/discover/resources/dist/img/user4-128x128.jpg', 60000, 'f', null);
 insert into USER_ACCOUNTS values ('3', 'alessandro.rossi@esempio.at', 'Alessandro Rossi', 'Alessandro', 'Rossi', 'password', 'ROLE_USER', 'Y',700,'DISCOVER', '/discover/resources/dist/img/user2-160x160.jpg', 70000, 'm', null);
 insert into USER_ACCOUNTS values ('4', 'hichame.yessou@esempio.at', 'Hichame Yessou', 'Hichame', 'Yessou', 'password', 'ROLE_USER', 'Y',300,'DISCOVER', '/discover/resources/dist/img/hic.jpg', 30000, 'm', null);
+insert into USER_ACCOUNTS values ('5', 'test@gmail.com', 'Mario Rossi', 'Mario', 'Rossi', 'test', 'ROLE_USER', 'Y', 300, 'DISCOVER', '/discover/resources/dist/img/eder.jpg', 300000, 'm', null);
 
 
 INSERT INTO TIPO_ATTRAZIONE(DESCRIZIONE) VALUES ('Spiaggia');
@@ -507,5 +508,13 @@ insert into foto values (330, '/discover/resources/dist/img/attrazione158/3.jpg'
 insert into foto values (331, '/discover/resources/dist/img/attrazione158/4.jpg', null, null, 158, 1);
 insert into foto values (332, '/discover/resources/dist/img/attrazione158/5.jpg', null, null, 158, 1);
 insert into foto values (333, '/discover/resources/dist/img/attrazione158/6.jpg', null, null, 158, 1);
+
+
+insert into wishlist values (401, 'Milano', STR_TO_DATE('10/09/2018 17:00', '%d/%m/%Y %T'), '5', 0);
+insert into rel_wishlist_attrazione values (501, 401, 150);
+insert into rel_wishlist_attrazione values (502, 401, 151);
+insert into rel_wishlist_attrazione values (503, 401, 152);
+insert into rel_wishlist_attrazione values (504, 401, 155);
+insert into rel_wishlist_attrazione values (505, 401, 158);
 
 set foreign_key_checks=1;
