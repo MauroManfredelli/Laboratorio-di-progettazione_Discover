@@ -491,7 +491,13 @@ public class ListeService {
 		} else {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date dataVisita = sdf.parse(key);
-			Date oggi = new Date();
+			Calendar cal = Calendar.getInstance();  
+	        cal.setTime(new Date());  
+	        cal.set(Calendar.HOUR_OF_DAY, 0);  
+	        cal.set(Calendar.MINUTE, 0);  
+	        cal.set(Calendar.SECOND, 0);  
+	        cal.set(Calendar.MILLISECOND, 0);  
+			Date oggi = cal.getTime();
 			visita.setOrdineNelGiorno(itinerario.getOrdineVisita(dataVisita));
 			visita.setDataVisita(dataVisita);
 			if(dataVisita.before(oggi)) {
@@ -599,7 +605,13 @@ public class ListeService {
 		if(dataVisitaNew.before(itinerario.getDataInizio()) || dataVisitaNew.after(dataVisitaNew)) {
 			return false;
 		} else {
-			Date oggi = new Date();
+			Calendar cal = Calendar.getInstance();  
+	        cal.setTime(new Date());  
+	        cal.set(Calendar.HOUR_OF_DAY, 0);  
+	        cal.set(Calendar.MINUTE, 0);  
+	        cal.set(Calendar.SECOND, 0);  
+	        cal.set(Calendar.MILLISECOND, 0);  
+			Date oggi = cal.getTime();
 			if(dataVisitaNew.before(oggi)) {
 				visita.setConferma(true);
 			} else {
