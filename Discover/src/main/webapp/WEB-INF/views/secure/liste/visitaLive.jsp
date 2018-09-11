@@ -162,6 +162,7 @@
 							</li>
 						</c:if>
 					</c:forEach>
+					<li style="padding-top:20px" class="light-blue-bg"></li>
 				</ol>
 			</div>
 		</div>

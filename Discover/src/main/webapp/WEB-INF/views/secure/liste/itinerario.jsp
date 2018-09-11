@@ -173,6 +173,7 @@
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
+						<li style="padding-top:20px" class="light-blue-bg"></li>
 					</ol>
 				</c:forEach>
 			</div>
