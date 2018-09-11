@@ -136,7 +136,7 @@
 }
 
 .light-grey-bg {
-	background-color: #EDEDED;
+	background-color: #EDEDED !important;
 }
 
 .grey-bg {

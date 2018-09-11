@@ -88,9 +88,9 @@ public class MapsService {
 				}
 				markerAttrazione.setVisiteConfermate(attrazione.getNumeroVisite()+"");
 				if(visita.getConferma()) {
-					markerAttrazione.setTipoMarker("marker_red");
-				} else {
 					markerAttrazione.setTipoMarker("marker_black");
+				} else {
+					markerAttrazione.setTipoMarker("marker_red");
 				}
 				Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - itinerario.getDataInizio().getTime()) / (24 * 60 * 60 * 1000)) + 1;
 				markerAttrazione.setOrdineMarker(ordineGiorno+"-"+visita.getOrdineNelGiorno());

@@ -204,4 +204,23 @@ public class Itinerario implements Serializable {
 		return null;
 	}
 
+	public String getNumeroVisiteGiorno(Integer giorno, Date dataVisita) {
+		int numeroVisite = 1;
+		if(giorno == null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			for(Visita visita : this.visite) {
+				if(visita.getDataVisita() != null && sdf.format(visita.getDataVisita()).equals(sdf.format(dataVisita))) {
+					numeroVisite ++;
+				}
+			}
+		} else {
+			for(Visita visita : this.visite) {
+				if(visita.getGiorno() != null && visita.getGiorno() == giorno) {
+					numeroVisite ++;
+				}
+			}
+		}
+		return numeroVisite+"";
+	}
+
 }

@@ -201,18 +201,7 @@ function aggiornaMarkersMappa() {
 		for(var i=0; i<markersAttrazioni.length; i++) {
 			var marker = markersAttrazioni[i];
 			if(marker.id == 'marker'+id) {
-				// marker.icon = '/discover/resources/dist/img/markers/'+tipoMarker+"_"+ordine+'.png';
-				marker.setMap(null);
-				marker = new google.maps.Marker({
-					id: 'marker'+id,
-					position: marker.position,
-					icon: '/discover/resources/dist/img/markers/'+tipoMarker+"_"+ordine+'.png',
-					formatted_address: marker.formatted_address,
-					map: map,
-					title:"Localizzazione attrazione",
-					draggable: false
-				});
-				markersAttrazioni[i] = marker;
+				marker.setIcon('/discover/resources/dist/img/markers/'+tipoMarker+"_"+ordine+'.png');
 			}
 		}
 	}
@@ -460,7 +449,7 @@ function salvaModificaDataVisita(tabFrom, element) {
         		if(dataVisitaVal == "") {
         			dataVisitaVal = "Nonprogramm.";
         		}
-        		var idTabDest = $("ol[key='"+dataVisitaVal+"']").attr("id");
+        		var idTabDest = $("ol[key^='"+dataVisitaVal+"']").attr("id");
                 elementDragTo = $("li[href='#"+idTabDest+"']");
                 dragElementTo();
                 $("#dataVisitaModal").modal("hide");
@@ -601,15 +590,15 @@ function copiaVisita(idVisita) {
 			}
 			elementDragFrom = $("li[id=item"+idVisita+"]").closest("ol");
 			elementDragged = $("li[id=item"+visita.id+"]");
-			aggiornaOrdineSezione();
+			// aggiornaOrdineSezione();
 			setDraggable();
         	mostraNotifica('Visita copiata e aggiunta in fondo alla sezione corrente', 'primary');
         }
 	});
 }
 
-var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box box-body m-0 light-blue-bg" style="position: inherit;" idVisita="_IDVISITA_">'+
-						'<div class="noDrag" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">'+
+var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box box-body m-0" style="position: inherit;" idVisita="_IDVISITA_">'+
+						'<div class="noDrag light-grey-bg" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">'+
 							'<input type="hidden" id="notaPrec_IDVISITA_" value="_NOTAPREC_" />'+
 							'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
 							'<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente(\'_IDVISITA_\')"></i>'+
@@ -632,11 +621,11 @@ var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box
 								'</span>'+
 							'</div>'+
 							'<div style="margin-top: 20px;">'+
-								'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita(\'_IDVISITA_\')"></i>'+
-								'<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open(\'/discover/attrazione/_IDATTRAZIONE_\', \'_blank\')"></i>'+
-								'<i class="fa fa-pencil" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita(\'_IDVISITA_\')"></i>'+
-								'<i class="fa fa-trash" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita(\'_IDVISITA_\')"></i>'+
-								'<i class="fa fa-copy" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita(\'_IDVISITA_\')"></i>'+
+								'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file text-primary" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita(\'_IDVISITA_\')"></i>'+
+								'<i class="fa fa-info-circle text-primary" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open(\'/discover/attrazione/_IDATTRAZIONE_\', \'_blank\')"></i>'+
+								'<i class="fa fa-pencil text-primary" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita(\'_IDVISITA_\')"></i>'+
+								'<i class="fa fa-trash text-primary" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita(\'_IDVISITA_\')"></i>'+
+								'<i class="fa fa-copy text-primary" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita(\'_IDVISITA_\')"></i>'+
 							'</div>'+
 						'</div>'+
 					'</li>';

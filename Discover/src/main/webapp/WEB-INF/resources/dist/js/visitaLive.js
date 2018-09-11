@@ -106,6 +106,7 @@ function dragElementTo(fromClick) {
 			}
 			// aggiornaOrdiniTabFrom(elementDragFrom);
 			// aggiornaOrdineTabDest(destTab, clonedElement);
+			aggiornaOrdini();
 			aggiornaMarkersMappa(confermata);
 			$(elementDragTo).find("[id^=nessunaVisita]").addClass("hidden");
 			elementDragged="";
@@ -186,6 +187,50 @@ function aggiornaOrdineTabDest(tabDest, liElement) {
 	$(ordine).html(ordineVal.replace("-", "."));
 }
 
+function aggiornaOrdini() {
+	var liNonVis = $("#collapseNonVisitate").find("li[id^=item]");
+	var liVis = $("#collapseVisitate").find("li[id^=item]");
+	var updates = [];
+	var ordineCount = 1, j = 0;
+	for(var i=0; i<liVis.length; i++) {
+		var li = liVis[i];
+		var spanOrdine = $(li).find("[id=spanOrdine]");
+		var ordine = $(spanOrdine).attr("ordine");
+		ordine = ordine.substring(0, ordine.indexOf("-"))+ "-" + ordineCount;
+		$(spanOrdine).attr("ordine", ordine);
+		$(spanOrdine).html("&nbsp;&nbsp;"+ordineCount+"&nbsp;&nbsp;");
+		var update = {};
+		update.idVisita = $(li).attr("idVisita");
+		update.ordine = ordineCount;
+		updates[j++] = update;
+		ordineCount++;
+	}
+	for(var i=0; i<liNonVis.length; i++) {
+		var li = liNonVis[i];
+		var spanOrdine = $(li).find("[id=spanOrdine]");
+		var ordine = $(spanOrdine).attr("ordine");
+		ordine = ordine.substring(0, ordine.indexOf("-"))+ "-" + ordineCount;
+		$(spanOrdine).attr("ordine", ordine);
+		$(spanOrdine).html("&nbsp;&nbsp;"+ordineCount+"&nbsp;&nbsp;");
+		var update = {};
+		update.idVisita = $(li).attr("idVisita");
+		update.ordine = ordineCount;
+		updates[j++] = update;
+		ordineCount++;
+	}
+	aggiornaOrdiniDB(updates);
+}
+
+function aggiornaOrdiniDB(updates) {
+	$.ajax({
+    	type: 'POST',
+        url : '/discover/liste/aggiornaOrdiniDB',
+        data: JSON.stringify(updates),
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        success: function(response) {}
+	});
+}
+
 function aggiornaMarkersMappa(confermata) {
 	var liList = $("li[id^=item]");
 	for(var j=0; j<liList.length; j++) {
@@ -203,15 +248,7 @@ function aggiornaMarkersMappa(confermata) {
 			var marker = markersAttrazioni[i];
 			if(marker.id == 'marker'+id) {
 				// marker.icon = '/discover/resources/dist/img/markers/'+tipoMarker+"_"+ordine+'.png';
-				marker = new google.maps.Marker({
-					id: 'marker'+id,
-					position: marker.position,
-					icon: '/discover/resources/dist/img/markers/'+tipoMarker+"_"+ordine.substring(2,3)+'.png',
-					formatted_address: marker.formatted_address,
-					map: map,
-					title:"Localizzazione attrazione",
-					draggable: false
-				});
+				marker.setIcon('/discover/resources/dist/img/markers/'+tipoMarker+"_"+ordine.substring(2,3)+'.png');
 			}
 		}
 	}
@@ -287,14 +324,14 @@ $('#notaVisitaPrecedenteModal').on('hide.bs.modal', function (e) {
 function eliminaVisita(idVisita) {
 	$.ajax({
     	type: 'GET',
-        url : '/discover/liste/eliminaVisita',
+        url : '/discover/liste/eliminaVisitaLive',
         data: {
         	"idVisita": idVisita
         },
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         success: function(response) {
         	$("li[id=item"+idVisita+"]").remove();
-        	mostraNotifica('Visita eliminata', 'danger');
+        	mostraNotifica('Visita inserita nella sezione Non programm.', 'primary');
         }
 	});
 }
