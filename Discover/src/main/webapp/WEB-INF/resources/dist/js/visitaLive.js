@@ -331,6 +331,9 @@ function eliminaVisita(idVisita) {
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         success: function(response) {
         	$("li[id=item"+idVisita+"]").remove();
+        	if($("#collapseNonVisitate").find("li[id^=item]").length == 0) {
+        		$("#collapseNonVisitate").find("li[id^=nessunaVisita]").removeClass("hidden");
+        	}
         	mostraNotifica('Visita inserita nella sezione Non programm.', 'primary');
         }
 	});

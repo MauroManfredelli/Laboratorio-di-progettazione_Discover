@@ -111,7 +111,13 @@ function aggiornaVisiteDBajax(key, idVisita, idItinerario) {
    			"idItinerario": idItinerario
        	},
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        success: function(result) {}
+        success: function(result) {
+        	if(key.indexOf("(Conclu") > -1) {
+        		$("li[id^=item][idVisita='"+idVisita+"']").find("#iconConferma").removeClass("hidden");
+        	} else {
+        		$("li[id^=item][idVisita='"+idVisita+"']").find("#iconConferma").addClass("hidden");
+        	}
+        }
 	});
 }
 
@@ -459,6 +465,11 @@ function salvaModificaDataVisita(tabFrom, element) {
                 elementDragTo = $("li[href='#"+idTabDest+"']");
                 dragElementTo();
                 $("#dataVisitaModal").modal("hide");
+                if($("#"+idTabDest).attr("key").indexOf("(Conclu") > -1) {
+                	$(elementDragged).find("#iconConferma").removeClass("hidden");
+            	} else {
+            		$(elementDragged).find("#iconConferma").addClass("hidden");
+            	}
 	        	mostraNotifica('Data di visita aggiornata', 'primary');
         	} else {
         		swal({

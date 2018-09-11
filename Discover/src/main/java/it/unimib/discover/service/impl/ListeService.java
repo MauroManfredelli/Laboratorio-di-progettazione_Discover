@@ -481,6 +481,7 @@ public class ListeService {
 			} else {
 				visita.setGiorno(null);
 			}
+			visita.setConferma(false);
 			visitaDAO.persist(visita);
 		} else if(key.contains("Giorno")) {
 			Integer giorno = Integer.valueOf(key.substring(key.indexOf(" ") + 1));
