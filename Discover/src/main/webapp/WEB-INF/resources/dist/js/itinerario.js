@@ -83,6 +83,7 @@ function dragElementTo() {
 			aggiornaOrdiniTabFrom(elementDragFrom);
 			aggiornaOrdineTabDest(destTab, clonedElement);
 			aggiornaMarkersMappa();
+			$("li[href='#"+$(elementDragFrom).attr("id")+"']").click();
 			elementDragged="";
 			elementDragTo="";
 			elementDragFrom="";
@@ -110,7 +111,13 @@ function aggiornaVisiteDBajax(key, idVisita, idItinerario) {
    			"idItinerario": idItinerario
        	},
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        success: function(result) {}
+        success: function(result) {
+        	if(key.indexOf("(Conclu") > -1) {
+        		$("li[id^=item][idVisita='"+idVisita+"']").find("#iconConferma").removeClass("hidden");
+        	} else {
+        		$("li[id^=item][idVisita='"+idVisita+"']").find("#iconConferma").addClass("hidden");
+        	}
+        }
 	});
 }
 
@@ -202,18 +209,7 @@ function aggiornaMarkersMappa() {
 		for(var i=0; i<markersAttrazioni.length; i++) {
 			var marker = markersAttrazioni[i];
 			if(marker.id == 'marker'+id) {
-				// marker.icon = '/discover/resources/dist/img/markers/'+tipoMarker+"_"+ordine+'.png';
-				marker.setMap(null);
-				marker = new google.maps.Marker({
-					id: 'marker'+id,
-					position: marker.position,
-					icon: '/discover/resources/dist/img/markers/'+tipoMarker+"_"+ordine+'.png',
-					formatted_address: marker.formatted_address,
-					map: map,
-					title:"Localizzazione attrazione",
-					draggable: false
-				});
-				markersAttrazioni[i] = marker;
+				marker.setIcon('/discover/resources/dist/img/markers/'+tipoMarker+"_"+ordine+'.png');
 			}
 		}
 	}
@@ -239,6 +235,7 @@ function aggiornaOrdineSezione() {
 var map, infoWindow  = new google.maps.InfoWindow;
 var markersAttrazioni = [], infoWindowsMarker = [];
 var geocoder =  new google.maps.Geocoder();
+var contentsString = {};
 
 function initMap() {
 	geocoder.geocode( { 'address': $('#localitaMappa').val()}, function(results, status) {
@@ -321,6 +318,7 @@ function addMarker(attrazione) {
 						"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' target='_blank'><b>Visualizza dettagli</b></a>"+
 					"</div>"+
 				"</div>";
+		contentsString[attrazione.id] = contentString;
 		infoWindow.setContent(contentString);
 		infoWindow.open(map, marker);
 	});
@@ -432,6 +430,7 @@ $('#notaVisitaPrecedenteModal').on('hide.bs.modal', function (e) {
 function cambiaDataVisita(idVisita, tabFrom, element) {
 	$("#dataVisitaModal #idVisita").val(idVisita);
 	$("#dataVisitaModal #dataVisita").val("");
+	tabFrom = $("#"+element).closest("ol").attr("id");
 	$("#dataVisitaModal #btnSalva").attr("onclick", "salvaModificaDataVisita('"+tabFrom+"', '"+element+"')")
 	$("#dataVisitaModal").modal("toggle");
 }
@@ -439,6 +438,7 @@ function cambiaDataVisita(idVisita, tabFrom, element) {
 function cambiaGiornoVisita(idVisita, tabFrom, element) {
 	$("#giornoVisitaModal #idVisita").val(idVisita);
 	$("#giornoVisitaModal #giornoVisita").val("");
+	tabFrom = $("#"+element).closest("ol").attr("id");
 	$("#giornoVisitaModal #btnSalva").attr("onclick", "salvaModificaGiornoVisita('"+tabFrom+"', '"+element+"')")
 	$("#giornoVisitaModal").modal("toggle");
 }
@@ -461,10 +461,15 @@ function salvaModificaDataVisita(tabFrom, element) {
         		if(dataVisitaVal == "") {
         			dataVisitaVal = "Nonprogramm.";
         		}
-        		var idTabDest = $("ol[key='"+dataVisitaVal+"']").attr("id");
+        		var idTabDest = $("ol[key^='"+dataVisitaVal+"']").attr("id");
                 elementDragTo = $("li[href='#"+idTabDest+"']");
                 dragElementTo();
                 $("#dataVisitaModal").modal("hide");
+                if($("#"+idTabDest).attr("key").indexOf("(Conclu") > -1) {
+                	$(elementDragged).find("#iconConferma").removeClass("hidden");
+            	} else {
+            		$(elementDragged).find("#iconConferma").addClass("hidden");
+            	}
 	        	mostraNotifica('Data di visita aggiornata', 'primary');
         	} else {
         		swal({
@@ -567,6 +572,9 @@ function eliminaVisita(idVisita) {
         	var tabFrom = $("li[id=item"+idVisita+"]").closest("ol");
         	$("li[id=item"+idVisita+"]").remove();
         	aggiornaOrdiniTabFrom(tabFrom);
+        	if($(tabFrom).find("li[id^=item]").length == 0) {
+				$(tabFrom).find("[id^=nessunaAttrazione]").removeClass("hidden");
+			}
         	mostraNotifica('Visita eliminata', 'danger');
         }
 	});
@@ -639,6 +647,88 @@ function clonaMarker(visita, idVisitaCopied) {
 
 var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box box-body m-0 light-azure-bg" style="position: inherit;" idVisita="_IDVISITA_">'+
 						'<div class="noDrag light-grey-bg" style="width: 109%; margin-left: -13px; padding: 10px; margin-top: -12px;">'+
+function clonaMarker(visita, idVisitaCopied) {
+	for(var i=0; i<markersAttrazioni.length; i++) {
+		var marker = markersAttrazioni[i];
+		if(marker.id == 'marker'+idVisitaCopied) {
+			var markerCloned = new google.maps.Marker({
+				id: 'marker'+visita.id,
+				position: marker.position,
+				icon: marker.icon,
+				formatted_address: marker.formatted_address,
+				map: map,
+				title:"Localizzazione attrazione",
+				draggable: false
+			});
+			
+			google.maps.event.addListener(markerCloned,'click', function() {
+				var contentString = contentsString[idVisitaCopied];
+				contentsString[visita.id] = contentString;
+				infoWindow.setContent(contentString);
+				infoWindow.open(map, markerCloned);
+			});
+			markerCloned.setMap(map);	
+			markersAttrazioni[markersAttrazioni.length] = markerCloned;
+		}
+	}
+}
+
+var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box box-body m-0" style="position: inherit;" idVisita="_IDVISITA_">'+
+						'<div class="noDrag light-grey-bg" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">'+
+function clonaMarker(visita, idVisitaCopied) {
+	for(var i=0; i<markersAttrazioni.length; i++) {
+		var marker = markersAttrazioni[i];
+		if(marker.id == 'marker'+idVisitaCopied) {
+			var markerCloned = new google.maps.Marker({
+				id: 'marker'+visita.id,
+				position: marker.position,
+				icon: marker.icon,
+				formatted_address: marker.formatted_address,
+				map: map,
+				title:"Localizzazione attrazione",
+				draggable: false
+			});
+			
+			google.maps.event.addListener(markerCloned,'click', function() {
+				var contentString = contentsString[idVisitaCopied];
+				contentsString[visita.id] = contentString;
+				infoWindow.setContent(contentString);
+				infoWindow.open(map, markerCloned);
+			});
+			markerCloned.setMap(map);	
+			markersAttrazioni[markersAttrazioni.length] = markerCloned;
+		}
+	}
+}
+
+function clonaMarker(visita, idVisitaCopied) {
+	for(var i=0; i<markersAttrazioni.length; i++) {
+		var marker = markersAttrazioni[i];
+		if(marker.id == 'marker'+idVisitaCopied) {
+			var markerCloned = new google.maps.Marker({
+				id: 'marker'+visita.id,
+				position: marker.position,
+				icon: marker.icon,
+				formatted_address: marker.formatted_address,
+				map: map,
+				title:"Localizzazione attrazione",
+				draggable: false
+			});
+			
+			google.maps.event.addListener(markerCloned,'click', function() {
+				var contentString = contentsString[idVisitaCopied];
+				contentsString[visita.id] = contentString;
+				infoWindow.setContent(contentString);
+				infoWindow.open(map, markerCloned);
+			});
+			markerCloned.setMap(map);	
+			markersAttrazioni[markersAttrazioni.length] = markerCloned;
+		}
+	}
+}
+
+var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box box-body m-0" style="position: inherit;" idVisita="_IDVISITA_">'+
+						'<div class="noDrag light-grey-bg" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">'+
 							'<input type="hidden" id="notaPrec_IDVISITA_" value="_NOTAPREC_" />'+
 							'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
 							'<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente(\'_IDVISITA_\')"></i>'+
@@ -648,7 +738,7 @@ var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box
 								'<i class="fa fa-align-justify" style="font-size: 1.5em;  cursor: pointer;"></i>'+
 							'</div>'+
 						'</div>'+
-						'<div class="noDrag>'+
+						'<div class="noDrag">'+
 							'<div style="margin-top: 10px;">'+
 								'<span id="spanOrdine" ordine="_ORDINE_" class="btn " style="font-size: 1.5em; border-radius: 20px; padding: 3px;">'+
 									'_ORDINESHOW_'+
