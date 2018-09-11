@@ -140,9 +140,12 @@
 }
 
 .grey-bg {
-	background-color: #ACADAE;
-	color: black;
+	background-color: #FCFDFF;
+	color: #333;
 	text-align: center;
+	border-top: 4px solid #3C8DBC;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 .item-hovered {
