@@ -149,6 +149,13 @@ public class ListeController {
 	@RequestMapping(value = "/liste/eliminaLista", method = RequestMethod.GET)
     public @ResponseBody ValidationResponse eliminaLista(@RequestParam(name="idLista") String idLista,  HttpServletRequest request) {
 		listeService.eliminaLista(idLista);
+		Object idListaUtenteObj = request.getSession().getAttribute("idListaUtente");
+    	if(idListaUtenteObj != null) {
+    		String idListaUtente = idListaUtenteObj.toString();
+    		if(idListaUtente.equals(idLista)) {
+    			request.getSession().setAttribute("idListaUtente", "");
+    		}
+    	}
 		return new ValidationResponse("SUCCESS");
     }
 	
@@ -170,7 +177,7 @@ public class ListeController {
 			} else {
 				modelAndView.addObject("dateItinerario", listeService.getMapDateItinerario(itinerario));
 			}
-			if(itinerario.getVisite() != null) {
+			if(itinerario.getVisite() != null && !itinerario.getVisite().isEmpty()) {
 				modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
 			}
 	        return modelAndView;
@@ -186,8 +193,10 @@ public class ListeController {
 		itinerario.setMapAttrazioni(listeService.getMapAttrazioniItinerario(itinerario));
 		modelAndView.addObject("itinerario", itinerario);
 		modelAndView.addObject("allDate", true);
-		modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
-        return modelAndView;
+		if(itinerario.getVisite() != null && !itinerario.getVisite().isEmpty()) { 
+			modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
+		}
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/liste/aggiornaVisite", method = RequestMethod.GET)
