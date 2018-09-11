@@ -58,12 +58,12 @@
 			<ul id="itinerarioNavTabs" class="nav nav-tabs nav-iti light-blue-bg m-0" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px); overflow-y: auto;">
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
 					<c:if test="${key eq 'Non programm.'}">
-						<li id="nonProgramm" class="m-0 dropable-tab active" style="font-size: 15px; border-bottom: 1px solid #ddd; padding: 10px; cursor: pointer;" href="#data${indexKey.index}" data-toggle="tab">${key}</li>
+						<li id="nonProgramm" onclick="loadMarkersGiorno('${key}')" class="m-0 dropable-tab active" style="font-size: 15px; border-bottom: 1px solid #ddd; padding: 10px; cursor: pointer;" href="#data${indexKey.index}" data-toggle="tab">${key}</li>
 					</c:if>
 				</c:forEach>
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
 					<c:if test="${not (key eq 'Tutte le date' or key eq 'Non programm.')}">
-						<li id="headerData${indexKey.index}" class="m-0 dropable-tab" style="font-size: 15px; border-bottom: 1px solid #ddd; padding: 10px; cursor: pointer;" href="#data${indexKey.index}" data-toggle="tab">
+						<li id="headerData${indexKey.index}" onclick="loadMarkersGiorno('${key}')" class="m-0 dropable-tab" style="font-size: 15px; border-bottom: 1px solid #ddd; padding: 10px; cursor: pointer;" href="#data${indexKey.index}" data-toggle="tab">
 							<c:choose>
 								<c:when test="${key.indexOf('Concluso') > -1}">
 									<i style="color: #808080;">${key}</i>
@@ -187,6 +187,7 @@
 			$(".tab-pane.active").removeClass("active");
 			$("#allDate").addClass("active");
 			$($("#allDate").attr("href")+".tab-pane").addClass("active");
+			loadMarkersGiorno('all');
 		})
 	</script>
 </c:if>

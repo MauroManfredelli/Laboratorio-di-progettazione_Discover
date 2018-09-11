@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$("#liHeadListe").addClass("section-active").css("margin-bottom", "1px");
 	initMap();
 	setDraggable();
 	if($("#allDateInput").val() != 'true') {
@@ -8,6 +9,7 @@ $(document).ready(function() {
 			var ol = $(li).closest("ol");
 			var nav = $("li[href='#"+$(ol).attr("id")+"']");
 			$(nav).click();
+			loadMarkersGiorno($(ol).attr("keyString"));
 		}
 	}
 });
@@ -244,10 +246,21 @@ function initMap() {
 		}
 		
 		var var_location = new google.maps.LatLng(results[0].geometry.location.lat(),results[0].geometry.location.lng());
+		
+		var myStyles =[
+		    {
+		        featureType: "poi",
+		        elementType: "labels",
+		        stylers: [
+		              { visibility: "off" }
+		        ]
+		    }
+		];
  
 		var var_mapoptions = {
 		  center: var_location,
-		  zoom: 11
+		  zoom: 11,
+		  styles: myStyles
 		};
 		
 		addMarkersAttrazioniToMap();
@@ -313,6 +326,50 @@ function addMarker(attrazione) {
 	 
 	marker.setMap(map);	
 	return marker;
+}
+
+function loadMarkersGiorno(key) {
+	if(markersAttrazioni.length == 0) {
+		setTimeout(function() {
+			loadMarkersGiorno(key);
+		}, 500);
+		return;
+	}
+	var someToExtend = false;
+	var ol = $("ol[keyString='"+key+"']");
+	var liItems = $(ol).find("li[id^=item]");
+	var bounds = new google.maps.LatLngBounds();
+	if(key == "all") {
+		for(var j=0; j<markersAttrazioni.length; j++) {
+			var marker = markersAttrazioni[j];
+			marker.setMap(map);
+			bounds.extend(marker.getPosition());
+			someToExtend = true;
+		}
+		if(someToExtend) {
+			map.fitBounds(bounds);
+		}
+		return;
+	}
+	for(var j=0; j<markersAttrazioni.length; j++) {
+		var marker = markersAttrazioni[j];
+		marker.setMap(null);
+	}
+	for(var i=0; i<liItems.length; i++) {
+		var li = liItems[i];
+		var idVisita = $(li).attr("idVisita");
+		for(var j=0; j<markersAttrazioni.length; j++) {
+			var marker = markersAttrazioni[j];
+			if(marker.id == 'marker'+idVisita) {
+				marker.setMap(map);
+				bounds.extend(marker.getPosition());
+				someToExtend = true;
+			}
+		}
+	}
+	if(someToExtend) {
+		map.fitBounds(bounds);
+	}
 }
 
 // *********************************

@@ -53,7 +53,7 @@
 						href="#collapseNonVisitate" style="color: #333; font-size: 18px;"> <b>Da visitare</b> <span class="pull-right"><em class="glyphicon glyphicon-chevron-right"></em><em class="glyphicon glyphicon-chevron-down arrow_show"></em></span></a>
 				</h4>
 			</div>
-			<div id="collapseNonVisitate" class="panel-collapse collapse in">
+			<div id="collapseNonVisitate" class="panel-collapse collapse in dropable-tab">
 				<ol class="box-body p-0 m-0">
 					<li id="nessunaVisitaNonConfermata" class="notSortable list-group-item m-0 light-azure-bg text-center text-primary" style="border: none; padding-top: 30px; position: inherit;">
 						<div><i class="fa fa-info-circle" style="font-size: 4em;"></i></div>
@@ -86,7 +86,7 @@
 											src="${visita.attrazione.fotoPrincipali[0].path}"
 											style="margin-left: 5px; margin-right: 5px; height: 50px; width: 50px; border-radius: 10px;">
 										<span style="font-size: 1.3em;" id="etichettaVisita">
-											<b>${visita.etichetta}</b>
+											<b>${visita.etichetta} <c:if test="${not empty visita.ora}">(${visita.ora})</c:if></b>
 										</span>
 									</div>
 									<input type="hidden" id="notaVisita${visita.id}" value="${visita.nota}" />
@@ -113,7 +113,7 @@
 						href="#collapseVisitate" style="color: #333; font-size: 18px;"> <b>Visitate</b>  <span class="pull-right"><em class="glyphicon glyphicon-chevron-right"></em><em class="glyphicon glyphicon-chevron-down arrow_show"></em></span></a>
 				</h4>
 			</div>
-			<div id="collapseVisitate" class="panel-collapse collapse in">
+			<div id="collapseVisitate" class="panel-collapse collapse in dropable-tab">
 				<ol class="box-body p-0 m-0">
 					<li id="nessunaVisitaConfermata" class="notSortable list-group-item m-0 light-azure-bg text-center text-primary" style="border: none; padding-top: 30px; position: inherit;">
 						<div><i class="fa fa-info-circle" style="font-size: 4em;"></i></div>
