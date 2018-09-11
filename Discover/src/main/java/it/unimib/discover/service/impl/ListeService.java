@@ -490,8 +490,14 @@ public class ListeService {
 		} else {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date dataVisita = sdf.parse(key);
+			Date oggi = new Date();
 			visita.setOrdineNelGiorno(itinerario.getOrdineVisita(dataVisita));
 			visita.setDataVisita(dataVisita);
+			if(dataVisita.before(oggi)) {
+				visita.setConferma(true);
+			} else {
+				visita.setConferma(false);
+			}
 			visitaDAO.persist(visita);
 		}
 	}
@@ -592,6 +598,13 @@ public class ListeService {
 		if(dataVisitaNew.before(itinerario.getDataInizio()) || dataVisitaNew.after(dataVisitaNew)) {
 			return false;
 		} else {
+			Date oggi = new Date();
+			if(dataVisitaNew.before(oggi)) {
+				visita.setConferma(true);
+			} else {
+				visita.setConferma(false);
+			}
+			visitaDAO.persist(visita);
 			return true;
 		}
 	}

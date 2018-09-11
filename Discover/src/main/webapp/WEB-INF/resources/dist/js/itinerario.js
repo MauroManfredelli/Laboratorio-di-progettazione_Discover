@@ -22,7 +22,8 @@ function setDraggable() {
         start: function (event, ui) {
         	
             $(this).css({
-                'opacity': '0.4'
+                'opacity': '0.4',
+                'z-index': '999999'
             });
             elementDragFrom = $(this).closest("ol");
         },
@@ -82,6 +83,7 @@ function dragElementTo() {
 			aggiornaOrdiniTabFrom(elementDragFrom);
 			aggiornaOrdineTabDest(destTab, clonedElement);
 			aggiornaMarkersMappa();
+			$("li[href='#"+$(elementDragFrom).attr("id")+"']").click();
 			elementDragged="";
 			elementDragTo="";
 			elementDragFrom="";
@@ -227,6 +229,7 @@ function aggiornaOrdineSezione() {
 var map, infoWindow  = new google.maps.InfoWindow;
 var markersAttrazioni = [], infoWindowsMarker = [];
 var geocoder =  new google.maps.Geocoder();
+var contentsString = {};
 
 function initMap() {
 	geocoder.geocode( { 'address': $('#localitaMappa').val()}, function(results, status) {
@@ -309,6 +312,7 @@ function addMarker(attrazione) {
 						"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' target='_blank'><b>Visualizza dettagli</b></a>"+
 					"</div>"+
 				"</div>";
+		contentsString[attrazione.id] = contentString;
 		infoWindow.setContent(contentString);
 		infoWindow.open(map, marker);
 	});
@@ -420,6 +424,7 @@ $('#notaVisitaPrecedenteModal').on('hide.bs.modal', function (e) {
 function cambiaDataVisita(idVisita, tabFrom, element) {
 	$("#dataVisitaModal #idVisita").val(idVisita);
 	$("#dataVisitaModal #dataVisita").val("");
+	tabFrom = $("#"+element).closest("ol").attr("id");
 	$("#dataVisitaModal #btnSalva").attr("onclick", "salvaModificaDataVisita('"+tabFrom+"', '"+element+"')")
 	$("#dataVisitaModal").modal("toggle");
 }
@@ -427,6 +432,7 @@ function cambiaDataVisita(idVisita, tabFrom, element) {
 function cambiaGiornoVisita(idVisita, tabFrom, element) {
 	$("#giornoVisitaModal #idVisita").val(idVisita);
 	$("#giornoVisitaModal #giornoVisita").val("");
+	tabFrom = $("#"+element).closest("ol").attr("id");
 	$("#giornoVisitaModal #btnSalva").attr("onclick", "salvaModificaGiornoVisita('"+tabFrom+"', '"+element+"')")
 	$("#giornoVisitaModal").modal("toggle");
 }
@@ -555,6 +561,9 @@ function eliminaVisita(idVisita) {
         	var tabFrom = $("li[id=item"+idVisita+"]").closest("ol");
         	$("li[id=item"+idVisita+"]").remove();
         	aggiornaOrdiniTabFrom(tabFrom);
+        	if($(tabFrom).find("li[id^=item]").length == 0) {
+				$(tabFrom).find("[id^=nessunaAttrazione]").removeClass("hidden");
+			}
         	mostraNotifica('Visita eliminata', 'danger');
         }
 	});
@@ -590,11 +599,38 @@ function copiaVisita(idVisita) {
 			}
 			elementDragFrom = $("li[id=item"+idVisita+"]").closest("ol");
 			elementDragged = $("li[id=item"+visita.id+"]");
+			clonaMarker(visita, idVisita);
 			// aggiornaOrdineSezione();
 			setDraggable();
         	mostraNotifica('Visita copiata e aggiunta in fondo alla sezione corrente', 'primary');
         }
 	});
+}
+
+function clonaMarker(visita, idVisitaCopied) {
+	for(var i=0; i<markersAttrazioni.length; i++) {
+		var marker = markersAttrazioni[i];
+		if(marker.id == 'marker'+idVisitaCopied) {
+			var markerCloned = new google.maps.Marker({
+				id: 'marker'+visita.id,
+				position: marker.position,
+				icon: marker.icon,
+				formatted_address: marker.formatted_address,
+				map: map,
+				title:"Localizzazione attrazione",
+				draggable: false
+			});
+			
+			google.maps.event.addListener(markerCloned,'click', function() {
+				var contentString = contentsString[idVisitaCopied];
+				contentsString[visita.id] = contentString;
+				infoWindow.setContent(contentString);
+				infoWindow.open(map, markerCloned);
+			});
+			markerCloned.setMap(map);	
+			markersAttrazioni[markersAttrazioni.length] = markerCloned;
+		}
+	}
 }
 
 var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box box-body m-0" style="position: inherit;" idVisita="_IDVISITA_">'+
