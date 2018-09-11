@@ -117,10 +117,10 @@
 																	<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="text-name"><b>${lista.nome}</b></span></a>
 																	<c:choose>
 																		<c:when test="${empty lista.idItinerario}">
-																			<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="fa fa-list-alt pull-right text-primary" data-toggle="tooltip" title="Modifica wishlist"></span></a>
+																			<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="fa fa-list-alt pull-right text-primary" data-toggle="tooltip" title="Modifica attrazioni"></span></a>
 																		</c:when>
 																		<c:otherwise>
-																			<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="fa fa-list-alt pull-right text-primary" data-toggle="tooltip" title="Modifica itinerario"></span></a>
+																			<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="fa fa-list-alt pull-right text-primary" data-toggle="tooltip" title="Modifica visite"></span></a>
 																		</c:otherwise>
 																	</c:choose>
 																	

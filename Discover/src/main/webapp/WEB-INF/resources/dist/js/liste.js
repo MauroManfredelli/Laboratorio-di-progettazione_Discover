@@ -137,7 +137,7 @@ function confermaItinerario(idLista, idItinerario) {
 	       	},
 	        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 	        success: function(result) {
-	        	$("#divLista"+idLista+" #confermaItinerario i").removeClass("text-success").addClass("text-primary");
+	        	$("#divLista"+idLista+" #confermaItinerario i").removeClass("text-success").addClass("text-action");
 	        	mostraNotifica("itinerario non confermato", "danger");
 	        }
 		});

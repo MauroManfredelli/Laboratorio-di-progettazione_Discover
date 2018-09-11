@@ -88,52 +88,53 @@ function setUserPositionAsCentro() {
 	}
 }
 
+var uncheck_singolo_tipi = false;
+
 $('#checkAllTipiAttrazioni').on('ifChecked', function (event) {
 	$('input[name=tipoAttrazione]').iCheck('check');
+	uncheck_singolo_tipi = false;
 });
 
 $('#checkAllTipiAttrazioni').on('ifUnchecked', function (event) {
-	if(uncheckAllTipoAttr == false) {
-		uncheckAllTipoAttr = true;
-		return;
-	}
-	$('input[name=tipoAttrazione]').iCheck('uncheck');
+	if (!uncheck_singolo_tipi)
+		$('input[name=tipoAttrazione]').iCheck('uncheck');
+	else
+		uncheck_singolo_tipi=false;
 });
 
-var uncheckAllTipoAttr = true;
 $('input[name=tipoAttrazione]').on('ifUnchecked', function (event) {
-    uncheckAllTipoAttr = false;
+    uncheck_singolo_tipi = true;
     $('#checkAllTipiAttrazioni').iCheck('uncheck');
 });
 
 $('input[name=tipoAttrazione]').on('ifChecked', function (event) {
-    if ($('input[name=tipoAttrazione]').filter(':checked').length == $('input[name=tipoAttrazione]').length) {
-        $('#checkAllTipiAttrazioni').iCheck('check');
-    }
+	 if ($('input[name=tipoAttrazione]').filter(':checked').length == $('input[name=tipoAttrazione]').length)
+		 $('#checkAllTipiAttrazioni').iCheck('check');
 });
+
+var uncheck_singolo_stati = false;
 
 $('#checkAllStatiAttrazioni').on('ifChecked', function (event) {
 	$('input[name=statoAttrazione]').iCheck('check');
+	uncheck_singolo_stati = false;
 });
 
 $('#checkAllStatiAttrazioni').on('ifUnchecked', function (event) {
-	if(uncheckAllStatoAttr == false) {
-		uncheckAllStatoAttr = true;
-		return;
-	}
-	$('input[name=statoAttrazione]').iCheck('uncheck');
+	if (!uncheck_singolo_stati)
+		$('input[name=statoAttrazione]').iCheck('uncheck');
+	else
+		uncheck_singolo_stati=false;
 });
 
-var uncheckAllStatoAttr = true;
+
 $('input[name=statoAttrazione]').on('ifUnchecked', function (event) {
-    uncheckAllStatoAttr = false;
+	uncheck_singolo_stati = true;
     $('#checkAllStatiAttrazioni').iCheck('uncheck');
 });
 
 $('input[name=statoAttrazione]').on('ifChecked', function (event) {
-    if ($('input[name=statoAttrazione]').filter(':checked').length == $('input[name=statoAttrazione]').length) {
-        $('#checkAllStatiAttrazioni').iCheck('check');
-    }
+	if ($('input[name=statoAttrazione]').filter(':checked').length == $('input[name=statoAttrazione]').length)
+		 $('#checkAllStatiAttrazioni').iCheck('check');
 });
 
 function mostraAltriFiltri(flag) {
