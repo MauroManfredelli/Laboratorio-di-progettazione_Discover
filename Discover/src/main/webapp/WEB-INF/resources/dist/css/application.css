@@ -135,6 +135,16 @@
 	background-color: #FCFDFF !important;
 }
 
+.light-grey-bg {
+	background-color: #EDEDED;
+}
+
+.grey-bg {
+	background-color: #ACADAE;
+	color: black;
+	text-align: center;
+}
+
 .item-hovered {
 	background-color: #E3E4E5 !important;
 }
