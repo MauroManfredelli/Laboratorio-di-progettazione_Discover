@@ -5,6 +5,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
+
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <%--<script
 	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&key=AIzaSyDyEIJOP_23NNYKbQFtwDl8A4_EZ3m_Smg"></script>--%>

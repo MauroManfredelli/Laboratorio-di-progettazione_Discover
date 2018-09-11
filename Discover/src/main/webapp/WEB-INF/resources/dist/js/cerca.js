@@ -3,7 +3,7 @@ $(document).ready(function() {
 	if($("#lontananzaMinima").val() == "" || $("#lontananzaMinima").val() == null) {
 		$("#lontananzaMinima").val("0");
 		$("#lontananzaMassima").val("50");
-	}
+	} 
 	$("#sliderLontananza").bootstrapSlider().on('slideStop', function(ev){
 	    var data = $('#sliderLontananza').attr("data");
 	    data = data.substring(data.indexOf(":") + 2);
