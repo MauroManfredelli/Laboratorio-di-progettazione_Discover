@@ -206,16 +206,22 @@ public class Itinerario implements Serializable {
 
 	public String getNumeroVisiteGiorno(Integer giorno, Date dataVisita) {
 		int numeroVisite = 1;
-		if(giorno == null) {
+		if(dataVisita != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			for(Visita visita : this.visite) {
 				if(visita.getDataVisita() != null && sdf.format(visita.getDataVisita()).equals(sdf.format(dataVisita))) {
 					numeroVisite ++;
 				}
 			}
-		} else {
+		} else if(giorno != null) {
 			for(Visita visita : this.visite) {
 				if(visita.getGiorno() != null && visita.getGiorno() == giorno) {
+					numeroVisite ++;
+				}
+			}
+		} else {
+			for(Visita visita : this.visite) {
+				if(visita.getGiorno() == null && visita.getDataVisita() == null) {
 					numeroVisite ++;
 				}
 			}

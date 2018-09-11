@@ -536,7 +536,7 @@ public class ListeService {
 		visita.setOrdineNelGiorno(itinerario.getNumeroVisiteGiorno(visita.getGiorno(), visita.getDataVisita()));
 		visitaDAO.persist(visita);
 		if(visita.getDataVisita() == null && visita.getGiorno() == null) {
-			visita.setOrdine("0-"+visitaRemote.getOrdineNelGiorno());
+			visita.setOrdine("0-"+visita.getOrdineNelGiorno());
 		} else if(visita.getGiorno() == null) {
 			Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - itinerario.getDataInizio().getTime()) / (24 * 60 * 60 * 1000)) + 1;
 			visita.setOrdine(ordineGiorno+"-"+visita.getOrdineNelGiorno());
