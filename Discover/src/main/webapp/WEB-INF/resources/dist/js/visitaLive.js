@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$("#liHeadListe").addClass("section-active").css("margin-bottom", "1px");
 	initMap();
 	setDraggable();
 });
@@ -20,7 +21,8 @@ function setDraggable() {
         cancel: ".noDrag",
         start: function (event, ui) {
             $(this).css({
-                'opacity': '0.7'
+                'opacity': '0.7',
+                'z-index': '9999999'
             });
             elementDragFrom = $(this).closest(".panel-collapse");
         },
@@ -37,10 +39,10 @@ function setDraggable() {
         accept: '.item-draggable',
         hoverClass: 'item-hovered',
         drop: function (event, ui) {
-        	if($(elementDragFrom).attr("id") == "collapseVisitate") {
-        		elementDragTo = $("#collapseNonVisitate");
-        	} else {
+        	if($(this).attr("id") == "collapseVisitate" || $(this).find("a").attr("href") == "#collapseVisitate") {
         		elementDragTo = $("#collapseVisitate");
+        	} else {
+        		elementDragTo = $("#collapseNonVisitate");
         	}
             dragElementTo();
         }
@@ -60,12 +62,12 @@ function confermaVisita(idVisita) {
 	        	elementDragged = $("#item"+idVisita);
 	        	elementDragTo = $("#collapseVisitate");
 	        	elementDragFrom = $("#collapseNonVisitate");
-	            dragElementTo();
+	            dragElementTo(true);
         	} else {
         		elementDragged = $("#item"+idVisita);
 	        	elementDragTo = $("#collapseNonVisitate");
 	        	elementDragFrom = $("#collapseVisitate");
-	            dragElementTo();
+	            dragElementTo(true);
         	}
         }
 	});
@@ -73,10 +75,10 @@ function confermaVisita(idVisita) {
 
 var elementDragged = "", elementDragTo = "", elementDragFrom = "";
 
-function dragElementTo() {
+function dragElementTo(fromClick) {
 	setTimeout(function() {
 		if(elementDragged == "" || elementDragTo == "") {
-			dragElementTo();
+			dragElementTo(fromClick);
 		} else {
 			var clonedElement = $(elementDragged).clone();
 			$(elementDragged).remove();
@@ -99,7 +101,9 @@ function dragElementTo() {
 				$(clonedElement).find("[id=btnEliminaVisita]").removeClass("hidden");
 			}
 			$(clonedElement).find(".tooltip").remove();
-			aggiornaVisiteDB(elementDragTo, clonedElement);
+			if(fromClick != true) {
+				aggiornaVisiteDB(elementDragTo, clonedElement);
+			}
 			// aggiornaOrdiniTabFrom(elementDragFrom);
 			// aggiornaOrdineTabDest(destTab, clonedElement);
 			aggiornaMarkersMappa(confermata);
@@ -109,6 +113,11 @@ function dragElementTo() {
 			elementDragFrom="";
 			setDraggable();
 			$("[data-toggle='tooltip']").tooltip();
+			$("#collapseNonVisitate").find("li").sort(sort_li).appendTo("#collapseNonVisitate");
+		    $("#collapseVisitate").find("li").sort(sort_li).appendTo("#collapseVisitate");
+		    function sort_li(a, b) {
+		        return ($(b).find("[id=spanOrdine]").attr("ordine") < ($(a).find("[id=spanOrdine]").attr("ordine")) ? 1 : -1);
+		    }
 		}
 	}, 200);
 }
@@ -183,7 +192,13 @@ function aggiornaMarkersMappa(confermata) {
 		var li = liList[j];
 		var id = $(li).attr("idVisita");
 		var ordine = $(li).find("[id=spanOrdine]").attr("ordine");
-		var tipoMarker = (confermata ? 'marker_black' : 'marker_red');
+		var panel = $(li).closest(".panel-collapse");
+		var tipoMarker;
+		if($(panel).attr("id") == "collapseNonVisitate") {
+			tipoMarker = 'marker_red';
+		} else {
+			tipoMarker = 'marker_black';
+		}
 		for(var i=0; i<markersAttrazioni.length; i++) {
 			var marker = markersAttrazioni[i];
 			if(marker.id == 'marker'+id) {
@@ -292,10 +307,21 @@ var map, infoWindow  = new google.maps.InfoWindow;
 var markersAttrazioni = [], infoWindowsMarker = [];
 var geocoder =  new google.maps.Geocoder();
 var markerPosizioneUtente;
+var bounds;
 
 function initMap() {
- map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 14
+	var myStyles =[
+	    {
+	        featureType: "poi",
+	        elementType: "labels",
+	        stylers: [
+	              { visibility: "off" }
+	        ]
+	    }
+	];
+	map = new google.maps.Map(document.getElementById('map'), {
+	    zoom: 14,
+	    styles: myStyles
 	});
 	
 	// Try HTML5 geolocation.
@@ -322,9 +348,11 @@ function initMap() {
 			infoWindow.setContent(contentString);
 			infoWindow.open(map, markerPosizioneUtente);
 		});
-		
+    	
 		markerPosizioneUtente.setMap(map);	
 	    map.setCenter(pos);
+		bounds = new google.maps.LatLngBounds();
+		bounds.extend(markerPosizioneUtente.getPosition());
 		
 		addMarkersAttrazioniToMap();
 	  }, function() {
@@ -358,7 +386,9 @@ function addMarkersAttrazioniToMap() {
 				var attrazione = markersAttrazioniJson[i];
 				var marker = addMarker(attrazione);
 				markersAttrazioni[i] = marker;
+				bounds.extend(marker.getPosition());
 			}
+			map.fitBounds(bounds);
 			// addWayToMap();
         }
 	});

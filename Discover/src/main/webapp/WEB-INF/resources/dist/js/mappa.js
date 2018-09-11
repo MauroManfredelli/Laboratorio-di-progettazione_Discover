@@ -25,9 +25,24 @@ function initMap() {
 	      lng: position.coords.longitude
 	    };
 	
-	    infoWindow.setPosition(pos);
-	    infoWindow.setContent('Tu sei qui');
-	    infoWindow.open(map);
+	    var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		markerPosizioneUtente = new google.maps.Marker({
+			id: 'posizioneUtente',
+			position: position,
+			icon: '/discover/resources/dist/img/markers/markerPosizioneUtente_40x40.png',
+			formatted_address: "La tua posizione.",
+			map: map,
+			title:"Localizzazione attrazione",
+			draggable: false
+		});
+		
+		google.maps.event.addListener(markerPosizioneUtente,'click', function() {
+			var contentString = "Questa è la tua posizione.";
+			infoWindow.setContent(contentString);
+			infoWindow.open(map, markerPosizioneUtente);
+		});
+    	
+		markerPosizioneUtente.setMap(map);	
 	    map.setCenter(pos);
 	  }, function() {
 	    handleLocationError(true, infoWindow, map.getCenter());
@@ -66,10 +81,21 @@ function initMapByAddress() {
 		}
 		
 		var var_location = new google.maps.LatLng(results[0].geometry.location.lat(),results[0].geometry.location.lng());
- 
+		
+		var myStyles =[
+		    {
+		        featureType: "poi",
+		        elementType: "labels",
+		        stylers: [
+		              { visibility: "off" }
+		        ]
+		    }
+		];
+		
 		var var_mapoptions = {
 		  center: var_location,
-		  zoom: 14
+		  zoom: 14,
+		  styles: myStyles
 		};
 		
 		addMarkersAttrazioniToMap();
