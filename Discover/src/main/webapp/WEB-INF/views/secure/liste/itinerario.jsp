@@ -166,9 +166,7 @@
 														</c:when>
 													</c:choose>
 												</c:if>
-												<c:if test="${visita.conferma}">
-													<i class="fa fa-check-circle text-success" style="font-size: 1.5em; padding-left: 10px;" id="iconConferma"> <span style="font-size: 0.8em; margin-bottom: 2px;">Confermata</span></i>
-												</c:if>
+												<i class="fa fa-check-circle text-success <c:if test='${not visita.conferma}'>hidden</c:if>" style="font-size: 1.5em; padding-left: 10px;" id="iconConferma"> <span style="font-size: 0.8em; margin-bottom: 2px;">Confermata</span></i>
 											</div>
 										</div>
 									</li>

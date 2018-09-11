@@ -45,7 +45,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="accordion" class="light-blue-bg" style="position: fixed; height: 100%; max-height: 100%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px;">
+	<div id="accordion" class="light-blue-bg" style="position: fixed; height: 82%; max-height: 82%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px;">
 		<div class="panel box box-primary m-0">
 			<div class="box-header with-border dropable-tab" style="text-align:center;">
 				<h4 class="box-title col-md-12 p-0">
@@ -126,8 +126,8 @@
 									$("#nessunaVisitaConfermata").addClass("hidden");
 								})
 							</script>
-							<li id="item${visita.id}" class="item-draggablen light-azure-bg list-group-item m-0 light-blue-bg" style="position: inherit;" idVisita="${visita.id}">
-								<div class="noDrag" style="width: 109%; background-color: #FFF; margin-left: -15px; padding: 10px; margin-top: -10px;">
+							<li id="item${visita.id}" class="item-draggable light-azure-bg list-group-item m-0 light-blue-bg" style="position: inherit;" idVisita="${visita.id}">
+								<div class="noDrag light-grey-bg" style="width: 109%; background-color: #FFF; margin-left: -15px; padding: 10px; margin-top: -10px;">
 									<input type="hidden" id="notaPrec${visita.id}" value="${visita.notaPrec}" />
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>

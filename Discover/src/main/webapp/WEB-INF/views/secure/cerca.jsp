@@ -293,7 +293,7 @@
 														<div class="item <c:if test='${indexFoto.index == 0}'>active</c:if>">
 															<img
 																src="<%= request.getContextPath() %>/resources/dist/img/attrazione${attrazione.id}/${indexFoto.index + 1}.jpg"
-																style="display: block; margin: 0 auto; height: 100%;">
+																style="margin: 0 auto; height: 250px; max-height: 300px; width: auto;">
 														</div>
 													</c:forEach>
 												</div>

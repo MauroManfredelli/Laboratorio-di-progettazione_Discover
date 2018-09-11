@@ -1,7 +1,9 @@
 package it.unimib.discover.controller.impl;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -146,6 +149,13 @@ public class ListeController {
 	@RequestMapping(value = "/liste/eliminaLista", method = RequestMethod.GET)
     public @ResponseBody ValidationResponse eliminaLista(@RequestParam(name="idLista") String idLista,  HttpServletRequest request) {
 		listeService.eliminaLista(idLista);
+		Object idListaUtenteObj = request.getSession().getAttribute("idListaUtente");
+    	if(idListaUtenteObj != null) {
+    		String idListaUtente = idListaUtenteObj.toString();
+    		if(idListaUtente.equals(idLista)) {
+    			request.getSession().setAttribute("idListaUtente", "");
+    		}
+    	}
 		return new ValidationResponse("SUCCESS");
     }
 	
@@ -167,7 +177,7 @@ public class ListeController {
 			} else {
 				modelAndView.addObject("dateItinerario", listeService.getMapDateItinerario(itinerario));
 			}
-			if(itinerario.getVisite() != null) {
+			if(itinerario.getVisite() != null && !itinerario.getVisite().isEmpty()) {
 				modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
 			}
 	        return modelAndView;
@@ -183,8 +193,10 @@ public class ListeController {
 		itinerario.setMapAttrazioni(listeService.getMapAttrazioniItinerario(itinerario));
 		modelAndView.addObject("itinerario", itinerario);
 		modelAndView.addObject("allDate", true);
-		modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
-        return modelAndView;
+		if(itinerario.getVisite() != null && !itinerario.getVisite().isEmpty()) { 
+			modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
+		}
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/liste/aggiornaVisite", method = RequestMethod.GET)
@@ -257,6 +269,12 @@ public class ListeController {
 		return new ValidationResponse("SUCCESS");
     }
 	
+	@RequestMapping(value = "/liste/eliminaVisitaLive", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse eliminaVisitaLive(@RequestParam(name="idVisita") Integer idVisita, HttpServletRequest request) throws ParseException {
+		listeService.eliminaVisitaLive(idVisita);
+		return new ValidationResponse("SUCCESS");
+    }
+	
 	@RequestMapping(value = "/liste/copiaVisita", method = RequestMethod.GET)
     public @ResponseBody Visita copiaVisita(@RequestParam(name="idVisita") Integer idVisita, HttpServletRequest request) throws ParseException {
 		Visita visita = listeService.copiaVisita(idVisita);
@@ -307,6 +325,12 @@ public class ListeController {
 		} else {
 			return new ValidationResponse("NON CONFERMATA");
 		}
+    }
+	
+	@RequestMapping(value = "/liste/aggiornaOrdiniDB")
+    public @ResponseBody ValidationResponse aggiornaOrdiniDB(@RequestBody ArrayList<Map<String, String>> updates,  HttpServletRequest request) {
+		listeService.aggiornaOrdiniDB(updates);
+		return new ValidationResponse("SUCCESS");
     }
 	
 }

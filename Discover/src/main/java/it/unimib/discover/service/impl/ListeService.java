@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -302,24 +303,32 @@ public class ListeService {
 				}
 				if(visita.getDataVisita() != null) {
 					Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - dataMinima.getTime()) / (24 * 60 * 60 * 1000)) + 1;
-					Integer ordineNelGiorno = 1;
-					for(Visita visitaOther : itinerario.getVisite()) {
-						if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOrdineNelGiorno() != null &&
-								visitaOther.getDataVisita().equals(visita.getDataVisita()) && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
-							ordineNelGiorno ++;
+					if(StringUtils.isEmpty(visita.getOrdineNelGiorno())) {
+						Integer ordineNelGiorno = 1;
+						for(Visita visitaOther : itinerario.getVisite()) {
+							if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOrdineNelGiorno() != null &&
+									visitaOther.getDataVisita().equals(visita.getDataVisita()) && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
+								ordineNelGiorno ++;
+							}
 						}
+						markerAttrazione.setOrdineMarker(ordineGiorno+"-"+ordineNelGiorno);
+					} else {
+						markerAttrazione.setOrdineMarker(ordineGiorno+"-"+visita.getOrdineNelGiorno());
 					}
-					markerAttrazione.setOrdineMarker(ordineGiorno+"-"+ordineNelGiorno);
 				} else if(visita.getGiorno() != null) {
 					Integer ordineGiorno = visita.getGiorno();
-					Integer ordineNelGiorno = 1;
-					for(Visita visitaOther : itinerario.getVisite()) {
-						if(!visitaOther.equals(visita) && visitaOther.getGiorno() != null && visitaOther.getOrdineNelGiorno() != null &&
-								visitaOther.getGiorno() == visita.getGiorno() && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
-							ordineNelGiorno ++;
+					if(StringUtils.isEmpty(visita.getOrdineNelGiorno())) {
+						Integer ordineNelGiorno = 1;
+						for(Visita visitaOther : itinerario.getVisite()) {
+							if(!visitaOther.equals(visita) && visitaOther.getGiorno() != null && visitaOther.getOrdineNelGiorno() != null &&
+									visitaOther.getGiorno() == visita.getGiorno() && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
+								ordineNelGiorno ++;
+							}
 						}
+						markerAttrazione.setOrdineMarker(ordineGiorno+"-"+ordineNelGiorno);
+					} else {
+						markerAttrazione.setOrdineMarker(ordineGiorno+"-"+visita.getOrdineNelGiorno());
 					}
-					markerAttrazione.setOrdineMarker(ordineGiorno+"-"+ordineNelGiorno);
 				} else {
 					Integer ordineNelGiorno = 1;
 					for(Visita visitaOther : itinerario.getVisite()) {
@@ -346,24 +355,32 @@ public class ListeService {
 			for(Visita visita: itinerario.getVisite()) {
 				if(visita.getDataVisita() != null) {
 					Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - dataMinima.getTime()) / (24 * 60 * 60 * 1000)) + 1;
-					Integer ordineNelGiorno = 1;
-					for(Visita visitaOther : itinerario.getVisite()) {
-						if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOrdineNelGiorno() != null &&
-								visitaOther.getDataVisita().equals(visita.getDataVisita()) && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
-							ordineNelGiorno ++;
+					if(StringUtils.isEmpty(visita.getOrdineNelGiorno())) {
+						Integer ordineNelGiorno = 1;
+						for(Visita visitaOther : itinerario.getVisite()) {
+							if(!visitaOther.equals(visita) && visitaOther.getDataVisita() != null && visitaOther.getOrdineNelGiorno() != null &&
+									visitaOther.getDataVisita().equals(visita.getDataVisita()) && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
+								ordineNelGiorno ++;
+							}
 						}
+						visita.setOrdine(ordineGiorno+"-"+ordineNelGiorno);
+					} else {
+						visita.setOrdine(ordineGiorno+"-"+visita.getOrdineNelGiorno());
 					}
-					visita.setOrdine(ordineGiorno+"-"+ordineNelGiorno);
 				} else if(visita.getGiorno() != null) {
 					Integer ordineGiorno = visita.getGiorno();
-					Integer ordineNelGiorno = 1;
-					for(Visita visitaOther : itinerario.getVisite()) {
-						if(!visitaOther.equals(visita) && visitaOther.getGiorno() != null && visitaOther.getOrdineNelGiorno() != null &&
-								visitaOther.getGiorno() == visita.getGiorno() && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
-							ordineNelGiorno ++;
+					if(StringUtils.isEmpty(visita.getOrdineNelGiorno())) {
+						Integer ordineNelGiorno = 1;
+						for(Visita visitaOther : itinerario.getVisite()) {
+							if(!visitaOther.equals(visita) && visitaOther.getGiorno() != null && visitaOther.getOrdineNelGiorno() != null &&
+									visitaOther.getGiorno() == visita.getGiorno() && visitaOther.getOrdineNelGiorno().compareTo(visita.getOrdineNelGiorno()) > 0) {
+								ordineNelGiorno ++;
+							}
 						}
+						visita.setOrdine(ordineGiorno+"-"+ordineNelGiorno);
+					} else {
+						visita.setOrdine(ordineGiorno+"-"+visita.getOrdineNelGiorno());
 					}
-					visita.setOrdine(ordineGiorno+"-"+ordineNelGiorno);
 				} else {
 					Integer ordineNelGiorno = 1;
 					for(Visita visitaOther : itinerario.getVisite()) {
@@ -464,6 +481,7 @@ public class ListeService {
 			} else {
 				visita.setGiorno(null);
 			}
+			visita.setConferma(false);
 			visitaDAO.persist(visita);
 		} else if(key.contains("Giorno")) {
 			Integer giorno = Integer.valueOf(key.substring(key.indexOf(" ") + 1));
@@ -473,8 +491,20 @@ public class ListeService {
 		} else {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date dataVisita = sdf.parse(key);
+			Calendar cal = Calendar.getInstance();  
+	        cal.setTime(new Date());  
+	        cal.set(Calendar.HOUR_OF_DAY, 0);  
+	        cal.set(Calendar.MINUTE, 0);  
+	        cal.set(Calendar.SECOND, 0);  
+	        cal.set(Calendar.MILLISECOND, 0);  
+			Date oggi = cal.getTime();
 			visita.setOrdineNelGiorno(itinerario.getOrdineVisita(dataVisita));
 			visita.setDataVisita(dataVisita);
+			if(dataVisita.before(oggi)) {
+				visita.setConferma(true);
+			} else {
+				visita.setConferma(false);
+			}
 			visitaDAO.persist(visita);
 		}
 	}
@@ -503,14 +533,15 @@ public class ListeService {
 		Visita visita = new Visita(visitaRemote);
 		Itinerario itinerario = visita.getItinerario();
 		changeEtichettaIfExists(visita, itinerario.getVisite(), 2);
+		visita.setOrdineNelGiorno(itinerario.getNumeroVisiteGiorno(visita.getGiorno(), visita.getDataVisita()));
 		visitaDAO.persist(visita);
 		if(visita.getDataVisita() == null && visita.getGiorno() == null) {
 			visita.setOrdine("0-"+visitaRemote.getOrdineNelGiorno());
 		} else if(visita.getGiorno() == null) {
 			Integer ordineGiorno = (int) ((visita.getDataVisita().getTime() - itinerario.getDataInizio().getTime()) / (24 * 60 * 60 * 1000)) + 1;
-			visita.setOrdine(ordineGiorno+"-"+visitaRemote.getOrdineNelGiorno());
+			visita.setOrdine(ordineGiorno+"-"+visita.getOrdineNelGiorno());
 		} else {
-			visita.setOrdine(visita.getGiorno()+"-"+visitaRemote.getOrdineNelGiorno());
+			visita.setOrdine(visita.getGiorno()+"-"+visita.getOrdineNelGiorno());
 		}
 		return visita;
 	}
@@ -530,6 +561,13 @@ public class ListeService {
 		Visita visitaRemote = visitaDAO.findByKey(idVisita);
 		visitaRemote.setAttrazione(null);
 		visitaRemote.setItinerario(null);
+		visitaDAO.delete(visitaRemote);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void eliminaVisitaLive(Integer idVisita) {
+		Visita visitaRemote = visitaDAO.findByKey(idVisita);
+		visitaRemote.setDataVisita(null);
 		visitaDAO.delete(visitaRemote);
 	}
 
@@ -567,6 +605,19 @@ public class ListeService {
 		if(dataVisitaNew.before(itinerario.getDataInizio()) || dataVisitaNew.after(dataVisitaNew)) {
 			return false;
 		} else {
+			Calendar cal = Calendar.getInstance();  
+	        cal.setTime(new Date());  
+	        cal.set(Calendar.HOUR_OF_DAY, 0);  
+	        cal.set(Calendar.MINUTE, 0);  
+	        cal.set(Calendar.SECOND, 0);  
+	        cal.set(Calendar.MILLISECOND, 0);  
+			Date oggi = cal.getTime();
+			if(dataVisitaNew.before(oggi)) {
+				visita.setConferma(true);
+			} else {
+				visita.setConferma(false);
+			}
+			visitaDAO.persist(visita);
 			return true;
 		}
 	}
@@ -678,5 +729,14 @@ public class ListeService {
 			data = this.addDays(data, 1);
 		}
 		return mapDateItinerario;
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void aggiornaOrdiniDB(List<Map<String, String>> updates) {
+		for(Map<String, String> update : updates) {
+			Visita visita = visitaDAO.findByKey(Integer.valueOf(update.get("idVisita")));
+			visita.setOrdineNelGiorno(update.get("ordine"));
+			visitaDAO.persist(visita);
+		}
 	}
 }
