@@ -256,9 +256,9 @@
 								    <div class="box-header with-border" >
 								    	<div style="padding-left: 20px;">
 									    	<h3 class="m-0">
-									        	<a style="cursor: pointer; color: #444;" href="/discover/attrazione/${attrazione.id}"><span class="text-name"><b style="float: left;">${attrazione.nome}</b></span></a>
+									        	<a style="cursor: pointer; color: #444;" href="/discover/attrazione/${attrazione.id}" target="_blank"><span class="text-name"><b style="float: left;">${attrazione.nome}</b></span></a>
 									        	<span class="pull-right" style="padding-right: 20px;">
-									        		<a class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli" style="cursor: pointer;" href="/discover/attrazione/${attrazione.id}"></a>
+									        		<a class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli" style="cursor: pointer;" href="/discover/attrazione/${attrazione.id}" target="_blank"></a>
 									        	</span>
 									        	<br>
 									        	<c:choose>

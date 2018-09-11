@@ -47,6 +47,8 @@
 .section-active {
 	background: #C1D3E5 !important;
 	font-weight: bold;
+	pointer-events: none;
+  	cursor: default;
 }
 
 .rounded-box-desktop {

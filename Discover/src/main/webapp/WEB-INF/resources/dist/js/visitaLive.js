@@ -387,7 +387,7 @@ function addMarker(attrazione) {
 									(attrazione.reazioniNegative != null ? "<i class='fa fa-thumbs-o-down'></i> "+attrazione.reazioniNegative+"<br>" : "")+
 									(attrazione.valutazioneMedia != null ? "<i class='fa fa-star'></i> "+attrazione.valutazioneMedia+"<br>" : "")+
 									"<i class='fa fa-map-marker'></i> "+attrazione.visiteConfermate+"<br>"+
-									"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' ><b>Visualizza dettagli</b></a>"+
+									"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' target='blank'><b>Visualizza dettagli</b></a>"+
 								"</div>"+
 							"</div>";
 		infoWindow.setContent(contentString);

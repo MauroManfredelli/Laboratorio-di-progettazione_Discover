@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import it.unimib.discover.entity.Attrazione;
 import it.unimib.discover.entity.Foto;
 import it.unimib.discover.entity.Itinerario;
 import it.unimib.discover.entity.Lista;
@@ -168,7 +167,9 @@ public class ListeController {
 			} else {
 				modelAndView.addObject("dateItinerario", listeService.getMapDateItinerario(itinerario));
 			}
-			modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
+			if(itinerario.getVisite() != null) {
+				modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
+			}
 	        return modelAndView;
 		} else {
 			return null;

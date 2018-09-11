@@ -11,8 +11,6 @@
 <!-- Main content -->
 <section class="content">
 	
-	<script src="http://malsup.github.com/jquery.form.js"></script> 
-	
 	<div class="row">
 		<div class="col-md-12 text-right">
 			<button class="btn btn-primary" id="btnNuovaWishlist" style="width: 130px;" onclick="creaWishlist()">
@@ -26,8 +24,8 @@
 
 	<div class="nav-tabs-custom" style="margin-top: 10px; box-shadow: none; border: none;">
 		<ul class="nav nav-tabs light-blue-bg" style="border: none;">
-			<li class="active" style="border: none;"><a href="#listeAttive" data-toggle="tab"><h5 class="m-0">Liste attive</h5></a></li>
-			<li style="border: none;"><a href="#listeArchiviate" data-toggle="tab"><h5 class="m-0">Liste archiviate</h5></a></li>
+			<li class="active"><a href="#listeAttive" data-toggle="tab"><h5 class="m-0">Liste attive</h5></a></li>
+			<li><a href="#listeArchiviate" data-toggle="tab"><h5 class="m-0">Liste archiviate</h5></a></li>
 			<li class="pull-right" style="display: inline-block; width: 250px; margin-top: 5px; margin-bottom: 3px; border: none;">
 				<select id="inputOrdinaListe" class="form-control chosen chosen-select" data-live-search="none" onchange="ordinaListe()" style="border: none;">
 					<option value="" style="border: none;">-</option>
@@ -91,13 +89,13 @@
 																		</c:forEach>
 																	</c:forEach>
 																</ol>
-																<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #fff;">
+																<div class="carousel-inner" style="height: 300px; max-height: 300px; width: auto; background-color: #fff;">
 	    															<c:forEach items="${lista.attrazioni}" var="attrazione" varStatus="indexAttrazione">
 																		<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 																			<div class="item <c:if test='${indexFoto.index == 0 and indexAttrazione.index == 0}'>active</c:if>">
 																				<img
 																					src="<%= request.getContextPath() %>/resources/dist/img/attrazione${attrazione.id}/${indexFoto.index + 1}.jpg"
-																					style="display: block; margin: 0 auto; height: 100%;">
+																					style="height: 300px; max-height: 300px; width: auto; margin: 0 auto;;">
 																			</div>
 																		</c:forEach>
 																	</c:forEach>
@@ -115,8 +113,17 @@
 													<div class="box" style="border: none; box-shadow: none">
 														<div class="box-body" style="border: none;">
 															<div class="row">
-																<div class="col-md-12" style="float: left; font-size: 25px;">
+																<div class="col-md-12" style="float: left; font-size: 25px; padding-right: 0px;">
 																	<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="text-name"><b>${lista.nome}</b></span></a>
+																	<c:choose>
+																		<c:when test="${empty lista.idItinerario}">
+																			<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="fa fa-list-alt pull-right text-primary" data-toggle="tooltip" title="Modifica wishlist"></span></a>
+																		</c:when>
+																		<c:otherwise>
+																			<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="fa fa-list-alt pull-right text-primary" data-toggle="tooltip" title="Modifica itinerario"></span></a>
+																		</c:otherwise>
+																	</c:choose>
+																	
 																</div>
 															</div>
 															
@@ -228,13 +235,13 @@
 																		</c:forEach>
 																	</c:forEach>
 																</ol>
-																<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #fff;">
+																<div class="carousel-inner" style="height: 300px; max-height: 300px; width: auto; background-color: #fff;">
 	    															<c:forEach items="${lista.attrazioni}" var="attrazione" varStatus="indexAttrazione">
 																		<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 																			<div class="item <c:if test='${indexFoto.index == 0 and indexAttrazione.index == 0}'>active</c:if>">
 																				<img
 																					src="<%= request.getContextPath() %>/resources/dist/img/attrazione${attrazione.id}/${indexFoto.index + 1}.jpg"
-																					style="display: block; margin: 0 auto; height: 100%;">
+																					style="height: 300px; max-height: 300px; width: auto; margin: 0 auto;">
 																			</div>
 																		</c:forEach>
 																	</c:forEach>

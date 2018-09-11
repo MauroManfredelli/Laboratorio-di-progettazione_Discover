@@ -304,7 +304,7 @@ function addMarker(attrazione) {
 						(attrazione.reazioniNegative != null ? "<i class='fa fa-thumbs-o-down'></i> "+attrazione.reazioniNegative+"<br>" : "")+
 						(attrazione.valutazioneMedia != null ? "<i class='fa fa-star'></i> "+attrazione.valutazioneMedia+"<br>" : "")+
 						"<i class='fa fa-map-marker'></i> "+attrazione.visiteConfermate+"<br>"+
-						"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' ><b>Visualizza dettagli</b></a>"+
+						"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' target='_blank'><b>Visualizza dettagli</b></a>"+
 					"</div>"+
 				"</div>";
 		infoWindow.setContent(contentString);
@@ -576,7 +576,7 @@ var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box
 							'</div>'+
 							'<div style="margin-top: 20px;">'+
 								'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita(\'_IDVISITA_\')"></i>'+
-								'<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign(\'/discover/attrazione/_IDATTRAZIONE_\')"></i>'+
+								'<i class="fa fa-info-circle" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open(\'/discover/attrazione/_IDATTRAZIONE_\', \'_blank\')"></i>'+
 								'<i class="fa fa-pencil" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita(\'_IDVISITA_\')"></i>'+
 								'<i class="fa fa-trash" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita(\'_IDVISITA_\')"></i>'+
 								'<i class="fa fa-copy" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita(\'_IDVISITA_\')"></i>'+

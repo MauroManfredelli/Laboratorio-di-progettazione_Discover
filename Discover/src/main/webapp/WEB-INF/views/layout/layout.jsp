@@ -93,6 +93,8 @@
 	<script src='<%= request.getContextPath() %>/resources/plugin/bootstrap-chosen/chosen.jquery.js'></script>
     <!-- Discover App -->
     <script src="<%= request.getContextPath() %>/resources/dist/js/generic.js" type="text/javascript"></script>
+	<!-- JQuery forms -->
+	<script src="http://malsup.github.com/jquery.form.js"></script> 
     
     <div class="wrapper light-blue-bg">
 		<%-- Header --%>

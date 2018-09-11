@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import it.unimib.discover.entity.Attrazione;
 import it.unimib.discover.entity.MyUserAccount;
+import it.unimib.discover.entity.Wishlist;
 import it.unimib.discover.model.ParametriRicerca;
 import it.unimib.discover.service.impl.AttrazioniService;
 
@@ -27,6 +28,7 @@ public class AttrazioniController {
 		ModelAndView modelAndView = new ModelAndView("secure/attrazioni/attrazione");
 		Attrazione a = attrazioniService.getAttrazioneById(id);
 		modelAndView.addObject("attrazione", a);
+		modelAndView.addObject("wishlist", new Wishlist());
         return modelAndView;
 	}
 	
@@ -36,6 +38,7 @@ public class AttrazioniController {
 		modelAndView.addObject("parametriRicerca", new ParametriRicerca());
 		modelAndView.addObject("tipologie", attrazioniService.getAllTipologieAttrazioni());
 		modelAndView.addObject("stati", attrazioniService.getAllStatiAttrazione());
+		modelAndView.addObject("wishlist", new Wishlist());
         return modelAndView;
 	}
 	
@@ -48,6 +51,7 @@ public class AttrazioniController {
 		modelAndView.addObject("listAttrazioni", listAttrazioni);
 		modelAndView.addObject("tipologie", attrazioniService.getAllTipologieAttrazioni());
 		modelAndView.addObject("stati", attrazioniService.getAllStatiAttrazione());
+		modelAndView.addObject("wishlist", new Wishlist());
         return modelAndView;
 	}
 }

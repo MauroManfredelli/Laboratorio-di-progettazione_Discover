@@ -23,9 +23,9 @@
 		    <div class="box-header with-border">
 		    	<div style="padding-left: 20px;">
 			    	<h3 class="m-0">
-			        	<a style="cursor: pointer; color: #444;" href="/discover/attrazione/${attrazione.id}"><span class="text-name"><b style="float: left;">${attrazione.nome}</b></span></a>
+			        	<a style="cursor: pointer; color: #444;" href="/discover/attrazione/${attrazione.id}" target="_blank"><span class="text-name"><b style="float: left;">${attrazione.nome}</b></span></a>
 			        	<span class="pull-right" style="padding-right: 20px;">
-			        		<a class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli" style="cursor: pointer;" href="/discover/attrazione/${attrazione.id}"></a>
+			        		<a class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli" style="cursor: pointer;" href="/discover/attrazione/${attrazione.id}" target="_blank"></a>
 			        	</span>
 			        	<br>
 			        	<c:choose>
@@ -56,12 +56,12 @@
 									class="<c:if test='${indexFoto.index == 0}'>active</c:if>"></li>
 							</c:forEach>
 						</ol>
-						<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #FFF; border-radius: 13px;">
+						<div class="carousel-inner" style="height: 300px; max-height: 300px; width: auto; background-color: #FFF; border-radius: 13px;">
 							<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 								<div class="item <c:if test='${indexFoto.index == 0}'>active</c:if>">
 									<img
 										src="<%= request.getContextPath() %>/resources/dist/img/attrazione${attrazione.id}/${indexFoto.index + 1}.jpg"
-										style="display: block; margin: 0 auto; height: 100%;">
+										style="margin: 0 auto; height: 300px; max-height: 300px; width: auto;">
 								</div>
 							</c:forEach>
 						</div>

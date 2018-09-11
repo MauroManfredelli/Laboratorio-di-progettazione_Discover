@@ -48,7 +48,7 @@ function checkRunningOnMobile() {
 		$("#mapContent").closest(".content-wrapper").css("padding-bottom", "0px");
 		// $("#mapCercaLocalita").css("bottom", "18px").removeClass("m-0");
 		$(".content").css("padding-bottom", "0px");
-		$("#btnMostraScegliLista").html("&nbsp;<i class='fa fa-check'></i> Lista selezionata");
+		$("#btnMostraScegliLista").html("&nbsp;<i class='fa fa-check'></i> <span id='textSceltaLista'>Lista selezionata</span>");
 		$(".rounded-box-mobile").addClass("rounded-box-desktop").removeClass("rounded-box-mobile");
 	}
 }

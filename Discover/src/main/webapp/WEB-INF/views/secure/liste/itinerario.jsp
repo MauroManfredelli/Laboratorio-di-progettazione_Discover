@@ -14,8 +14,9 @@
 
  <style>
    #map {
-     height: 750px;
-     width: 100%;
+     height: 700px;
+     margin-left: 530px;
+     margin-top: 55px;
    }
 </style>
 <!-- Content Header (Page header) -->
@@ -23,8 +24,6 @@
 
 <!-- Main content -->
 <section class="content" id="mapContent">
-
-	<script src="http://malsup.github.com/jquery.form.js"></script> 
 
 	<script>
 		var mapAttrazioni = "${itinerario.mapAttrazioni}";
@@ -150,7 +149,7 @@
 											<div style="margin-top: 20px;">
 												&nbsp;&nbsp;&nbsp;&nbsp;
 												<i class="fa fa-file" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
-												<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
+												<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open('/discover/attrazione/${visita.attrazione.id}', '_blank')"></i>
 												<c:if test="${key != 'Tutte le date'}">
 													<i class="fa fa-pencil" data-toggle="tooltip" title="Modifica visita" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita('${visita.id}')"></i>
 													<i class="fa fa-trash" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita('${visita.id}')"></i>

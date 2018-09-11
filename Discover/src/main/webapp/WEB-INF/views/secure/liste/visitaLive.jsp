@@ -14,8 +14,9 @@
 
  <style>
    #map {
-     height: 750px;
-     width: 100%;
+     height: 700px;
+     margin-left: 380px;
+     margin-top: 55px;
    }
    
    .glyphicon {
@@ -91,7 +92,7 @@
 									<input type="hidden" id="notaVisita${visita.id}" value="${visita.nota}" />
 									<div style="margin-top: 20px;">
 										<i class="fa fa-file" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
-										<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
+										<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open('/discover/attrazione/${visita.attrazione.id}', '_blank')"></i>
 										
 										<i class="fa fa-compass" data-toggle="tooltip" title="Raggiungi" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')"></i>
 										<i class="fa fa-map-marker" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
@@ -151,7 +152,7 @@
 									<input type="hidden" id="notaVisita${visita.id}" value="${visita.nota}" />
 									<div style="margin-top: 20px;">
 										&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
-										<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="location.assign('/discover/attrazione/${visita.attrazione.id}')"></i>
+										<i class="fa fa-info-circle" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open('/discover/attrazione/${visita.attrazione.id}', '_blank')"></i>
 										
 										<i class="fa fa-compass hidden" data-toggle="tooltip" title="Raggiungi" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')"></i>
 										<i class="fa fa-map-marker text-success" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>

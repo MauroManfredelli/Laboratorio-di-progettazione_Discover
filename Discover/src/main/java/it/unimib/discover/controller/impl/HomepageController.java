@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import it.unimib.discover.entity.Attrazione;
 import it.unimib.discover.entity.Lista;
 import it.unimib.discover.entity.MyUserAccount;
+import it.unimib.discover.entity.Wishlist;
 import it.unimib.discover.service.impl.AttrazioniService;
 import it.unimib.discover.service.impl.ListeService;
 
@@ -44,6 +45,7 @@ public class HomepageController {
     	}
     	List<Attrazione> attrazioniBacheca = attrazioniService.getAttrazioniBacheca();
     	modelAndView.addObject("listAttrazioni", attrazioniBacheca);
+    	modelAndView.addObject("wishlist", new Wishlist());
         return modelAndView;
     }
 	

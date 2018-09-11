@@ -45,12 +45,12 @@
 								class="<c:if test='${indexFoto.index == 0}'>active</c:if>"></li>
 						</c:forEach>
 					</ol>
-					<div class="carousel-inner" style="height: 300px; max-height: 300px; background-color: #FFF; border-radius: 13px;">
+					<div class="carousel-inner" style="height: 300px; max-height: 300px; width: auto; background-color: #FFF; border-radius: 13px;">
 						<c:forEach items="${attrazione.fotoPrincipali}" var="foto" varStatus="indexFoto">
 							<div class="item <c:if test='${indexFoto.index == 0}'>active</c:if>">
 								<img
 									src="<%= request.getContextPath() %>/resources/dist/img/attrazione${attrazione.id}/${indexFoto.index + 1}.jpg"
-									style="display: block; margin: 0 auto; height: 100%;">
+									style="height: 300px; max-height: 300px; width: auto; margin: 0 auto;">
 							</div>
 						</c:forEach>
 					</div>
@@ -150,9 +150,9 @@
 						<ul class="nav nav-tabs" style="border: none;">
 							<li class="active m-0"><a href="#recensioni" data-toggle="tab"
 								aria-expanded="true"><h5 class="m-0">Recensioni</h5></a></li>
-							<li class=""><a href="#foto" data-toggle="tab"
+							<li class="disabled"><a href="javascript:void(0)" 
 								aria-expanded="false"><h5 class="m-0">Foto</h5></a></li>
-							<li class=""><a href="#domande" data-toggle="tab"
+							<li class="disabled"><a href="javascript:void(0)" 
 								aria-expanded="false"><h5 class="m-0">Domande</h5></a></li>
 						</ul>
 						<div class="tab-content" style="padding-bottom: 0px; padding-top: 0px; margin-left: -10px;">
