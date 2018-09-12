@@ -172,7 +172,7 @@
 								<div class="col-md-9">
 									<div class="input-group" style="width: 230px;">
 										<form:input path="numeroVisite" class="form-control" placeholder="Numero visite" />
-										<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+										<span class="input-group-addon"><i class="fa fa-check-circle"></i></span>
 									</div>
 								</div>
 							</div>
