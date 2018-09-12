@@ -43,7 +43,7 @@
 	
 	<div style="position: fixed; top: 90px; width: 100%;">
 		<div class="col-md-12 p-0" style="border: none">
-			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px;">
+			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px; cursor:default;">
 				<i class="fa fa-arrow-left hidden" style="font-size: 30px; cursor: pointer;"></i>
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${itinerario.nome}</span>
 				<i class="fa fa-check-circle <c:choose><c:when test="${itinerario.confermato == 'true'}">text-success</c:when><c:otherwise>text-action</c:otherwise></c:choose>" data-toggle="tooltip" title="Conferma itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" id="btnConfermaItinerario" onclick="confermaItinerario('${itinerario.id}')"></i>
@@ -56,7 +56,7 @@
 	</div>
 	<div style="position: fixed; height: 100%; max-height: 100%; width: 100%; max-width: 530px; overflow-x:hidden; overflow-y: auto; top: 146px;">
 		<div class="nav-tabs-custom tabbable tabs-left">
-			<ul id="itinerarioNavTabs" class="nav nav-tabs nav-iti light-blue-bg m-0" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px); overflow-y: auto;">
+			<ul id="itinerarioNavTabs" class="nav nav-tabs nav-iti light-blue-bg m-0" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px); overflow-y: auto; cursor:default">
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
 					<c:if test="${key eq 'Non programm.'}">
 						<li id="nonProgramm" onclick="loadMarkersGiorno('${key}')" class="m-0 dropable-tab active" style="font-size: 15px; border-bottom: 1px solid #ddd; padding: 10px; cursor: pointer;" href="#data${indexKey.index}" data-toggle="tab">${key} <span id="numeroAttrazioni${fn:replace(key, ' ', '')}" class="badge pull-right" style="margin-left: 5px; backgrpund-color: #808080"><i class="fa fa-spinner fa-spin"></i></span></li>
@@ -84,7 +84,7 @@
 			</ul>
 			<div id="tabContentItinerario" class="sortable tab-content p-0 light-blue-bg" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px);">
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
-					<ol class="list-group tab-pane <c:if test='${key eq "Non programm."}'>active</c:if>" id="data${indexKey.index}" style="overflow-x: hidden; overflow-y: auto; max-height: 97%; padding-bottom: 20px;" key="${fn:replace(key, ' ', '')}" keyString="${key}">
+					<ol class="list-group tab-pane <c:if test='${key eq "Non programm."}'>active</c:if>" id="data${indexKey.index}" style="overflow-x: hidden; overflow-y: auto; max-height: 97%; padding-bottom: 20px; cursor:default;" key="${fn:replace(key, ' ', '')}" keyString="${key}">
 						<c:if test="${key != 'Tutte le date'}">
 							<div style="font-size: 20px;" class="grey-bg">
 								<b><c:out value="${key}"></c:out></b>

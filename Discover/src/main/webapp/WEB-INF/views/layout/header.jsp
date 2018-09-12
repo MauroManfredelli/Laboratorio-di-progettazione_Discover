@@ -5,7 +5,7 @@
 <header class="main-header">
   <!-- Logo -->
   <!-- Header Navbar: style can be found in header.less -->
-  <nav class="navbar navbar-static-top col-md-12 p-0 light-blue-bg" role="navigation" id="navbarWithMargin" style="margin-left: 0px; border-bottom: 1.5px solid #3c8dbc;">
+  <nav class="navbar navbar-static-top col-md-12 p-0 light-blue-bg" role="navigation" id="navbarWithMargin" style="margin-left: 0px; border-bottom: 1.5px solid #3c8dbc; cursor:default">
 	  <span class="col-md-7 pull-left hidden" id="logoWeb">
 		<a href="#" class="light-blue-bg" style="background-color: #FFF; font-size: 2.1em; color: #333; width: 70px;">
 			<i class="fa fa-plus-circle"></i>
@@ -257,7 +257,7 @@
     </div>
   </nav>
   
-  <nav class="navbar col-md-12 hidden light-azure-bg" style="padding-left: 0px; margin-left: 0px; padding-right: 0px; border: 1px solid #F0F0F0; border-bottom: 1.5px solid #3c8dbc;" id="headerWeb">
+  <nav class="navbar col-md-12 hidden light-azure-bg" style="padding-left: 0px; margin-left: 0px; padding-right: 0px; border: 1px solid #F0F0F0; border-bottom: 1.5px solid #3c8dbc; cursor:default" id="headerWeb">
   	<a href="/discover" type="button" class="btn btn-lg btn-default col-md-3" id="btnBacheca" style="background-color: #FCFDFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 11px; border-radius: 0px;">
 		<i class="fa fa-list"></i> <span>Bacheca</span>
 	</a>

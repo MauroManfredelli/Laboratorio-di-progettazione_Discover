@@ -37,7 +37,7 @@
 	
 	<div style="position: fixed; top: 90px; width: 100%;">
 		<div class="col-md-12 p-0" style="border: none">
-			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px;">
+			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px; cursor:default;">
 				<i class="fa fa-arrow-left" data-toggle="tooltip" title="Torna a itinerario" data-placement="right" style="font-size: 30px; cursor: pointer;" onclick="location.assign('/discover/liste/itinerario${itinerario.id}')"></i>
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${itinerario.nome} <img src="<%= request.getContextPath() %>/resources/dist/img/live.png" style="margin-bottom: 5px; margin-left: 10px; width: 50px;"></span>
 				<i class="far fa-compass" data-toggle="tooltip" title="Reset mappa" data-placement="left" style="font-size: 40px; cursor: pointer; position: fixed; right: 45px; bottom: 22px; background-color: #FFF; padding: 2px; color: #777" onclick="resetZomm()"></i>
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="accordion" class="light-blue-bg" style="position: fixed; height: 82%; max-height: 82%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px; padding-bottom: 20px;">
+	<div id="accordion" class="light-blue-bg" style="position: fixed; height: 82%; max-height: 82%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px; padding-bottom: 20px; cursor:default;">
 		<div class="panel box box-primary m-0">
 			<div class="box-header with-border dropable-tab" style="text-align:center; background-color: #FFDDAC;">
 				<h4 class="box-title col-md-12 p-0">
