@@ -46,7 +46,13 @@ function setDraggable() {
         	}
             dragElementTo();
         }
-    });
+    });var sortableList = $(".sortable");
+	for(var i=0; i<sortableList.length; i++) {
+		$(sortableList[i]).sortable({
+			exclude : $(".notSortable, .noDrag"),
+			handle: '.sort-handle',
+		});
+	}
 }
 
 function confermaVisita(idVisita) {

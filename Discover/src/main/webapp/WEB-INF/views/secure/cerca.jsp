@@ -55,7 +55,7 @@
 							<form:hidden path="longCentro" />
 							<div class="row" style="margin-bottom: 20px;">
 								<div class="col-md-3 text-right" style="float: left; font-size: 15px; margin-top: 5px; margin-bottom: 5px;">
-									<b>Nome:</b>
+									<b>Nome attrazione:</b>
 								</div>
 								<div class="col-md-9">
 									<form:input path="nomeAttrazione" class="form-control" placeholder="Tutte le attrazioni" style="max-width: 600px;" />

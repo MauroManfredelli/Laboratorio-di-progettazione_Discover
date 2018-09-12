@@ -16,7 +16,7 @@ $(document).ready(function() {
 	$("#sliderLontananza").bootstrapSlider("setValue", [parseInt($("#lontananzaMinima").val()), parseInt($("#lontananzaMassima").val())]);
     $("#resSlider").html("("+$("#lontananzaMinima").val()+" Km - "+$("#lontananzaMassima").val()+" Km)");
 	if($("#localita").val() == null || $("#localita").val() == '') {
-		$("#lontananzaForm").addClass("hidden");
+		$('#sliderLontananza').bootstrapSlider('disable');
 	} 
 	$("#boxRisultatiAttrazioni").css("max-height", $("#boxRicercaAttrazioni").css("height")).css("overflow-y", "auto").css("overflow-x", "hidden").css("margin-right", "-19px");
 	if ($('input[name=tipoAttrazione]').filter(':checked').length == $('input[name=tipoAttrazione]').length) {
@@ -34,14 +34,15 @@ $(document).ready(function() {
           // pressed the Enter key, or the Place Details request failed.
           $("#localita").val("");
           setUserPositionAsCentro();
-  	      $("#lontananzaForm").addClass("hidden");
+  	      $('#sliderLontananza').bootstrapSlider('disable');
           return;
         }
 
         // If the place has a geometry, then present it on a map.
         $("#latCentro").val(place.geometry.location.lat);
 	    $("#longCentro").val(place.geometry.location.lng);
-	    $("#lontananzaForm").removeClass("hidden");
+	    // $("#lontananzaForm").removeClass("hidden");
+	    $('#sliderLontananza').bootstrapSlider('enable');
     });
 	if($("#latCentro").val() == "") {
 		setUserPositionAsCentro();
@@ -64,7 +65,7 @@ function checkPosCentro() {
 			$("#localita").val("");
 		}
 		if($("#localita").val() == "") {
-			$("#lontananzaForm").addClass("hidden");
+			$('#sliderLontananza').bootstrapSlider('disable');
 		}
 		autocompleteVar = false;
 	}, 1000);
