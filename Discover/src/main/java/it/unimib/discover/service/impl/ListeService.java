@@ -525,7 +525,7 @@ public class ListeService {
 		Visita visita = visitaDAO.findByKey(idVisita);
 		visita.setOrdineNelGiorno(ordine+"");
 		String ordineNelGiornoConfermato = visita.getItinerario().getLastOrdineConfermato(visita.getDataVisita());
-		if(!ordineNelGiornoConfermato.equals("") && visita.getOrdineNelGiorno().compareTo(ordineNelGiornoConfermato) < 0) {
+		if(!ordineNelGiornoConfermato.equals("") && visita.getOrdineNelGiorno().compareTo(ordineNelGiornoConfermato) <= 0) {
 			visita.setConferma(true);
 		}
 		visitaDAO.persist(visita);

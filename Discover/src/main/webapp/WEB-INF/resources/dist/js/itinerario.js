@@ -124,15 +124,16 @@ function aggiornaVisiteDBajax(key, idVisita, idItinerario) {
 }
 
 function aggiornaOrdiniTabFrom(tabFrom) {
+	var key = $(tabFrom).attr("keyString");
 	if($(tabFrom).attr("key") != "Tutteledate") {
 		var liList = $(tabFrom).find("li[id^=item]");
-		var lastOrdineConfermato = 0;
+		var lastOrdineConfermato = -1;
 		for(var i=0; i<liList.length; i++) {
 			var li = liList[i];
 			var ordine = $(li).find("[id=spanOrdine]");
 			var ordineVal = $(ordine).attr("ordine");
 			var preOrder;
-			if(!$(li).find("[id^=iconConferma]").hasClass("hidden") && i>lastOrdineConfermato) {
+			if(key != "Non programm." && key.indexOf("(Attiv") > -1 && !$(li).find("[id^=iconConferma]").hasClass("hidden") && i>lastOrdineConfermato) {
 				lastOrdineConfermato = i;
 			}
 			preOrder = ordineVal.substring(0, ordineVal.indexOf("-"));

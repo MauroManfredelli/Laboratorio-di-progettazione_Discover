@@ -15,10 +15,8 @@ $('#headVisitate').on("click", function() {
 });
 
 function setDraggable() {
-	
 	var sortableList = $(".sortable");
 	for(var i=0; i<sortableList.length; i++) {
-		$(sortableList[i]).sortable().sortable("destroy");
 		$(sortableList[i]).sortable({
 			connectWith: $(sortableList[i]),
 			exclude : $(".notSortable, .noDrag"),
@@ -26,7 +24,6 @@ function setDraggable() {
 		});
 	}
 	
-	$('.item-draggable').draggable().draggable("destroy");
 	$('.item-draggable').draggable({
         cursor: 'move',
         revert: '10',
@@ -93,7 +90,7 @@ function dragElementTo(fromClick) {
 		} else {
 			var clonedElement = $(elementDragged).clone();
 			$(elementDragged).remove();
-			$(elementDragTo).append(clonedElement);
+			$(elementDragTo).find("ol").append(clonedElement);
 			if($(elementDragFrom).find("li[id^=item]").length == 0) {
 				$(elementDragFrom).find("[id^=nessunaVisita]").removeClass("hidden");
 			}
