@@ -131,7 +131,7 @@
 									<div class="col-md-12" style="float: left; font-size: 22px;">
 										<span><i class="fa fa-thumbs-o-up" data-toggle="tooltip" title="Mi piace"></i> <span id="num">${attrazione.reazioniPositive}</span></span>
 										&nbsp;&nbsp;<span><i class="fa fa-thumbs-o-down" data-toggle="tooltip" title="Non mi piace"></i> <span id="num">${attrazione.reazioniNegative}</span></span>
-										&nbsp;&nbsp;<span><i class="fa fa-map-marker" data-toggle="tooltip" title="Visite confermate"></i> <span id="num">${attrazione.numeroVisite}</span></span>
+										&nbsp;&nbsp;<span><i class="fa fa-check-circle" data-toggle="tooltip" title="Visite confermate"></i> <span id="num">${attrazione.numeroVisite}</span></span>
 									</div>
 								</div>
 							</c:when>
@@ -139,7 +139,7 @@
 								<div class="row" style="padding-top: 15px;">
 									<div class="col-md-12" style="float: left; font-size: 22px;">
 										<span><i class="fa fa-star" data-toggle="tooltip" title="Valutazione" style="cursor: pointer;"></i> <span id="num">${attrazione.valutazioneMedia}</span></span>
-										&nbsp;&nbsp;<span><i class="fa fa-map-marker" data-toggle="tooltip" title="Visite confermate"></i> <span id="num">${attrazione.numeroVisite}</span></span>
+										&nbsp;&nbsp;<span><i class="fa fa-check-circle" data-toggle="tooltip" title="Visite confermate"></i> <span id="num">${attrazione.numeroVisite}</span></span>
 									</div>
 								</div>
 							</c:when>
@@ -151,7 +151,7 @@
 								&nbsp;&nbsp;<span><i class="fa fa-thumbs-o-down text-action" data-toggle="tooltip" title="Non mi piace"  style="cursor: pointer;"></i></span>
 								&nbsp;&nbsp;<span><i class="fa fa-comment text-action" data-toggle="tooltip" title="Aggiungi recensione"  style="cursor: pointer;"></i></span>
 								&nbsp;&nbsp;<span><i class="fa fa-suitcase text-action" data-toggle="tooltip" title="Aggiungi alla lista" id="btnAggiungiAttrazioneLista${attrazione.id}" style="cursor: pointer;" onclick="aggiungiAttrazioneToLista('${attrazione.id}')"></i></span>
-								&nbsp;&nbsp;<span><i class="fa fa-map-marker text-action" style="cursor: pointer;" data-toggle="tooltip" title="Conferma visita"></i></span>
+								&nbsp;&nbsp;<span><i class="fa fa-check-circle text-action" style="cursor: pointer;" data-toggle="tooltip" title="Conferma visita"></i></span>
 							</div>
 						</div>
 					</div>

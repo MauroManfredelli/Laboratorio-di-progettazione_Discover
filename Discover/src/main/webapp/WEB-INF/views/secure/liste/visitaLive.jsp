@@ -97,7 +97,7 @@
 										
 										<img src="/discover/resources/dist/img/road_sign.png"
 													style=" float: right; padding-right: 10px; cursor: pointer; height: 22px;" data-toggle="tooltip" title="Raggiungi" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')" >
-										<i class="fa fa-map-marker text-action" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
+										<i class="fa fa-check-circle text-action" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
 										<i class="fa fa-trash text-primary" data-toggle="tooltip" title="Sposta in non programmate" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
 										
 									</div>
@@ -158,7 +158,7 @@
 										
 										<img src="/discover/resources/dist/img/road_sign.png" class="hidden"
 													style=" float: right; padding-right: 10px; cursor: pointer; height: 22px;" data-toggle="tooltip" title="Raggiungi" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')" >
-										<i class="fa fa-map-marker text-success" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
+										<i class="fa fa-check-circle text-success" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
 										<i class="fa fa-trash hidden text-primary" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
 									</div>
 								</div>
