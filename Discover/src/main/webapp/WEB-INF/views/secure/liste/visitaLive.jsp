@@ -75,7 +75,7 @@
 								</div>
 								<div>
 									<div class="text-center" style="margin-top: 10px;">
-										<i class="fa fa-align-justify" style="font-size: 1.5em;  cursor: pointer;"></i>
+										<i class="fas fa-arrows-alt" style="font-size: 1.5em;  cursor: pointer;"></i>
 									</div>
 								</div>
 								<div class="noDrag">
@@ -136,7 +136,7 @@
 								</div>
 								<div>
 									<div class="text-center" style="margin-top: 10px;">
-										<i class="fa fa-align-justify" style="font-size: 1.5em;  cursor: pointer;"></i>
+										<i class="fas fa-arrows-alt" style="font-size: 1.5em;  cursor: pointer;"></i>
 									</div>
 								</div>
 								<div class="noDrag">

@@ -133,7 +133,7 @@
 										<div class="sort-handle">
 											<c:if test="${key != 'Tutte le date'}">
 												<div class="text-center" style="margin-top: 10px;">
-													<i class="fa fa-align-justify" style="font-size: 1.5em;  cursor: pointer;"></i>
+													<i class="fas fa-arrows-alt" style="font-size: 1.5em;  cursor: pointer;"></i>
 												</div>
 											</c:if>
 										</div>
@@ -155,15 +155,15 @@
 												<i class="fa fa-file text-primary" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
 												<i class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open('/discover/attrazione/${visita.attrazione.id}', '_blank')"></i>
 												<c:if test="${key != 'Tutte le date'}">
-													<i class="fa fa-pencil text-primary" data-toggle="tooltip" title="Modifica visita" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita('${visita.id}')"></i>
+													<i class="far fa-edit text-primary" data-toggle="tooltip" title="Modifica visita" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita('${visita.id}')"></i>
 													<i class="fa fa-trash text-primary" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita('${visita.id}')"></i>
-													<i class="fa fa-copy text-primary" data-toggle="tooltip" title="Copia visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita('${visita.id}')"></i>
+													<i class="fa fa-copy text-primary" data-toggle="tooltip" title="Duplica visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita('${visita.id}')"></i>
 													<c:choose>
 														<c:when test="${not empty visita.itinerario.dataInizio}">
-															<i class="fa fa-calendar text-primary" data-toggle="tooltip" title="Cambia data" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaDataVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
+															<i class="far fa-calendar-alt text-primary" data-toggle="tooltip" title="Cambia data" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaDataVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
 														</c:when>
 														<c:when test="${not empty visita.itinerario.numeroGiorni}">
-															<i class="fa fa-calendar text-primary" data-toggle="tooltip" title="Cambia giorno" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaGiornoVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
+															<i class="fae fa-calendar-alt text-primary" data-toggle="tooltip" title="Cambia giorno" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaGiornoVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
 														</c:when>
 													</c:choose>
 												</c:if>

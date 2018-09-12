@@ -28,7 +28,7 @@
         <!-- Notifications: style can be found in dropdown.less -->
         <li class="dropdown notifications-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px; color: #333;">
-            <i class="fa fa-bell-o" style="font-size: 1.5em;"></i>
+            <i class="far fa-bell" style="font-size: 1.5em;"></i>
             <span class="label label-warning">5</span>
           </a>
           <ul class="dropdown-menu">
@@ -69,7 +69,7 @@
         <!-- Messages: style can be found in dropdown.less-->
         <li class="dropdown messages-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px; color: #333;">
-            <i class="fa fa-envelope-o" style="font-size: 1.5em;"></i>
+            <i class="far fa-envelope" style="font-size: 1.5em;"></i>
             <span class="label label-success">4</span>
           </a>
           <ul class="dropdown-menu">
