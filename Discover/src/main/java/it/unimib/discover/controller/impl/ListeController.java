@@ -193,6 +193,11 @@ public class ListeController {
 		itinerario.setMapAttrazioni(listeService.getMapAttrazioniItinerario(itinerario));
 		modelAndView.addObject("itinerario", itinerario);
 		modelAndView.addObject("allDate", true);
+		if(itinerario.getNumeroGiorni() != null) {
+			modelAndView.addObject("giorniItinerario", listeService.getMapGiorniItinerario(itinerario));
+		} else {
+			modelAndView.addObject("dateItinerario", listeService.getMapDateItinerario(itinerario));
+		}
 		if(itinerario.getVisite() != null && !itinerario.getVisite().isEmpty()) { 
 			modelAndView.addObject("localitaCentroMappa", itinerario.getVisite().get(0).getAttrazione().getPosizione().getDescrizione());
 		}

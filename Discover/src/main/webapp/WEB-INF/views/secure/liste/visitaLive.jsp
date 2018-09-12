@@ -40,13 +40,13 @@
 			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px;">
 				<i class="fa fa-arrow-left" data-toggle="tooltip" title="Torna a itinerario" data-placement="right" style="font-size: 30px; cursor: pointer;" onclick="location.assign('/discover/liste/itinerario${itinerario.id}')"></i>
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${itinerario.nome} <img src="<%= request.getContextPath() %>/resources/dist/img/live.png" style="margin-bottom: 5px; margin-left: 10px; width: 50px;"></span>
-				<i class="fa fa-compass" data-toggle="tooltip" title="Reset mappa" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="resetZomm()"></i>
+				<i class="fa fa-compass" data-toggle="tooltip" title="Reset mappa" data-placement="left" style="font-size: 24px; cursor: pointer; position: fixed; right: 15px; top: 190px; background-color: #FFF; padding: 2px; color: #777" onclick="resetZomm()"></i>
 				
 				<i class="fa fa-times pull-right" data-placement="left" data-toggle="tooltip" title="Chiudi" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
 			</div>
 		</div>
 	</div>
-	<div id="accordion" class="light-blue-bg" style="position: fixed; height: 82%; max-height: 82%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px;">
+	<div id="accordion" class="light-blue-bg" style="position: fixed; height: 82%; max-height: 82%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px; padding-bottom: 20px;">
 		<div class="panel box box-primary m-0">
 			<div class="box-header with-border dropable-tab" style="text-align:center;">
 				<h4 class="box-title col-md-12 p-0">
@@ -116,7 +116,7 @@
 				</h4>
 			</div>
 			<div id="collapseVisitate" class="panel-collapse collapse in dropable-tab">
-				<ol class="box-body p-0 m-0" style="padding-bottom: 20px;">
+				<ol class="box-body p-0 m-0">
 					<li id="nessunaVisitaConfermata" class="notSortable list-group-item m-0 light-azure-bg text-center text-primary" style="border: none; padding-top: 30px; position: inherit;">
 						<div><i class="fa fa-info-circle" style="font-size: 4em;"></i></div>
 						<div style="font-size: 1.5em;">Nessuna visita presente</div>
