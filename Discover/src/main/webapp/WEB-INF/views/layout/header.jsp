@@ -203,7 +203,7 @@
         <!-- Tasks: style can be found in dropdown.less -->
         <li class="dropdown tasks-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px; color: #333;">
-            <i class="fa fa-ellipsis-v" ></i>
+            <i class="fas fa-cog" ></i>
           </a>
           <ul class="dropdown-menu">
             <li>
