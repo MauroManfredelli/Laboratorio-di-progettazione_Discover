@@ -606,7 +606,10 @@ function copiaVisita(idVisita) {
         },
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         success: function(visita) {
-			var liCloned = liCopia;
+        	if (visita.dataVisita == null)
+        		var liCloned = liCopia1 + liCopia2_g + liCopia3;
+        	else
+        		var liCloned = liCopia1 + liCopia2_d + liCopia3;
 			liCloned = liCloned.replace(/_IDVISITA_/g, visita.id);
 			liCloned = liCloned.replace(/_ORDINE_/g, visita.ordine);
 			liCloned = liCloned.replace(/_NOTAPREC_/g, visita.notaPrec);
@@ -632,6 +635,7 @@ function copiaVisita(idVisita) {
 			setDraggable();
         	mostraNotifica('Visita copiata e aggiunta in fondo alla sezione corrente', 'primary');
         	aggiornaNumeroAttrazioni();
+        	$('[data-toggle="tooltip"]').tooltip();
         }
 	});
 }
@@ -662,7 +666,7 @@ function clonaMarker(visita, idVisitaCopied) {
 	}
 }
 
-var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box box-body m-0" style="position: inherit;" idVisita="_IDVISITA_">'+
+var liCopia1 = '<li id="item_IDVISITA_" class="item-draggable list-group-item box box-body m-0" style="position: inherit;" idVisita="_IDVISITA_">'+
 						'<div class="noDrag light-grey-bg" style="width: 109%; background-color: #FFF; margin-left: -13px; padding: 10px; margin-top: -12px;">'+
 							'<input type="hidden" id="notaPrec_IDVISITA_" value="_NOTAPREC_" />'+
 							'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
@@ -670,7 +674,7 @@ var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box
 						'</div>'+
 						'<div style="margin-top: 10px;">'+
 							'<div class="text-center">'+
-								'<i class="fa fa-align-justify" style="font-size: 1.5em;  cursor: pointer;"></i>'+
+								'<i class="fas fa-arrows-alt text-primary" data-toggle="tooltip" title="Trascina per ordinare" style="font-size: 1.5em;  cursor: pointer;"></i>'+
 							'</div>'+
 						'</div>'+
 						'<div class="noDrag">'+
@@ -686,14 +690,19 @@ var liCopia = '<li id="item_IDVISITA_" class="item-draggable list-group-item box
 								'</span>'+
 							'</div>'+
 							'<div style="margin-top: 20px;">'+
-								'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file text-primary" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita(\'_IDVISITA_\')"></i>'+
-								'<i class="fa fa-info-circle text-primary" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open(\'/discover/attrazione/_IDATTRAZIONE_\', \'_blank\')"></i>'+
-								'<i class="fa fa-pencil text-primary" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita(\'_IDVISITA_\')"></i>'+
-								'<i class="fa fa-trash text-primary" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita(\'_IDVISITA_\')"></i>'+
-								'<i class="fa fa-copy text-primary" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita(\'_IDVISITA_\')"></i>'+
-							'</div>'+
-						'</div>'+
-					'</li>';
+								'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file text-primary" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita(\'_IDVISITA_\')"></i>'+
+								'<i class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open(\'/discover/attrazione/_IDATTRAZIONE_\', \'_blank\')"></i>'+
+								'<i class="fa fa-ellipsis-v text-primary" data-toggle="tooltip" title="Modifica info visita" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita(\'_IDVISITA_\')"></i>'+
+								'<i class="fa fa-trash text-primary" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita(\'_IDVISITA_\')"></i>'+
+								'<i class="fa fa-copy text-primary" data-toggle="tooltip" title="Duplica visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita(\'_IDVISITA_\')"></i>';
+
+var liCopia2_d = '<i class="far fa-calendar-alt text-primary" data-toggle="tooltip" title="Cambia data" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaDataVisita(\'${visita.id}\', \'data${indexKey.index}\', \'item${visita.id}\')"></i>';
+var liCopia2_g = '<i class="far fa-calendar-alt text-primary" data-toggle="tooltip" title="Cambia giorno" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaGiornoVisita(\'${visita.id}\', \'data${indexKey.index}\', \'item${visita.id}\')"></i>';
+
+var liCopia3 = '</div>'+
+'</div>'+
+'</li>';
+
 
 function confermaItinerario(idItinerario) {
 	if($("#btnConfermaItinerario").hasClass("text-success")) {

@@ -163,7 +163,7 @@
 															<i class="far fa-calendar-alt text-primary" data-toggle="tooltip" title="Cambia data" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaDataVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
 														</c:when>
 														<c:when test="${not empty visita.itinerario.numeroGiorni}">
-															<i class="fae fa-calendar-alt text-primary" data-toggle="tooltip" title="Cambia giorno" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaGiornoVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
+															<i class="far fa-calendar-alt text-primary" data-toggle="tooltip" title="Cambia giorno" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="cambiaGiornoVisita('${visita.id}', 'data${indexKey.index}', 'item${visita.id}')"></i>
 														</c:when>
 													</c:choose>
 												</c:if>
