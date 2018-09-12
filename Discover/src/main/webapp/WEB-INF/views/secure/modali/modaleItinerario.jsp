@@ -75,7 +75,7 @@
    						</div>
    						<div class="col-md-12">
    							<div class="input-group">
-		                        <div class="input-group-addon">
+		                        <div class="input-group-addon" id="calendar">
 		                        	<i class="fa fa-calendar"></i>
 		                        </div>
 		                        <input type="text" class="form-control pull-right" id="dateRange"/>

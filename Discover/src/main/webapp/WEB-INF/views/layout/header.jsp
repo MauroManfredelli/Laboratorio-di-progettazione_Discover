@@ -162,7 +162,7 @@
           </ul>
         </li>
         <!-- Liste e viaggi -->
-        <li id="liHeadListe">
+        <li id="liHeadListe" data-toggle="tooltip" data-placement="bottom" title="Liste">
           <a href="/discover/liste" style="padding: 10px; color: #333;">
           	<i class="fa fa-suitcase" style="font-size: 1.5em;"></i>
           </a>
@@ -203,7 +203,7 @@
         <!-- Tasks: style can be found in dropdown.less -->
         <li class="dropdown tasks-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px; color: #333;">
-            <i class="fa fa-ellipsis-v"></i>
+            <i class="fa fa-ellipsis-v" ></i>
           </a>
           <ul class="dropdown-menu">
             <li>

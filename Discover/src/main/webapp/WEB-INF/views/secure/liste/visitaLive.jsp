@@ -48,7 +48,7 @@
 	</div>
 	<div id="accordion" class="light-blue-bg" style="position: fixed; height: 82%; max-height: 82%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px; padding-bottom: 20px;">
 		<div class="panel box box-primary m-0">
-			<div class="box-header with-border dropable-tab" style="text-align:center;">
+			<div class="box-header with-border dropable-tab" style="text-align:center; background-color: #FFDDAC;">
 				<h4 class="box-title col-md-12 p-0">
 					<a data-toggle="collapse" id="headNonVisitate"
 						href="#collapseNonVisitate" style="color: #333; font-size: 18px;"> <b>Da visitare</b> <span class="pull-right"><em class="glyphicon glyphicon-chevron-right"></em><em class="glyphicon glyphicon-chevron-down arrow_show"></em></span></a>
@@ -109,7 +109,7 @@
 			</div>
 		</div>
 		<div class="panel box box-primary m-0">
-			<div class="box-header with-border dropable-tab"  style="text-align:center;"">
+			<div class="box-header with-border dropable-tab"  style="text-align:center; background-color: #FFDDAC">
 				<h4 class="box-title col-md-12 p-0">
 					<a data-toggle="collapse" id="headVisitate"
 						href="#collapseVisitate" style="color: #333; font-size: 18px;"> <b>Visitate</b>  <span class="pull-right"><em class="glyphicon glyphicon-chevron-right"></em><em class="glyphicon glyphicon-chevron-down arrow_show"></em></span></a>

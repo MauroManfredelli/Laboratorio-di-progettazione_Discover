@@ -48,7 +48,7 @@
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${itinerario.nome}</span>
 				<i class="fa fa-check-circle <c:choose><c:when test="${itinerario.confermato == 'true'}">text-success</c:when><c:otherwise>text-action</c:otherwise></c:choose>" data-toggle="tooltip" title="Conferma itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" id="btnConfermaItinerario" onclick="confermaItinerario('${itinerario.id}')"></i>
 				<i class="fa fa-location-arrow" data-toggle="tooltip" title="LIVE" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="visitaLive('${itinerario.id}')"></i>
-				<i class="fa fa-edit" data-toggle="tooltip" title="Modifica itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="modificaItinerario('${itinerario.id}')"></i>
+				<i class="fa fa-ellipsis-v" data-toggle="tooltip" title="Modifica info itinerario" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="modificaItinerario('${itinerario.id}')"></i>
 				<i class="far fa-compass" data-toggle="tooltip" title="Reset mappa" data-placement="left" style="font-size: 40px; cursor: pointer; position: fixed; right: 45px; bottom: 22px; background-color: #FFF; padding: 2px; color: #777" onclick="resetZomm()"></i>
 				<i class="fa fa-times pull-right" data-toggle="tooltip" title="Chiudi" data-placement="left" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
 			</div>
@@ -133,7 +133,7 @@
 										<div class="sort-handle">
 											<c:if test="${key != 'Tutte le date'}">
 												<div class="text-center" style="margin-top: 10px;">
-													<i class="fas fa-arrows-alt" style="font-size: 1.5em;  cursor: pointer;"></i>
+													<i class="fas fa-arrows-alt text-primary" data-toggle="tooltip" title="Trascina per ordinare" style="font-size: 1.5em;  cursor: pointer;"></i>
 												</div>
 											</c:if>
 										</div>
@@ -155,7 +155,7 @@
 												<i class="fa fa-file text-primary" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
 												<i class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open('/discover/attrazione/${visita.attrazione.id}', '_blank')"></i>
 												<c:if test="${key != 'Tutte le date'}">
-													<i class="far fa-edit text-primary" data-toggle="tooltip" title="Modifica visita" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita('${visita.id}')"></i>
+													<i class="fa fa-ellipsis-v text-primary" data-toggle="tooltip" title="Modifica info visita" style="font-size: 1.5em; float: right; cursor: pointer;" onclick="modificaDettagliVisita('${visita.id}')"></i>
 													<i class="fa fa-trash text-primary" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="eliminaVisita('${visita.id}')"></i>
 													<i class="fa fa-copy text-primary" data-toggle="tooltip" title="Duplica visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" onclick="copiaVisita('${visita.id}')"></i>
 													<c:choose>
@@ -167,7 +167,7 @@
 														</c:when>
 													</c:choose>
 												</c:if>
-												<i class="fa fa-check-circle text-success <c:if test='${not visita.conferma}'>hidden</c:if>" style="font-size: 1.5em; padding-left: 10px;" id="iconConferma"> <span style="font-size: 0.8em; margin-bottom: 2px;">Confermata</span></i>
+												<i class="fas fa-check text-success <c:if test='${not visita.conferma}'>hidden</c:if>" style="font-size: 1.1em; padding-left: 10px;" id="iconConferma"><span style="font-size: 0.8em; margin-bottom: 2px;">Confermata</span></i>
 											</div>
 										</div>
 									</li>
