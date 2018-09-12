@@ -115,14 +115,7 @@
 															<div class="row">
 																<div class="col-md-12" style="float: left; font-size: 25px; padding-right: 0px;">
 																	<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="text-name"><b>${lista.nome}</b></span></a>
-																	<c:choose>
-																		<c:when test="${empty lista.idItinerario}">
-																			<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="fa fa-list-alt pull-right text-primary" data-toggle="tooltip" title="Modifica attrazioni"></span></a>
-																		</c:when>
-																		<c:otherwise>
-																			<a href="/discover/liste/${lista.id}" style="color: #333;"><span class="fa fa-list-alt pull-right text-primary" data-toggle="tooltip" title="Modifica visite"></span></a>
-																		</c:otherwise>
-																	</c:choose>
+																	<span><i class="fa fa-ellipsis-v pull-right text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Modifica informazioni" onclick="modificaLista('${lista.id}', '${lista.nome}')"></i></span>
 																	
 																</div>
 															</div>
@@ -173,7 +166,8 @@
 															<span id="archiviaLista">&nbsp;&nbsp;<i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
 															<span class="hidden" id="recuperaLista">&nbsp;&nbsp;<i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
 															&nbsp;&nbsp;<span><i class="fa fa-trash text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Elimina" onclick="eliminaLista('${lista.id}')"></i></span>
-															&nbsp;&nbsp;<span><i class="fa fa-edit text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Modifica" onclick="modificaLista('${lista.id}', '${lista.nome}')"></i></span>
+															&nbsp;&nbsp;<span>
+																<a href="/discover/liste/${lista.id}" style="color: #333; cursor:pointer"><span class="fa fa-edit text-primary" data-toggle="tooltip" title="<c:choose><c:when test="${empty lista.idItinerario}">Modifica attrazioni</c:when><c:otherwise>Modifica visite</c:otherwise></c:choose>"></span></a></span>
 														</div>
 													</div>
 												</div>
