@@ -3,6 +3,20 @@ $(document).ready(function() {
 	$('.chosen-select').chosen();
 	$('.chosen-container').attr("style", "width: 100%;");
 	checkRunningOnMobile();
+
+	$(".modal").on('shown.bs.modal', function() {
+		var textarea = $(this).find("textarea");
+		if($(textarea).val() != undefined) {
+			setTimeout(function (){
+				$(textarea).focus();
+			}, 100);
+		} else {
+			var input = $(this).find("input.form-control")[0];
+			setTimeout(function (){
+				$(input).focus();
+			}, 100);
+		}
+	});
 });
 
 function checkRunningOnMobile() {

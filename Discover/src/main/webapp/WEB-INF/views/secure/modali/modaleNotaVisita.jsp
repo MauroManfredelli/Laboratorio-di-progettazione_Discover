@@ -20,7 +20,7 @@
       			<input type="hidden" id="idVisita" />
    				<div class="row form-group">
 					<div class="col-md-12">
-						<textarea id="notaVisita" rows="5" class="form-control" placeholder="Nota per la visita" style="max-width: 100%; min-width: 100%; min-height: 130px;"></textarea>
+						<textarea id="notaVisita" rows="5" class="form-control" placeholder="Nota per la visita" style="max-width: 100%; min-width: 100%; min-height: 130px;" autofocus></textarea>
 					</div>
    				</div>
    				<div class="row" style="border-top: 1px solid #ddd; padding-top: 10px;">

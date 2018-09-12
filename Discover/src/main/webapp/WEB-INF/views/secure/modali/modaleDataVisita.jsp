@@ -27,7 +27,7 @@
 					<div class="col-md-12">
 						<label>Data visita:</label>
 	                    <div>
-	                        <select id="dataVisita" class="form-control chosen chosen-select">
+	                        <select id="dataVisita" class="form-control chosen chosen-select" autofocus>
 								<option value="">-</option>
 								<c:forEach items="${dateItinerario.keySet()}" var="key">
 									<option value="${key}">${key}</option>

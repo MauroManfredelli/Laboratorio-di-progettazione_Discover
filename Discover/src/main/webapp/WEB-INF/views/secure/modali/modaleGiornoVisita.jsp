@@ -22,7 +22,7 @@
 					<div class="col-md-12">
 						<label>Numero giorno:</label>
 	                    <div>
-	                        <select id="giornoVisita" class="form-control chosen chosen-select">
+	                        <select id="giornoVisita" class="form-control chosen chosen-select" autofocus>
 								<option value="">-</option>
 								<c:forEach items="${giorniItinerario.keySet()}" var="key">
 									<option value="${key}">${giorniItinerario[key]}</option>

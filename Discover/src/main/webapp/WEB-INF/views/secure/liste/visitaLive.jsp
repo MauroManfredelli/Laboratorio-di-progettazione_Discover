@@ -40,6 +40,7 @@
 			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px;">
 				<i class="fa fa-arrow-left" data-toggle="tooltip" title="Torna a itinerario" data-placement="right" style="font-size: 30px; cursor: pointer;" onclick="location.assign('/discover/liste/itinerario${itinerario.id}')"></i>
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${itinerario.nome} <img src="<%= request.getContextPath() %>/resources/dist/img/live.png" style="margin-bottom: 5px; margin-left: 10px; width: 50px;"></span>
+				<i class="fa fa-compass" data-toggle="tooltip" title="Reset mappa" data-placement="right" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="resetZomm()"></i>
 				
 				<i class="fa fa-times pull-right" data-placement="left" data-toggle="tooltip" title="Chiudi" style="font-size: 30px; cursor: pointer; padding-right: 10px;" onclick="location.assign('/discover/liste')"></i>
 			</div>
@@ -94,7 +95,8 @@
 										<i class="fa fa-file text-primary" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
 										<i class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open('/discover/attrazione/${visita.attrazione.id}', '_blank')"></i>
 										
-										<i class="fa fa-compass text-primary" data-toggle="tooltip" title="Raggiungi" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')"></i>
+										<img src="/discover/resources/dist/img/road_sign.png"
+													style=" float: right; padding-right: 10px; cursor: pointer; height: 22px;" data-toggle="tooltip" title="Raggiungi" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')" >
 										<i class="fa fa-map-marker text-action" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
 										<i class="fa fa-trash text-primary" data-toggle="tooltip" title="Sposta in non programmate" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
 										
@@ -114,7 +116,7 @@
 				</h4>
 			</div>
 			<div id="collapseVisitate" class="panel-collapse collapse in dropable-tab">
-				<ol class="box-body p-0 m-0">
+				<ol class="box-body p-0 m-0" style="padding-bottom: 20px;">
 					<li id="nessunaVisitaConfermata" class="notSortable list-group-item m-0 light-azure-bg text-center text-primary" style="border: none; padding-top: 30px; position: inherit;">
 						<div><i class="fa fa-info-circle" style="font-size: 4em;"></i></div>
 						<div style="font-size: 1.5em;">Nessuna visita presente</div>
@@ -154,7 +156,8 @@
 										&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file text-primary" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
 										<i class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open('/discover/attrazione/${visita.attrazione.id}', '_blank')"></i>
 										
-										<i class="fa fa-compass hidden text-action" data-toggle="tooltip" title="Raggiungi" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')"></i>
+										<img src="/discover/resources/dist/img/road_sign.png" class="hidden"
+													style=" float: right; padding-right: 10px; cursor: pointer; height: 22px;" data-toggle="tooltip" title="Raggiungi" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')" >
 										<i class="fa fa-map-marker text-success" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
 										<i class="fa fa-trash hidden text-primary" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
 									</div>
@@ -162,7 +165,6 @@
 							</li>
 						</c:if>
 					</c:forEach>
-					<li style="padding-top:20px" class="light-blue-bg"></li>
 				</ol>
 			</div>
 		</div>

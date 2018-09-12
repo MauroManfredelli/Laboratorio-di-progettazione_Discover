@@ -32,8 +32,8 @@
 				<div class="input-group-addon" style="border: none;">
                 	<b>Cerca: </b>
                 </div>
-				<input id="localitaMappa" class="form-control" style="display: inline-block;" />
-				<div class="input-group-addon" style="background-color: #ddd; color: #000;">
+				<input id="localitaMappa" class="form-control" style="display: inline-block;" autofocus />
+				<div class="input-group-addon" style="background-color: #f4f4f4; color: #444;">
                 	<i class="fa fa-search" style="cursor: pointer;" onclick="initMapByAddress()"></i>
                 </div>
 			</div>

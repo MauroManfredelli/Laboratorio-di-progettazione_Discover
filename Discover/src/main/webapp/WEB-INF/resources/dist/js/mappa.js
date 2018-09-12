@@ -53,6 +53,9 @@ function initMap() {
 	}
 	
 	var autocomplete = new google.maps.places.Autocomplete(document.getElementById("localitaMappa"));
+	autocomplete.addListener('place_changed', function() {
+		initMapByAddress();
+	});
 
     // Bind the map's bounds (viewport) property to the autocomplete object,
     // so that the autocomplete requests use the current map bounds for the
@@ -147,9 +150,10 @@ function addMarker(attrazione) {
 				"<div class='col-md-6'>"+
 					(attrazione.reazioniPositive != null ? "<i class='fa fa-thumbs-o-up'></i> "+attrazione.reazioniPositive+"<br>" : "")+
 					(attrazione.reazioniNegative != null ? "<i class='fa fa-thumbs-o-down'></i> "+attrazione.reazioniNegative+"<br>" : "")+
-					(attrazione.valutazioneMedia != null ? "<i class='fa fa-star'></i> "+attrazione.valutazioneMedia+"<br>" : "")+
+					(attrazione.valutazioneMedia != null ? (attrazione.valutazioneMedia != "null" ? "<i class='fa fa-star'></i> "+attrazione.valutazioneMedia+"<br>" : "<i class='fa fa-star'></i> Nessuna<br>") : "")+
 					"<i class='fa fa-map-marker'></i> "+attrazione.visiteConfermate+"<br>"+
-					"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' target='_blank'><b>Visualizza dettagli</b></a>"+
+					"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' target='_blank'><b>Visualizza dettagli</b></a><br>"+
+					"<a href='https://www.google.com/maps/search/?api=1&query="+marker.getPosition().lat()+","+marker.getPosition().lng()+"' target='_blank'><b>Visualizza su maps</b></a>"+
 				"</div>"+
 			"</div>";
 		infoWindow.setContent(contentString);

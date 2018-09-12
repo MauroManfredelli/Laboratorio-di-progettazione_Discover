@@ -334,6 +334,14 @@ function eliminaVisita(idVisita) {
         	if($("#collapseNonVisitate").find("li[id^=item]").length == 0) {
         		$("#collapseNonVisitate").find("li[id^=nessunaVisita]").removeClass("hidden");
         	}
+        	for(var i=1; i<markersAttrazioni.length; i++) {
+        		var marker = markersAttrazioni[i];
+        		if(marker.id == "marker"+idVisita) {
+        			marker.setMap(null);
+        		}
+        	}
+        	aggiornaOrdini();
+        	aggiornaMarkersMappa();
         	mostraNotifica('Visita inserita nella sezione Non programm.', 'primary');
         }
 	});
@@ -455,9 +463,10 @@ function addMarker(attrazione) {
 								"<div class='col-md-6'>"+
 									(attrazione.reazioniPositive != null ? "<i class='fa fa-thumbs-o-up'></i> "+attrazione.reazioniPositive+"<br>" : "")+
 									(attrazione.reazioniNegative != null ? "<i class='fa fa-thumbs-o-down'></i> "+attrazione.reazioniNegative+"<br>" : "")+
-									(attrazione.valutazioneMedia != null ? "<i class='fa fa-star'></i> "+attrazione.valutazioneMedia+"<br>" : "")+
+									(attrazione.valutazioneMedia != null ? (attrazione.valutazioneMedia != "null" ? "<i class='fa fa-star'></i> "+attrazione.valutazioneMedia+"<br>" : "<i class='fa fa-star'></i> Nessuna<br>") : "")+
 									"<i class='fa fa-map-marker'></i> "+attrazione.visiteConfermate+"<br>"+
-									"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' target='blank'><b>Visualizza dettagli</b></a>"+
+									"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' target='_blank'><b>Visualizza dettagli</b></a><br>"+
+									"<a href='https://www.google.com/maps/search/?api=1&query="+marker.getPosition().lat()+","+marker.getPosition().lng()+"' target='_blank'><b>Visualizza su maps</b></a>"+
 								"</div>"+
 							"</div>";
 		infoWindow.setContent(contentString);
@@ -468,36 +477,51 @@ function addMarker(attrazione) {
 	return marker;
 }
 
-function addWayToMap() {
-	// markersAttrazioni, markerPosizioneUtente
-	var stepArray = [];
-	if(markersAttrazioni.length > 1) {
-		var pos=0;
-		for(var i=1; i<(markersAttrazioni.length - 1); i++) {
-			stepArray[pos++] = markersAttrazioni[i].position;
+function indicazioniVisita(idVisita) {
+	for(var i=1; i<markersAttrazioni.length; i++) {
+		var marker = markersAttrazioni[i];
+		if(marker.id == "marker"+idVisita) {
+			var position = marker.position;
+			window.open("https://www.google.com/maps/search/?api=1&query="+marker.getPosition().lat()+","+marker.getPosition().lng()+"", "_blank");
+			addWay(markerPosizioneUtente, marker);
 		}
 	}
-	var directionsDisplay = new google.maps.DirectionsRenderer;
-    var directionsService = new google.maps.DirectionsService;
+}
 
+
+var directionsDisplay = new google.maps.DirectionsRenderer;
+var directionsService = new google.maps.DirectionsService;
+
+function addWay(from, to) {
+	directionsDisplay.setMap(null);
+//	var stepArray = [];
+//	if(markersAttrazioni.length > 1) {
+//		var pos=0;
+//		for(var i=1; i<(markersAttrazioni.length - 1); i++) {
+//			stepArray[pos++] = markersAttrazioni[i].position;
+//		}
+//	}
 	directionsDisplay.setMap(map);
+	directionsDisplay.setOptions({suppressMarkers: true});
 	directionsService.route({
-    	origin: markerPosizioneUtente.position, // Postal address for the start marker (obligatory)
-		destination:  markersAttrazioni[markersAttrazioni.length - 1].position, // Postal Address or GPS coordinates for the end marker (obligatory)
+    	origin: from.position, // Postal address for the start marker (obligatory)
+		destination:  to.position, // Postal Address or GPS coordinates for the end marker (obligatory)
 		//route : 'way', // Block's ID for the route display (optional)
 		travelMode: 'WALKING',
-		language : 'italian', // language of the route detail (optional)
-		waypoints: stepArray // Array of steps (optional)
+		language : 'italian' // language of the route detail (optional)
 	}, function(response, status) {
 		if (status === 'OK') {
 			directionsDisplay.setDirections(response);
-			for(var i=0; i<response.routes.length; i++) {
-				var leg = response.routes[i].legs[0];
-				console.log(leg);
-			}
-			$("img[src^='data:image']").attr("style", "display: none");
+//			for(var i=0; i<response.routes.length; i++) {
+//				var leg = response.routes[i].legs[0];
+//				console.log(leg);
+//			}
 	    } else {
 	        window.alert('Directions request failed due to ' + status);
 	    }
 	});
+}
+
+function resetZomm() {
+	map.fitBounds(bounds);
 }

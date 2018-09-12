@@ -22,7 +22,7 @@
 					<div class="col-md-12">
 						<label>Etichetta visita:</label>
 	                    <div>
-	                        <input class="form-control" id="etichettaVisita" />
+	                        <input class="form-control" id="etichettaVisita" autofocus/>
 	                    </div>
 					</div>
    				</div>

@@ -2,6 +2,7 @@ $(document).ready(function() {
 	$("#liHeadListe").addClass("section-active").css("margin-bottom", "1px");
 	initMap();
 	setDraggable();
+	aggiornaNumeroAttrazioni();
 	if($("#allDateInput").val() != 'true') {
 		var liList = $("li[id^=item]");
 		if(liList.length > 0) {
@@ -90,6 +91,7 @@ function dragElementTo() {
 			setDraggable();
 			$("[data-toggle='tooltip']").tooltip();
 			$(destTab).find("[id^=nessunaAttrazione]").addClass("hidden");
+			aggiornaNumeroAttrazioni();
 		}
 	}, 200);
 }
@@ -306,18 +308,19 @@ function addMarker(attrazione) {
 	
 	google.maps.event.addListener(marker,'click', function() {
 		var contentString = "<div style='max-width: 300px'>"+
-					marker.formatted_address + "<br><br>"+
-					"<div class='col-md-6'>"+
-						"<img src='"+attrazione.imagePath+"' style='display: block; margin: 0 auto; width: 140px;'>"+
-					"</div>"+
-					"<div class='col-md-6'>"+
-						(attrazione.reazioniPositive != null ? "<i class='fa fa-thumbs-o-up'></i> "+attrazione.reazioniPositive+"<br>" : "")+
-						(attrazione.reazioniNegative != null ? "<i class='fa fa-thumbs-o-down'></i> "+attrazione.reazioniNegative+"<br>" : "")+
-						(attrazione.valutazioneMedia != null ? "<i class='fa fa-star'></i> "+attrazione.valutazioneMedia+"<br>" : "")+
-						"<i class='fa fa-map-marker'></i> "+attrazione.visiteConfermate+"<br>"+
-						"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' target='_blank'><b>Visualizza dettagli</b></a>"+
-					"</div>"+
-				"</div>";
+								marker.formatted_address + "<br><br>"+
+								"<div class='col-md-6'>"+
+									"<img src='"+attrazione.imagePath+"' style='display: block; margin: 0 auto; width: 140px;'>"+
+								"</div>"+
+								"<div class='col-md-6'>"+
+									(attrazione.reazioniPositive != null ? "<i class='fa fa-thumbs-o-up'></i> "+attrazione.reazioniPositive+"<br>" : "")+
+									(attrazione.reazioniNegative != null ? "<i class='fa fa-thumbs-o-down'></i> "+attrazione.reazioniNegative+"<br>" : "")+
+									(attrazione.valutazioneMedia != null ? (attrazione.valutazioneMedia != "null" ? "<i class='fa fa-star'></i> "+attrazione.valutazioneMedia+"<br>" : "<i class='fa fa-star'></i> Nessuna<br>") : "")+
+									"<i class='fa fa-map-marker'></i> "+attrazione.visiteConfermate+"<br>"+
+									"<a href='/discover/attrazione/"+attrazione.idAttrazione+"' target='_blank'><b>Visualizza dettagli</b></a><br>"+
+									"<a href='https://www.google.com/maps/search/?api=1&query="+marker.getPosition().lat()+","+marker.getPosition().lng()+"' target='_blank'><b>Visualizza su maps</b></a>"+
+								"</div>"+
+							"</div>";
 		contentsString[attrazione.id] = contentString;
 		infoWindow.setContent(contentString);
 		infoWindow.open(map, marker);
@@ -327,6 +330,7 @@ function addMarker(attrazione) {
 	return marker;
 }
 
+var bounds;
 function loadMarkersGiorno(key) {
 	if(markersAttrazioni.length == 0) {
 		setTimeout(function() {
@@ -337,7 +341,7 @@ function loadMarkersGiorno(key) {
 	var someToExtend = false;
 	var ol = $("ol[keyString='"+key+"']");
 	var liItems = $(ol).find("li[id^=item]");
-	var bounds = new google.maps.LatLngBounds();
+	bounds = new google.maps.LatLngBounds();
 	if(key == "all") {
 		for(var j=0; j<markersAttrazioni.length; j++) {
 			var marker = markersAttrazioni[j];
@@ -369,6 +373,10 @@ function loadMarkersGiorno(key) {
 	if(someToExtend) {
 		map.fitBounds(bounds);
 	}
+}
+
+function resetZomm() {
+	map.fitBounds(bounds);
 }
 
 // *********************************
@@ -575,6 +583,7 @@ function eliminaVisita(idVisita) {
         	if($(tabFrom).find("li[id^=item]").length == 0) {
 				$(tabFrom).find("[id^=nessunaAttrazione]").removeClass("hidden");
 			}
+        	aggiornaNumeroAttrazioni();
         	mostraNotifica('Visita eliminata', 'danger');
         }
 	});
@@ -614,6 +623,7 @@ function copiaVisita(idVisita) {
 			// aggiornaOrdineSezione();
 			setDraggable();
         	mostraNotifica('Visita copiata e aggiunta in fondo alla sezione corrente', 'primary');
+        	aggiornaNumeroAttrazioni();
         }
 	});
 }
@@ -821,4 +831,18 @@ function salvaItinerario() {
 			}
 		}
 	});
+}
+
+function aggiornaNumeroAttrazioni() {
+	var olList = $("ol[id^=data]");
+	var totAttrazioni = 0;
+	for(var i=0; i<olList.length; i++) {
+		var ol = olList[i];
+		var numeroAttrazioni = $(ol).find("li[id^=item]").length;
+		$("[id='numeroAttrazioni"+$(ol).attr("key")+"']").html(numeroAttrazioni);
+		if($(ol).attr("key") != 'Tutteledate') {
+			totAttrazioni += numeroAttrazioni;
+		}
+	}
+	$("#numeroAttrazioniTutteledate").html(totAttrazioni);
 }

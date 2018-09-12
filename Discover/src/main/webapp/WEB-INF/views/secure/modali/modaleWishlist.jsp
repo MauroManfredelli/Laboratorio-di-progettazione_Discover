@@ -26,7 +26,7 @@
    							</label>
    						</div>
    						<div class="col-md-12">
-   							<form:input path="nome" class="form-control" placeholder="Nome"/>
+   							<form:input path="nome" class="form-control" placeholder="Nome" autofocus="true"/>
    						</div>
    						<div class="col-md-12 text-danger hidden" id="formNomeErrore" style="margin-top: 4px;">
    							<i class="fa fa-exclamation-circle"></i> Inserire un nome per la wishlist!

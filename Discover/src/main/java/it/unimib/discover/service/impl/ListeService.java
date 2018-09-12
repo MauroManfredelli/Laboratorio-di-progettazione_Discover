@@ -568,7 +568,7 @@ public class ListeService {
 	public void eliminaVisitaLive(Integer idVisita) {
 		Visita visitaRemote = visitaDAO.findByKey(idVisita);
 		visitaRemote.setDataVisita(null);
-		visitaDAO.delete(visitaRemote);
+		visitaDAO.persist(visitaRemote);
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
