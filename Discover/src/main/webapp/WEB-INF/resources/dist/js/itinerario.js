@@ -126,11 +126,15 @@ function aggiornaVisiteDBajax(key, idVisita, idItinerario) {
 function aggiornaOrdiniTabFrom(tabFrom) {
 	if($(tabFrom).attr("key") != "Tutteledate") {
 		var liList = $(tabFrom).find("li[id^=item]");
+		var lastOrdineConfermato = 0;
 		for(var i=0; i<liList.length; i++) {
 			var li = liList[i];
 			var ordine = $(li).find("[id=spanOrdine]");
 			var ordineVal = $(ordine).attr("ordine");
 			var preOrder;
+			if(!$(li).find("[id^=iconConferma]").hasClass("hidden") && i>lastOrdineConfermato) {
+				lastOrdineConfermato = i;
+			}
 			preOrder = ordineVal.substring(0, ordineVal.indexOf("-"));
 			ordineVal = preOrder + "-" + (i + 1);
 			$(ordine).attr("ordine", ordineVal);
@@ -143,6 +147,9 @@ function aggiornaOrdiniTabFrom(tabFrom) {
 			var ordine = $(li).find("[id=spanOrdine]");
 			var ordineVal = $(ordine).attr("ordine");
 			ordineVal = ordineVal.substring(0, ordineVal.indexOf("-")) + "-" + (i + 1);
+			if(i <= lastOrdineConfermato) {
+				$(li).find("[id^=iconConferma]").removeClass("hidden");
+			}
 			aggiornaVisiteStessaDataDB($(tabFrom).attr("keyString"), $(li).attr("idVisita"), $("#idItinerario").val(), (i+1));
 		}
 	} else {
@@ -437,7 +444,7 @@ $('#notaVisitaPrecedenteModal').on('hide.bs.modal', function (e) {
 
 function cambiaDataVisita(idVisita, tabFrom, element) {
 	$("#dataVisitaModal #idVisita").val(idVisita);
-	$("#dataVisitaModal #dataVisita").val("");
+	// $("#dataVisitaModal #dataVisita").val("");
 	tabFrom = $("#"+element).closest("ol").attr("id");
 	$("#dataVisitaModal #btnSalva").attr("onclick", "salvaModificaDataVisita('"+tabFrom+"', '"+element+"')")
 	$("#dataVisitaModal").modal("toggle");
@@ -445,7 +452,7 @@ function cambiaDataVisita(idVisita, tabFrom, element) {
 
 function cambiaGiornoVisita(idVisita, tabFrom, element) {
 	$("#giornoVisitaModal #idVisita").val(idVisita);
-	$("#giornoVisitaModal #giornoVisita").val("");
+	// $("#giornoVisitaModal #giornoVisita").val("");
 	tabFrom = $("#"+element).closest("ol").attr("id");
 	$("#giornoVisitaModal #btnSalva").attr("onclick", "salvaModificaGiornoVisita('"+tabFrom+"', '"+element+"')")
 	$("#giornoVisitaModal").modal("toggle");

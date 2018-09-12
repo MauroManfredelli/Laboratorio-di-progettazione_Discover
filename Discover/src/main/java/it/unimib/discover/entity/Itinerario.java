@@ -175,6 +175,19 @@ public class Itinerario implements Serializable {
 		return ordine + "";
 	}
 
+	public String getLastOrdineConfermato(Date dataVisita) {
+		String ordine = "";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		for(Visita visita : this.visite) {
+			if(visita.getConferma() && visita.getDataVisita() != null && sdf.format(visita.getDataVisita()).equals(sdf.format(dataVisita))) {
+				if(visita.getOrdineNelGiorno() != null && visita.getOrdineNelGiorno().compareTo(ordine) > 0) {
+					ordine = visita.getOrdineNelGiorno();
+				}
+			}
+		}
+		return ordine;
+	}
+
 	public String getOrdineVisita(Integer giorno) {
 		Integer ordine = 1;
 		for(Visita visita : this.visite) {

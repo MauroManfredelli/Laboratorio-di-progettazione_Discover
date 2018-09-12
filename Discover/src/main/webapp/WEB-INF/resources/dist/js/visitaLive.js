@@ -46,7 +46,13 @@ function setDraggable() {
         	}
             dragElementTo();
         }
-    });
+    });var sortableList = $(".sortable");
+	for(var i=0; i<sortableList.length; i++) {
+		$(sortableList[i]).sortable({
+			exclude : $(".notSortable, .noDrag"),
+			handle: '.sort-handle',
+		});
+	}
 }
 
 function confermaVisita(idVisita) {
@@ -97,6 +103,7 @@ function dragElementTo(fromClick) {
 				confermata = false;
 				$(clonedElement).find("[id=spanOrdine]").removeClass("btn-black").addClass("btn-danger");
 				$(clonedElement).find("[id=btnConfermaVisita]").removeClass("text-success");
+				$(clonedElement).find("[id=btnConfermaVisita]").addClass("text-action");
 				$(clonedElement).find("[id=btnIndicazioniVisita]").removeClass("hidden");
 				$(clonedElement).find("[id=btnEliminaVisita]").removeClass("hidden");
 			}

@@ -54,8 +54,8 @@
 						href="#collapseNonVisitate" style="color: #333; font-size: 18px;"> <b>Da visitare</b> <span class="pull-right"><em class="glyphicon glyphicon-chevron-right"></em><em class="glyphicon glyphicon-chevron-down arrow_show"></em></span></a>
 				</h4>
 			</div>
-			<div id="collapseNonVisitate" class="panel-collapse collapse in dropable-tab">
-				<ol class="box-body p-0 m-0">
+			<div id="collapseNonVisitate" class="panel-collapse collapse in">
+				<ol class="box-body p-0 m-0 sortable">
 					<li id="nessunaVisitaNonConfermata" class="notSortable list-group-item m-0 light-azure-bg text-center text-primary" style="border: none; padding-top: 30px; position: inherit;">
 						<div><i class="fa fa-info-circle" style="font-size: 4em;"></i></div>
 						<div style="font-size: 1.5em;">Nessuna visita presente</div>
@@ -97,7 +97,7 @@
 										
 										<img src="/discover/resources/dist/img/road_sign.png"
 													style=" float: right; padding-right: 10px; cursor: pointer; height: 22px;" data-toggle="tooltip" title="Raggiungi" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')" >
-										<i class="fa fa-map-marker text-action" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
+										<i class="fa fa-check-circle text-action" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
 										<i class="fa fa-trash text-primary" data-toggle="tooltip" title="Sposta in non programmate" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
 										
 									</div>
@@ -115,8 +115,8 @@
 						href="#collapseVisitate" style="color: #333; font-size: 18px;"> <b>Visitate</b>  <span class="pull-right"><em class="glyphicon glyphicon-chevron-right"></em><em class="glyphicon glyphicon-chevron-down arrow_show"></em></span></a>
 				</h4>
 			</div>
-			<div id="collapseVisitate" class="panel-collapse collapse in dropable-tab">
-				<ol class="box-body p-0 m-0">
+			<div id="collapseVisitate" class="panel-collapse collapse in">
+				<ol class="box-body p-0 m-0 sortable">
 					<li id="nessunaVisitaConfermata" class="notSortable list-group-item m-0 light-azure-bg text-center text-primary" style="border: none; padding-top: 30px; position: inherit;">
 						<div><i class="fa fa-info-circle" style="font-size: 4em;"></i></div>
 						<div style="font-size: 1.5em;">Nessuna visita presente</div>
@@ -158,7 +158,7 @@
 										
 										<img src="/discover/resources/dist/img/road_sign.png" class="hidden"
 													style=" float: right; padding-right: 10px; cursor: pointer; height: 22px;" data-toggle="tooltip" title="Raggiungi" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')" >
-										<i class="fa fa-map-marker text-success" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
+										<i class="fa fa-check-circle text-success" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
 										<i class="fa fa-trash hidden text-primary" data-toggle="tooltip" title="Elimina visita" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
 									</div>
 								</div>
