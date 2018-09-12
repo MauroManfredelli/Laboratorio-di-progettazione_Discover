@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$("#liHeadListe").addClass("section-active").css("margin-bottom", "1px");
+	// $("#liHeadListe").addClass("section-active").css("margin-bottom", "1px");
 	initMap();
 	setDraggable();
 });
@@ -15,6 +15,18 @@ $('#headVisitate').on("click", function() {
 });
 
 function setDraggable() {
+	
+	var sortableList = $(".sortable");
+	for(var i=0; i<sortableList.length; i++) {
+		$(sortableList[i]).sortable().sortable("destroy");
+		$(sortableList[i]).sortable({
+			connectWith: $(sortableList[i]),
+			exclude : $(".notSortable, .noDrag"),
+			handle: '.sort-handle',
+		});
+	}
+	
+	$('.item-draggable').draggable().draggable("destroy");
 	$('.item-draggable').draggable({
         cursor: 'move',
         revert: '10',
@@ -32,27 +44,20 @@ function setDraggable() {
                 'right':'0px'
             });
             elementDragged = $(this);
-            // aggiornaOrdineSezione();
+            aggiornaOrdiniStessoTab();
         }
 	});
-	$('.dropable-tab').droppable({
-        accept: '.item-draggable',
-        hoverClass: 'item-hovered',
-        drop: function (event, ui) {
-        	if($(this).attr("id") == "collapseVisitate" || $(this).find("a").attr("href") == "#collapseVisitate") {
-        		elementDragTo = $("#collapseVisitate");
-        	} else {
-        		elementDragTo = $("#collapseNonVisitate");
-        	}
-            dragElementTo();
-        }
-    });var sortableList = $(".sortable");
-	for(var i=0; i<sortableList.length; i++) {
-		$(sortableList[i]).sortable({
-			exclude : $(".notSortable, .noDrag"),
-			handle: '.sort-handle',
-		});
-	}
+}
+
+function aggiornaOrdiniStessoTab() {
+	setTimeout(function() {
+		if(elementDragTo == "") {
+			aggiornaOrdini();
+			aggiornaMarkersMappa();
+		} else {
+			return;
+		}
+	}, 200);
 }
 
 function confermaVisita(idVisita) {
@@ -119,13 +124,13 @@ function dragElementTo(fromClick) {
 			elementDragged="";
 			elementDragTo="";
 			elementDragFrom="";
-			setDraggable();
+		    setDraggable();
 			$("[data-toggle='tooltip']").tooltip();
-			$("#collapseNonVisitate").find("li").sort(sort_li).appendTo("#collapseNonVisitate");
-		    $("#collapseVisitate").find("li").sort(sort_li).appendTo("#collapseVisitate");
-		    function sort_li(a, b) {
-		        return ($(b).find("[id=spanOrdine]").attr("ordine") < ($(a).find("[id=spanOrdine]").attr("ordine")) ? 1 : -1);
-		    }
+			//$("#collapseNonVisitate").find("li").sort(sort_li).appendTo("#collapseNonVisitate");
+		    //$("#collapseVisitate").find("li").sort(sort_li).appendTo("#collapseVisitate");
+//		    function sort_li(a, b) {
+//		        return ($(b).find("[id=spanOrdine]").attr("ordine") < ($(a).find("[id=spanOrdine]").attr("ordine")) ? 1 : -1);
+//		    }
 		}
 	}, 200);
 }
@@ -485,7 +490,7 @@ function addMarker(attrazione) {
 }
 
 function indicazioniVisita(idVisita) {
-	for(var i=1; i<markersAttrazioni.length; i++) {
+	for(var i=0; i<markersAttrazioni.length; i++) {
 		var marker = markersAttrazioni[i];
 		if(marker.id == "marker"+idVisita) {
 			var position = marker.position;

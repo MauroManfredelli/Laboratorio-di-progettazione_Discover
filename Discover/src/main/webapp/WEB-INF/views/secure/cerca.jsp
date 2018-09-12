@@ -74,7 +74,7 @@
 									<b>Lontananza <span id="resSlider">(0 Km - 50 Km)</span>:</b>
 								</div>
 								<div class="col-md-5" style="margin-top: 5px;">
-									<input type="text" id="sliderLontananza" value="" class="slider form-control" data-slider-min="0" data-slider-max="50" data-slider-step="1" data-slider-value="[0,50]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-id="blue" data-slider-tooltip="hide" style="max-width: 600px;">
+									<input type="text" id="sliderLontananza" value="" class="slider form-control" data-slider-min="0" data-slider-max="50" data-slider-step="1" data-slider-value="[0,50]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-id="blue" data-slider-tooltip="true" style="max-width: 600px;">
 									<form:hidden path="lontananzaMinima" />
 									<form:hidden path="lontananzaMassima" />
 								</div>

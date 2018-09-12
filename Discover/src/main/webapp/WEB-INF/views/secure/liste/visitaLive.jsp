@@ -55,7 +55,7 @@
 				</h4>
 			</div>
 			<div id="collapseNonVisitate" class="panel-collapse collapse in">
-				<ol class="box-body p-0 m-0 sortable">
+				<ol class="box-body p-0 m-0 sortable" style="overflow-x: hidden">
 					<li id="nessunaVisitaNonConfermata" class="notSortable list-group-item m-0 light-azure-bg text-center text-primary" style="border: none; padding-top: 30px; position: inherit;">
 						<div><i class="fa fa-info-circle" style="font-size: 4em;"></i></div>
 						<div style="font-size: 1.5em;">Nessuna visita presente</div>
@@ -73,7 +73,7 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
 								</div>
-								<div>
+								<div class="sort-handle">
 									<div class="text-center" style="margin-top: 10px;">
 										<i class="fas fa-arrows-alt" style="font-size: 1.5em;  cursor: pointer;"></i>
 									</div>
@@ -116,7 +116,7 @@
 				</h4>
 			</div>
 			<div id="collapseVisitate" class="panel-collapse collapse in">
-				<ol class="box-body p-0 m-0 sortable">
+				<ol class="box-body p-0 m-0 sortable" style="overflow-x: hidden">
 					<li id="nessunaVisitaConfermata" class="notSortable list-group-item m-0 light-azure-bg text-center text-primary" style="border: none; padding-top: 30px; position: inherit;">
 						<div><i class="fa fa-info-circle" style="font-size: 4em;"></i></div>
 						<div style="font-size: 1.5em;">Nessuna visita presente</div>
@@ -134,7 +134,7 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
 								</div>
-								<div>
+								<div class="sort-handle">
 									<div class="text-center" style="margin-top: 10px;">
 										<i class="fas fa-arrows-alt" style="font-size: 1.5em;  cursor: pointer;"></i>
 									</div>

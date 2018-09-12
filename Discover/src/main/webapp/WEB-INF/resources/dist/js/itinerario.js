@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$("#liHeadListe").addClass("section-active").css("margin-bottom", "1px");
+	// $("#liHeadListe").addClass("section-active").css("margin-bottom", "1px");
 	initMap();
 	setDraggable();
 	aggiornaNumeroAttrazioni();
