@@ -79,7 +79,7 @@
 							</div>
 							<div class="col-md-10 p-0" style="float: left;">
 								<span style="font-size: 22px;">${attrazione.userInserimento.userName}</span>
-								<span style="padding-left: 8px; font-size:18px;">(${attrazione.userInserimento.livello}&nbsp;<i class="fa fa-user text-primary"></i><i class="fa fa-level-up text-primary"></i>)</span>
+								<span style="padding-left: 8px; font-size:18px;">(${attrazione.userInserimento.livello}&nbsp;<i class="fa fa-user text-primary"></i><i class="fas fa-level-up-alt text-primary"></i>)</span>
 								<br>
 								<small><i class="fa fa-clock-o"></i> <fmt:formatDate type="date" value="${attrazione.dataInserimento}" pattern="dd/MM/yyyy" /></small>
 							</div>

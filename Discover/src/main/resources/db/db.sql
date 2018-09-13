@@ -510,7 +510,8 @@ insert into foto values (332, '/discover/resources/dist/img/attrazione158/5.jpg'
 insert into foto values (333, '/discover/resources/dist/img/attrazione158/6.jpg', null, null, 158, 1);
 
 
-insert into wishlist values (401, 'Milano', STR_TO_DATE('10/09/2018 17:00', '%d/%m/%Y %T'), '5', 0);
+insert into wishlist values (401, 'Wishlist Milano', STR_TO_DATE('10/09/2018 17:00', '%d/%m/%Y %T'), '5', 0);
+insert into wishlist values (402, 'Test', STR_TO_DATE('10/09/2018 17:00', '%d/%m/%Y %T'), '5', 0);
 insert into rel_wishlist_attrazione values (501, 401, 150);
 insert into rel_wishlist_attrazione values (502, 401, 151);
 insert into rel_wishlist_attrazione values (503, 401, 152);
