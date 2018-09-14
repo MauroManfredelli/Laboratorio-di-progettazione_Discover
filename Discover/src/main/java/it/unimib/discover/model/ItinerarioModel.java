@@ -13,6 +13,7 @@ public class ItinerarioModel implements Serializable {
 	private String dataFine;
 	private Integer numeroGiorni;
 	private List<Integer> idWishlist;
+	private String idUtente;
 	
 	public Integer getId() {
 		return id;
@@ -55,6 +56,12 @@ public class ItinerarioModel implements Serializable {
 	}
 	public void setIdWishlist(List<Integer> idWishlist) {
 		this.idWishlist = idWishlist;
+	}
+	public String getIdUtente() {
+		return idUtente;
+	}
+	public void setIdUtente(String idUtente) {
+		this.idUtente = idUtente;
 	}
 
 }

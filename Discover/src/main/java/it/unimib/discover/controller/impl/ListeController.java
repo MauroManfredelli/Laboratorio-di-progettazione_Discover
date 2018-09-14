@@ -87,6 +87,7 @@ public class ListeController {
 	@RequestMapping( value = "/liste/creaItinerario", method = RequestMethod.GET )
 	public @ResponseBody ValidationResponse creaItinerario(ItinerarioModel itinerarioModel, BindingResult errors, HttpServletRequest request) throws ParseException {
 		MyUserAccount user = (MyUserAccount) request.getSession().getAttribute("currentUser");
+		itinerarioModel.setIdUtente(user.getId());
 		itinerarioModelValidator.validate(itinerarioModel, errors);
 		if(errors.hasErrors()) {
 			return new ValidationResponse("ERROR", errors);

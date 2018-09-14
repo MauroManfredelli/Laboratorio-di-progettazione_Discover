@@ -22,6 +22,7 @@ import it.unimib.discover.dao.impl.AttrazioneDAO;
 import it.unimib.discover.dao.impl.AttrazioneWishlistDAO;
 import it.unimib.discover.dao.impl.ItinerarioDAO;
 import it.unimib.discover.dao.impl.ListaDAO;
+import it.unimib.discover.dao.impl.MyUserAccountDAO;
 import it.unimib.discover.dao.impl.VisitaDAO;
 import it.unimib.discover.dao.impl.WishlistDAO;
 import it.unimib.discover.entity.Attrazione;
@@ -743,4 +744,5 @@ public class ListeService {
 			visitaDAO.persist(visita);
 		}
 	}
+	
 }
