@@ -50,9 +50,9 @@ public class ItinerarioTest {
 	private Itinerario itinerarioTest, itinerarioTestSameName;
 	
 	/**
-     * Sets up the test fixture. 
+     * Imposta i parametri dei test. 
      * Crea delle wishlist di test per testare la creazione di itinerari.
-     * (Called before every test case method.)
+     * (Invocato prima di tutti i metodi di test case)
      */
     @Before
     @Transactional
@@ -63,9 +63,9 @@ public class ItinerarioTest {
     }
 
     /**
-     * Tears down the test fixture. 
+     * Cancella i parametri di test. 
      * Cancella i dati di test e gli itinerari di test creati
-     * (Called after every test case method.)
+     * (Invocato dopo l'esecuzione di tutti i test case)
      */
     @After
     @Transactional
