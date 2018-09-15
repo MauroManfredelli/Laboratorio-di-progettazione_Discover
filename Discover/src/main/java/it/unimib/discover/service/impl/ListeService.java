@@ -62,6 +62,11 @@ public class ListeService {
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
+	public Wishlist getWishlistById(Integer idWishlist) {
+		return wishlistDAO.findByKey(idWishlist);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Lista> getListeByUser(String id, String ordineListe) {
 		List<Lista> liste = listaDAO.getListeByUser(id, ordineListe);
 		for(Lista lista : liste) {
@@ -132,6 +137,12 @@ public class ListeService {
 			visitaDAO.deleteByItinerarioAttrazione(lista.getIdItinerario(), idAttrazione);
 		}
 	}
+	
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void removeAttrazioneFromWishlist(Integer idAW) {
+		AttrazioneWishlist aw = attrazioneWishlistDAO.findByKey(idAW);
+		attrazioneWishlistDAO.delete(aw);
+	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void archiviaLista(String idLista) {
@@ -184,7 +195,7 @@ public class ListeService {
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void salvaItinerario(ItinerarioModel itinerarioModel, MyUserAccount user) throws ParseException {
+	public Integer salvaItinerario(ItinerarioModel itinerarioModel, MyUserAccount user) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		if(itinerarioModel.getId() != null) {
 			Itinerario itinerario = itinerarioDAO.findByKey(itinerarioModel.getId());
@@ -218,6 +229,7 @@ public class ListeService {
 				visita.setNotaPrec(null);
 			}
 			itinerarioDAO.persist(itinerario);
+			return itinerario.getId();
 		} else {
 			Itinerario itinerario = new Itinerario();
 			itinerario.setNome(itinerarioModel.getNome());
@@ -247,6 +259,7 @@ public class ListeService {
 				attrazioneWishlistDAO.delete(listAw);
 				wishlistDAO.delete(wishlist);
 			}
+			return itinerario.getId();
 		}
 	}
 
@@ -270,6 +283,11 @@ public class ListeService {
 			lista.setFormattedDataFine(sdf.format(lista.getDataFine()));
 		}
 		return lista;
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public Lista getListaByIdWishlist(String idWishlist) {
+		return listaDAO.getListaByIdWishlist(idWishlist);
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)

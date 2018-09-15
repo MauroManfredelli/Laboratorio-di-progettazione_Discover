@@ -13,6 +13,7 @@ public class ValidationResponse implements Serializable {
 	private String status;
     private List<ErrorMessage> errorMessages;
     private List<FieldError> fieldErrors;
+    private String idGenerato;
 
     public ValidationResponse() {}
 
@@ -60,7 +61,15 @@ public class ValidationResponse implements Serializable {
         this.fieldErrors = fieldErrors;
     }
 
-    @Override
+    public String getIdGenerato() {
+		return idGenerato;
+	}
+
+	public void setIdGenerato(String idGenerato) {
+		this.idGenerato = idGenerato;
+	}
+
+	@Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("ValidationResponse [status=");

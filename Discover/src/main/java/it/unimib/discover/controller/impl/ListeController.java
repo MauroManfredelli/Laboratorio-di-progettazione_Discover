@@ -92,8 +92,10 @@ public class ListeController {
 		if(errors.hasErrors()) {
 			return new ValidationResponse("ERROR", errors);
 		} else {
-			listeService.salvaItinerario(itinerarioModel, user);
-			return new ValidationResponse("SUCCESS");
+			Integer idGenerato = listeService.salvaItinerario(itinerarioModel, user);
+			ValidationResponse vr = new ValidationResponse("SUCCESS");
+			vr.setIdGenerato(idGenerato+"");
+			return vr;
 		}
 	}
 	
@@ -106,6 +108,17 @@ public class ListeController {
 	public @ResponseBody Lista getListaByIdItinerario(@RequestParam(name="idItinerario") String idItinerario, HttpServletRequest request) {
         return listeService.getListaByIdItinerario(idItinerario);
 	}
+	
+	@RequestMapping( value = "/liste/getListaByIdWishlist", method = RequestMethod.GET )
+	public @ResponseBody Lista getListaByIdWishlist(@RequestParam(name="idWishlist") String idWishlist, HttpServletRequest request) {
+        return listeService.getListaByIdWishlist(idWishlist);
+	}
+	
+	@RequestMapping(value = "/liste/rimuoviAttrazioneFromWishlist", method = RequestMethod.GET)
+    public @ResponseBody ValidationResponse rimuoviAttrazioneFromWishlist(@RequestParam(name="idAW") String idAW, HttpServletRequest request) {
+		listeService.removeAttrazioneFromWishlist(Integer.valueOf(idAW));
+		return new ValidationResponse("SUCCESS");
+    }
 	
 	@RequestMapping(value = "/liste/aggiungiAttrazioneToLista", method = RequestMethod.GET)
     public @ResponseBody ValidationResponse aggiungiAttrazioneToLista(@RequestParam(name="idAttrazione") String idAttrazione, @RequestParam(name="idLista") String idLista,  HttpServletRequest request) {
@@ -183,7 +196,11 @@ public class ListeController {
 			}
 	        return modelAndView;
 		} else {
-			return null;
+			ModelAndView modelAndView = new ModelAndView("secure/liste/wishlist");
+			Wishlist wishlist = listeService.getWishlistById(lista.getIdWishlist());
+			modelAndView.addObject("wishlist", wishlist);
+			modelAndView.addObject("itinerario", new ItinerarioModel());
+			return modelAndView;
 		}
 	}
 	

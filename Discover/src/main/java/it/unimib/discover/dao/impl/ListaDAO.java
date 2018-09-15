@@ -72,4 +72,14 @@ public class ListaDAO extends AbstractEntityDao<String, Lista> {
 		return (Lista) query.uniqueResult();
 	}
 
+	public Lista getListaByIdWishlist(String idWishlist) {
+		String sql = "select * " + 
+				"from vw_liste_utente " +
+				"where ID_WISHLIST=:idWishlist ";
+		SQLQuery query = (SQLQuery) getSQLQuery(sql)
+				.addEntity(Lista.class)
+				.setParameter("idWishlist", idWishlist);
+		return (Lista) query.uniqueResult();
+	}
+
 }
