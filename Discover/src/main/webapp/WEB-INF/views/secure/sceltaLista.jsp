@@ -88,7 +88,7 @@
         			html: true,
         			showCancelButton: false,
         			confirmButtonText: 'Continua',
-        			confirmButtonColor: '#0066cc',
+        			confirmButtonColor: '#3c8dbc',
         		}, function() {
         			$("#inputSelectLista").fadeTo('slow', 0.5).fadeTo('slow', 1.0).fadeTo('slow', 0.5).fadeTo('slow', 1.0).fadeTo('slow', 0.5).fadeTo('slow', 1.0);
         		});

@@ -55,7 +55,7 @@ function archiviaLista(idLista) {
 		showCancelButton: true,
 		cancelButtonText: 'Annulla',
 		confirmButtonText: 'Continua',
-		confirmButtonColor: '#0066cc',
+		confirmButtonColor: '#3c8dbc',
 	}, function() {
 		$.ajax({
 	    	type: 'GET',
@@ -86,7 +86,7 @@ function recuperaLista(idLista) {
 		showCancelButton: true,
 		cancelButtonText: 'Annulla',
 		confirmButtonText: 'Continua',
-		confirmButtonColor: '#0066cc',
+		confirmButtonColor: '#3c8dbc',
 	}, function() {
 		$.ajax({
 	    	type: 'GET',
@@ -132,7 +132,7 @@ function confermaItinerario(idLista, idItinerario) {
 				showCancelButton: true,
 				cancelButtonText: 'Annulla',
 				confirmButtonText: 'Continua',
-				confirmButtonColor: '#0066cc',
+				confirmButtonColor: '#3c8dbc',
 			}, function() {
 				confermaItinerarioAjax(idLista, idItinerario);
 				setTimeout(function() {
@@ -168,7 +168,7 @@ function eliminaLista(idLista) {
 		showCancelButton: true,
 		cancelButtonText: 'Annulla',
 		confirmButtonText: 'Continua',
-		confirmButtonColor: '#0066cc',
+		confirmButtonColor: '#3c8dbc',
 	}, function() {
 		$.ajax({
 	    	type: 'GET',
@@ -242,7 +242,7 @@ function creaItinerario() {
 			html: true,
 			showCancelButton: false,
 			confirmButtonText: 'Continua',
-			confirmButtonColor: '#0066cc',
+			confirmButtonColor: '#3c8dbc',
 		});
 		return;
 	}

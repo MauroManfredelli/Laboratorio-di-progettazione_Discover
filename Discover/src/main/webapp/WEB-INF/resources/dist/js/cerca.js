@@ -60,7 +60,7 @@ function checkPosCentro() {
 				  html: true,
 				  showCancelButton: false,
 				  confirmButtonText: 'Continua',
-				  confirmButtonColor: '#0066cc'
+				  confirmButtonColor: '#3c8dbc'
 		    });*/
 			$("#localita").val("");
 		}

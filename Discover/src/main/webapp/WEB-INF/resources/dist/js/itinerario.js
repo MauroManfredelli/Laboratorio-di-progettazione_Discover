@@ -494,7 +494,7 @@ function salvaModificaDataVisita(tabFrom, element) {
         			html: true,
         			showCancelButton: false,
         			confirmButtonText: 'Continua',
-        			confirmButtonColor: '#0066cc',
+        			confirmButtonColor: '#3c8dbc',
         		});
         	}
         }
@@ -533,7 +533,7 @@ function salvaModificaGiornoVisita(tabFrom, element) {
         			html: true,
         			showCancelButton: false,
         			confirmButtonText: 'Continua',
-        			confirmButtonColor: '#0066cc',
+        			confirmButtonColor: '#3c8dbc',
         		});
         	}
         }
@@ -727,7 +727,7 @@ function confermaItinerario(idItinerario) {
 				showCancelButton: true,
 				cancelButtonText: 'Annulla',
 				confirmButtonText: 'Continua',
-				confirmButtonColor: '#0066cc',
+				confirmButtonColor: '#3c8dbc',
 			}, function() {
 				confermaItinerarioAjax(idItinerario);
 				setTimeout(function() {
@@ -773,7 +773,7 @@ function visitaLive(idItinerario) {
     				html: true,
     				showCancelButton: false,
     				confirmButtonText: 'Continua',
-    				confirmButtonColor: '#0066cc',
+    				confirmButtonColor: '#3c8dbc',
     			});
         	}
         }
