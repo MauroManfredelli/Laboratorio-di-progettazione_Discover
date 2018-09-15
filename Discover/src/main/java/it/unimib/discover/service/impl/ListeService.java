@@ -22,7 +22,6 @@ import it.unimib.discover.dao.impl.AttrazioneDAO;
 import it.unimib.discover.dao.impl.AttrazioneWishlistDAO;
 import it.unimib.discover.dao.impl.ItinerarioDAO;
 import it.unimib.discover.dao.impl.ListaDAO;
-import it.unimib.discover.dao.impl.MyUserAccountDAO;
 import it.unimib.discover.dao.impl.VisitaDAO;
 import it.unimib.discover.dao.impl.WishlistDAO;
 import it.unimib.discover.entity.Attrazione;
@@ -255,7 +254,7 @@ public class ListeService {
 	public Lista getListaById(String idLista) {
 		Lista lista = listaDAO.findByKey(idLista);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		if(lista.getDataInizio() != null) {
+		if(lista != null && lista.getDataInizio() != null) {
 			lista.setFormattedDataInizio(sdf.format(lista.getDataInizio()));
 			lista.setFormattedDataFine(sdf.format(lista.getDataFine()));
 		}

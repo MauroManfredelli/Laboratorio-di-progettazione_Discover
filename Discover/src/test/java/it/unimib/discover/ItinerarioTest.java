@@ -14,8 +14,10 @@ import org.springframework.validation.BindingResult;
 
 import com.google.common.collect.Lists;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
@@ -165,6 +167,8 @@ public class ItinerarioTest {
 		List<Lista> listeUtente = listeService.getListeByUser(userTest.getId(), "");
 		itinerarioTest = getItinerarioTestFromListeUtente(listeUtente, im.getNome());
 		assertNotNull(itinerarioTest);
+		assertEquals(itinerarioTest.getVisite().size(), 2);
+		assertNull(listeService.getListaById("wishlist"+wishlistTest.getId()));
 	}
 
 	private Itinerario getItinerarioTestFromListeUtente(List<Lista> listeUtente, String nomeItinerario) {

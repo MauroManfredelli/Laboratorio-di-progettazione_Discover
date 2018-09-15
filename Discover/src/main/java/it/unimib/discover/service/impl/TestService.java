@@ -9,12 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.collect.Lists;
 
 import it.unimib.discover.dao.impl.AttrazioneDAO;
+import it.unimib.discover.dao.impl.AttrazioneWishlistDAO;
 import it.unimib.discover.dao.impl.ItinerarioDAO;
 import it.unimib.discover.dao.impl.MyUserAccountDAO;
+import it.unimib.discover.dao.impl.VisitaDAO;
 import it.unimib.discover.dao.impl.WishlistDAO;
 import it.unimib.discover.entity.AttrazioneWishlist;
 import it.unimib.discover.entity.Itinerario;
 import it.unimib.discover.entity.MyUserAccount;
+import it.unimib.discover.entity.Visita;
 import it.unimib.discover.entity.Wishlist;
 
 @Service
@@ -25,6 +28,12 @@ public class TestService {
 	
 	@Autowired
 	private WishlistDAO wishlistDAO;
+	
+	@Autowired
+	private VisitaDAO visitaDAO;
+	
+	@Autowired
+	private AttrazioneWishlistDAO attrazioneWishlistDAO;
 	
 	@Autowired
 	private ItinerarioDAO itinerarioDAO;
@@ -44,10 +53,12 @@ public class TestService {
     	wishlistTest.setArchiviata(false);
     	wishlistTest.setDataCreazione(new Date());
     	wishlistTest.setUserProprietario(userTest);
-    	AttrazioneWishlist attrazione1 = new AttrazioneWishlist(attrazioneDAO.findByKey(101), wishlistTest);
-    	AttrazioneWishlist attrazione2 = new AttrazioneWishlist(attrazioneDAO.findByKey(102), wishlistTest);
+    	AttrazioneWishlist attrazione1 = new AttrazioneWishlist(attrazioneDAO.findByKey(100), wishlistTest);
+    	AttrazioneWishlist attrazione2 = new AttrazioneWishlist(attrazioneDAO.findByKey(101), wishlistTest);
     	wishlistTest.setAttrazioniWishlist(Lists.newArrayList(attrazione1, attrazione2));
     	wishlistDAO.persist(wishlistTest);
+    	attrazioneWishlistDAO.persist(attrazione1);
+    	attrazioneWishlistDAO.persist(attrazione2);
     	return wishlistTest;
 	}
 	
@@ -67,6 +78,9 @@ public class TestService {
 		if(itinerarioTestSameName != null) {
 			itinerarioDAO.delete(itinerarioTestSameName);
 		} if(itinerarioTest != null) {
+			for(Visita visita : itinerarioTest.getVisite()) {
+				visitaDAO.delete(visita);
+			}
         	itinerarioDAO.delete(itinerarioTest);
         }
 	}
