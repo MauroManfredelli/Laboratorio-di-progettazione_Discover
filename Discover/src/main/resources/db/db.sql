@@ -339,6 +339,17 @@ insert into foto values (304, '/discover/resources/dist/img/attrazione150/1.jpg'
 insert into foto values (305, '/discover/resources/dist/img/attrazione150/2.jpg', null, null, 150, 1);
 insert into foto values (306, '/discover/resources/dist/img/attrazione150/4.jpg', null, null, 150, 1);
 
+insert into recensioni values (501, 'Recensione', 'Testo', 5, null, 1, 150, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (502, 'Recensione', 'Testo', 4, null, 1, 150, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (503, 'Recensione', 'Testo', 5, null, 1, 150, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (504, 'Recensione', 'Testo', 5, null, 1, 150, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (505, 'Recensione', 'Testo', 5, null, 1, 150, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (506, 'Recensione', 'Testo', 4, null, 1, 150, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (507, 'Recensione', 'Testo', 5, null, 1, 150, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (508, 'Recensione', 'Testo', 4, null, 1, 150, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (509, 'Recensione', 'Testo', 5, null, 1, 150, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (510, 'Recensione', 'Testo', 4, null, 1, 150, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+
 
 #SCALA
 insert into marker_posizione values (151, '45.46760475', '9.18911952312957', 'Teatro alla Scala, Via Filodrammatici, Milano, MI');
@@ -358,6 +369,12 @@ insert into attrazioni values (
 insert into foto values (307, '/discover/resources/dist/img/attrazione151/1.jpg', null, null, 151, 1);
 insert into foto values (308, '/discover/resources/dist/img/attrazione151/2.jpg', null, null, 151, 1);
 insert into foto values (309, '/discover/resources/dist/img/attrazione151/3.jpg', null, null, 151, 1);
+
+insert into recensioni values (511, 'Recensione', 'Testo', 4, null, 1, 151, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (512, 'Recensione', 'Testo', 4, null, 1, 151, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (513, 'Recensione', 'Testo', 4, null, 1, 151, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (514, 'Recensione', 'Testo', 5, null, 1, 151, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (515, 'Recensione', 'Testo', 4, null, 1, 151, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
 
 
 #CASTELLO SFORZESCO
@@ -381,6 +398,15 @@ insert into foto values (311, '/discover/resources/dist/img/attrazione152/2.jpg'
 insert into foto values (312, '/discover/resources/dist/img/attrazione152/3.jpg', null, null, 152, 1);
 insert into foto values (313, '/discover/resources/dist/img/attrazione152/4.jpg', null, null, 152, 1);
 
+insert into recensioni values (520, 'Recensione', 'Testo', 4, null, 1, 152, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (516, 'Recensione', 'Testo', 4, null, 1, 152, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (517, 'Recensione', 'Testo', 4, null, 1, 152, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (518, 'Recensione', 'Testo', 5, null, 1, 152, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (519, 'Recensione', 'Testo', 5, null, 1, 152, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (521, 'Recensione', 'Testo', 4, null, 1, 152, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (522, 'Recensione', 'Testo', 5, null, 1, 152, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (701, 'Recensione', 'Testo', 5, null, 1, 152, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+
 
 #PARCO SEMPIONE
 
@@ -402,6 +428,12 @@ insert into foto values (314, '/discover/resources/dist/img/attrazione153/1.jpg'
 insert into foto values (315, '/discover/resources/dist/img/attrazione153/2.jpg', null, null, 153, 1);
 
 
+insert into recensioni values (523, 'Recensione', 'Testo', 3, null, 1, 153, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (524, 'Recensione', 'Testo', 3, null, 1, 153, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (525, 'Recensione', 'Testo', 3, null, 1, 153, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (526, 'Recensione', 'Testo', 4, null, 1, 153, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (527, 'Recensione', 'Testo', 4, null, 1, 153, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+
 #ARCO DELLA PACE
 
 insert into marker_posizione values (154, '45.47568115', '9.17241040283426', 'Arco della Pace, Piazza Sempione, Milano, MI');
@@ -421,8 +453,14 @@ insert into attrazioni values (
 insert into foto values (316, '/discover/resources/dist/img/attrazione154/1.jpg', null, null, 154, 1);
 insert into foto values (317, '/discover/resources/dist/img/attrazione154/2.jpg', null, null, 154, 1);
 
+insert into recensioni values (528, 'Recensione', 'Testo', 4, null, 1, 154, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (529, 'Recensione', 'Testo', 4, null, 1, 154, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (530, 'Recensione', 'Testo', 4, null, 1, 154, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (531, 'Recensione', 'Testo', 4, null, 1, 154, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (532, 'Recensione', 'Testo', 5, null, 1, 154, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
 
-#attrazione155
+
+#DARSENA
 
 insert into marker_posizione values (155, '45.4511621', '9.1765214', 'Darsena del Naviglio, Milano, MI');
 
@@ -442,6 +480,20 @@ insert into foto values (318, '/discover/resources/dist/img/attrazione155/1.jpg'
 insert into foto values (319, '/discover/resources/dist/img/attrazione155/2.jpg', null, null, 155, 1);
 insert into foto values (320, '/discover/resources/dist/img/attrazione155/3.jpg', null, null, 155, 1);
 insert into foto values (321, '/discover/resources/dist/img/attrazione155/4.jpg', null, null, 155, 1);
+
+insert into recensioni values (533, 'Recensione', 'Testo', 3, null, 1, 155, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (534, 'Recensione', 'Testo', 3, null, 1, 155, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (535, 'Recensione', 'Testo', 4, null, 1, 155, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (536, 'Recensione', 'Testo', 4, null, 1, 155, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (537, 'Recensione', 'Testo', 4, null, 1, 155, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (538, 'Recensione', 'Testo', 5, null, 1, 155, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (702, 'Recensione', 'Testo', 4, null, 1, 155, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (703, 'Recensione', 'Testo', 4, null, 1, 155, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (704, 'Recensione', 'Testo', 4, null, 1, 155, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (705, 'Recensione', 'Testo', 5, null, 1, 155, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+
+
+
 
 
 #PIAZZA GAE AULENTI
@@ -465,6 +517,12 @@ insert into foto values (323, '/discover/resources/dist/img/attrazione156/2.jpg'
 insert into foto values (324, '/discover/resources/dist/img/attrazione156/3.jpg', null, null, 156, 1);
 insert into foto values (325, '/discover/resources/dist/img/attrazione156/4.jpg', null, null, 156, 1);
 
+insert into recensioni values (538, 'Recensione', 'Testo', null, 'MI_PIACE', 1, 156, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (539, 'Recensione', 'Testo', null, 'MI_PIACE', 1, 156, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (540, 'Recensione', 'Testo', null, 'MI_PIACE', 1, 156, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (541, 'Recensione', 'Testo', null, 'MI_PIACE', 1, 156, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (542, 'Recensione', 'Testo', null, 'MI_PIACE', 1, 156, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (543, 'Recensione', 'Testo', null, 'NON_MI_PIACE', 1, 156, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
 
 #CORSO COMO
 
@@ -485,6 +543,12 @@ insert into attrazioni values (
 insert into foto values (326, '/discover/resources/dist/img/attrazione157/1.jpg', null, null, 157, 1);
 insert into foto values (327, '/discover/resources/dist/img/attrazione157/2.jpg', null, null, 157, 1);
 
+insert into recensioni values (543, 'Recensione', 'Testo', null, 'MI_PIACE', 1, 157, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (544, 'Recensione', 'Testo', null, 'MI_PIACE', 1, 157, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (545, 'Recensione', 'Testo', null, 'MI_PIACE', 1, 157, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (546, 'Recensione', 'Testo', null, 'MI_PIACE', 1, 157, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (547, 'Recensione', 'Testo', null, 'NON_MI_PIACE', 1, 157, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (548, 'Recensione', 'Testo', null, 'NON_MI_PIACE', 1, 157, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
 
 #SAN SIRO
 
@@ -501,6 +565,27 @@ insert into attrazioni values (
 	'4', #utente
 	STR_TO_DATE('30/10/2014 20:24', '%d/%m/%Y %T') #data
 );
+
+insert into recensioni values (549, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (550, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (551, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (552, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (553, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (554, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (555, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (556, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (557, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (558, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (559, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (560, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (561, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (562, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (563, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (564, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (565, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+insert into recensioni values (566, 'Recensione', 'Testo', 5, null, 1, 158, '3', STR_TO_DATE('13/07/2015 10:12', '%d/%m/%Y %T'));
+
+
 
 insert into foto values (328, '/discover/resources/dist/img/attrazione158/1.jpg', null, null, 158, 1);
 insert into foto values (329, '/discover/resources/dist/img/attrazione158/2.jpg', null, null, 158, 1);

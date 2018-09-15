@@ -714,7 +714,7 @@ function confermaItinerario(idItinerario) {
 	       	},
 	        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 	        success: function(result) {
-	        	$("#btnConfermaItinerario").removeClass("text-success").addClass("text-primary");
+	        	$("#btnConfermaItinerario").removeClass("text-success").addClass("text-action");
 	        	mostraNotifica("itinerario non confermato", "danger");
 	        }
 		});

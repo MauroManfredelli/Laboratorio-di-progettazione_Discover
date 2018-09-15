@@ -75,7 +75,7 @@
 								</div>
 								<div class="sort-handle">
 									<div class="text-center" style="margin-top: 10px;">
-										<i class="fas fa-arrows-alt" style="font-size: 1.5em;  cursor: pointer;"></i>
+										<i class="fas fa-arrows-alt text-primary" data-toggle="tooltip" title="Trascina per ordinare" style="font-size: 1.5em;  cursor: pointer;"></i>
 									</div>
 								</div>
 								<div class="noDrag">

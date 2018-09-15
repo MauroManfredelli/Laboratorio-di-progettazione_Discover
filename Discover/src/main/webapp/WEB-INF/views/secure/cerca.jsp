@@ -160,7 +160,7 @@
 								<div class="col-md-9">
 									<div class="input-group" style="width: 230px;">
 										<form:input path="valutazioneMedia" class="form-control" placeholder="Valutazione media" />
-										<span class="input-group-addon"><i class="fa fa-star"></i></span>
+										<span class="input-group-addon"><i class="fa fa-star" style="color: #f39c12"></i></span>
 									</div>
 								</div>
 							</div>

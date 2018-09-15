@@ -20,7 +20,7 @@
 		        	<br>
 		        	<c:choose>
 		        		<c:when test="${attrazione.stato.id == '1'}">
-		        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-star"></i> ${attrazione.stato.descrizione}</small>
+		        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-star" style="color: #f39c12"></i> ${attrazione.stato.descrizione}</small>
 		        		</c:when>
 		        		<c:when test="${attrazione.stato.id == '2'}">
 		        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-binoculars"></i> ${attrazione.stato.descrizione}</small>
@@ -68,7 +68,7 @@
 						</div>
 						<div class="col-md-10 p-0" style="float: left;">
 							<span style="font-size: 22px;">${attrazione.userInserimento.userName}</span>
-							<span style="padding-left: 8px; font-size:18px;">(${attrazione.userInserimento.livello}&nbsp;<i class="fa fa-user text-primary"></i><i class="fas fa-level-up-alt text-primary"></i>)</span>
+							<span style="padding-left: 8px; font-size:18px;">(${attrazione.userInserimento.livello}&nbsp;<i class="fas fa-user-alt text-primary"></i><i class="fas fa-level-up-alt text-primary"></i>)</span>
 							<br>
 							<small><i class="fa fa-clock-o"></i> <fmt:formatDate type="date" value="${attrazione.dataInserimento}" pattern="dd/MM/yyyy" /></small>
 						</div>
@@ -199,7 +199,7 @@
 											</div>
 											<div class="col-md-11 p-0" style="float: left;">
 												<span style="font-size: 22px;">${recensione.userInserimento.userName}</span>
-												<span style="padding-left: 8px; font-size:18px;">(${recensione.userInserimento.livello}&nbsp;<i class="fa fa-user text-primary"></i><i class="fa fa-level-up text-primary"></i>)</span>
+												<span style="padding-left: 8px; font-size:18px;">(${recensione.userInserimento.livello}&nbsp;<i class="fa fa-user text-primary"></i><i class="fas fa-level-up-alt text-primary"></i>)</span>
 												<br>
 												<small><i class="fa fa-clock-o"></i> <fmt:formatDate type="date" value="${recensione.dataInserimento}" pattern="dd/MM/yyyy HH:mm" /></small>
 											</div>

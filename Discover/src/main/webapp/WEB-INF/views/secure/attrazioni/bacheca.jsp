@@ -30,7 +30,7 @@
 			        	<br>
 			        	<c:choose>
 			        		<c:when test="${attrazione.stato.id == '1'}">
-			        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-star"></i> ${attrazione.stato.descrizione}</small>
+			        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-star" style="color: #f39c12"></i> ${attrazione.stato.descrizione}</small>
 			        		</c:when>
 			        		<c:when test="${attrazione.stato.id == '2'}">
 			        			<small class="text-orange" style="float: left; padding-top: 10px;"><i class="fa fa-binoculars"></i> ${attrazione.stato.descrizione}</small>
@@ -138,7 +138,7 @@
 							<c:when test="${attrazione.stato.id == '3' or attrazione.stato.id == '4'}">
 								<div class="row" style="padding-top: 15px;">
 									<div class="col-md-12" style="float: left; font-size: 22px;">
-										<span><i class="fa fa-star" data-toggle="tooltip" title="Valutazione" style="cursor: pointer;"></i> <span id="num">${attrazione.valutazioneMedia}</span></span>
+										<span><i class="fa fa-star" style="color: #f39c12" data-toggle="tooltip" title="Valutazione" style="cursor: pointer;"></i> <span id="num">${attrazione.valutazioneMedia}</span></span>
 										&nbsp;&nbsp;<span><i class="fas fa-check" data-toggle="tooltip" title="Visite confermate"></i> <span id="num">${attrazione.numeroVisite}</span></span>
 									</div>
 								</div>
