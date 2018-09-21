@@ -96,6 +96,7 @@ function salvaItinerario() {
 			$("#itinerarioModal .form-group").removeClass("has-error");
 			$("#itinerarioModal").find("div[id^=formErrore]").addClass("hidden");
 			if(response.status == "ERROR") {
+				console.log(response);
 				for (var i = 0; i < response.errorMessages.length; i++) {
 					var item = response.errorMessages[i];
 					var errorMessage = item.errorMessage;

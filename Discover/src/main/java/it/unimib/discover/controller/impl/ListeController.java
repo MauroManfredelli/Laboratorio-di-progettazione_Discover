@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import it.unimib.discover.entity.Foto;
 import it.unimib.discover.entity.Itinerario;
@@ -69,7 +70,7 @@ public class ListeController {
 	
 	@RequestMapping( value = "/liste/salvaWishlist" )
 	public ModelAndView salvaWishlist(Wishlist wishlist, HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("secure/liste/indexListe");
+		ModelAndView modelAndView = new ModelAndView(new RedirectView("/discover/liste/"));
 		MyUserAccount user = (MyUserAccount) request.getSession().getAttribute("currentUser");
 		listeService.salvaWishlist(wishlist, user);
 		Object inputOrdinaListeObj = request.getSession().getAttribute("inputOrdinaListe");

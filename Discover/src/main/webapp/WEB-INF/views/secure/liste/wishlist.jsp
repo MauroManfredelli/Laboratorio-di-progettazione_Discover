@@ -140,7 +140,7 @@
 							
 							<div class="row" style="padding-top: 15px;">
 								<div class="col-md-12" style="text-align: right; font-size: 30px; margin-top: 50px;">
-									&nbsp;&nbsp;<span><i class="fa fa-trash text-action" data-toggle="tooltip" title="Rimuovi attrazione"  style="cursor: pointer;" onclick="rimuoviAttrazioneFromWishlist('${attrazioneWishlist.id}')"></i></span>
+									&nbsp;&nbsp;<span><i class="fa fa-trash text-primary" data-toggle="tooltip" title="Rimuovi attrazione"  style="cursor: pointer;" onclick="rimuoviAttrazioneFromWishlist('${attrazioneWishlist.id}')"></i></span>
 								</div>
 							</div>
 						</div>

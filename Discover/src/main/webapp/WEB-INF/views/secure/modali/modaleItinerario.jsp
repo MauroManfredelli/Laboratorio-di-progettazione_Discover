@@ -113,7 +113,7 @@
 							</c:forEach>
    						</div>
    						<div class="col-md-12 text-danger hidden" id="formErrore" style="margin-top: 4px;">
-   							<i class="fa fa-exclamation-circle"></i> Selzionare almeno un'attrazione!
+   							<i class="fa fa-exclamation-circle"></i> Selezionare almeno un'attrazione!
    						</div>
       				</div>
       				<div class="row" style="border-top: 1px solid #ddd; padding-top: 10px;">

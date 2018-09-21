@@ -283,6 +283,7 @@ function salvaItinerario() {
 			$("#itinerarioModal .form-group").removeClass("has-error");
 			$("#itinerarioModal").find("div[id^=formErrore]").addClass("hidden");
 			if(response.status == "ERROR") {
+				console.log(response);
 				for (var i = 0; i < response.errorMessages.length; i++) {
 					var item = response.errorMessages[i];
 					var errorMessage = item.errorMessage;
@@ -298,4 +299,34 @@ function salvaItinerario() {
 			}
 		}
 	});
+}
+
+function trasformaItinerario(idWishlist) {
+	if($("#itinerarioModal [name=idWishlist]").val() == undefined) {
+		swal({
+			title: '',
+			text: '<b>La wishlist che hai selezionato è vuota.</b><br>Per creare l\'itinerario devi aggiungere almeno un\'attrazione!',
+			html: true,
+			showCancelButton: false,
+			confirmButtonText: 'Continua',
+			confirmButtonColor: '#3c8dbc',
+		});
+		return;
+	}
+	$("#itinerarioModal #id").val("");
+	$("#itinerarioModal #nome").val("");
+	$("#itinerarioModal #numeroGorni").val("");
+	$("#itinerarioModal #dateRange").val("");
+	$("#itinerarioModal #dataInizio").val("");
+	$("#itinerarioModal #dataFine").val("");
+	$("#itinerarioModal .form-group").removeClass("has-error");
+	$("#itinerarioModal").find("div[id^=formErrore]").addClass("hidden");
+	$("#itinerarioModal #formDate").addClass("hidden");
+	$("#itinerarioModal #formGiorni").addClass("hidden");
+	$("#itinerarioModal [type=radio], #itinerarioModal [type=checkbox]").iCheck('uncheck');
+	$("#itinerarioModal #formWishlist").remove();
+	if($("#itinerarioModal #modalItinerarioForm").find("[name^=idWishlist]").val() == undefined) {
+		$("#itinerarioModal #modalItinerarioForm").append("<input type='hidden' name='idWishlist[0]' value='"+idWishlist+"' />");
+	}
+	$("#itinerarioModal").modal("toggle");
 }

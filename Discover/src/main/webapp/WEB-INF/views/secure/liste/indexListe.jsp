@@ -160,9 +160,14 @@
 	    										<div class="box-footer p-0" style="border: none;">
 													<div class="row">
 														<div class="col-md-12" style="text-align: right; font-size: 30px;">
-															<c:if test="${not empty lista.idItinerario}">
-																<span id="confermaItinerario"><i class="fa fa-check-circle <c:choose><c:when test="${lista.confermato == 'true'}">text-success</c:when><c:otherwise>text-action</c:otherwise></c:choose>" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
-															</c:if>
+															<c:choose>
+																<c:when test="${not empty lista.idItinerario}">
+																	<span id="confermaItinerario"><i class="fa fa-check-circle <c:choose><c:when test="${lista.confermato == 'true'}">text-success</c:when><c:otherwise>text-action</c:otherwise></c:choose>" style="cursor: pointer;" data-toggle="tooltip" title="Conferma itinerario" onclick="confermaItinerario('${lista.id}', '${lista.idItinerario}')"></i></span>
+																</c:when>
+																<c:otherwise>
+																	<i class="fa fa-calendar text-primary" data-toggle="tooltip" title="Trasforma in itinerario" data-placement="top" style="font-size: 30px; padding-left: 10px; cursor: pointer;" onclick="trasformaItinerario('${lista.idWishlist}')"></i>
+																</c:otherwise>
+															</c:choose>
 															<span id="archiviaLista">&nbsp;&nbsp;<i class="fa fa-download text-primary" data-toggle="tooltip" title="Archivia" style="cursor: pointer;" onclick="archiviaLista('${lista.id}')"></i></span>
 															<span class="hidden" id="recuperaLista">&nbsp;&nbsp;<i class="fa fa-upload text-primary" data-toggle="tooltip" title="Recupera" style="cursor: pointer;" onclick="recuperaLista('${lista.id}')"></i></span>
 															&nbsp;&nbsp;<span><i class="fa fa-trash text-primary" style="cursor: pointer;" data-toggle="tooltip" title="Elimina" onclick="eliminaLista('${lista.id}')"></i></span>
