@@ -61,7 +61,7 @@ public class ItinerarioTest {
     public void setUp() {
     	userTest = testService.setUpTestUser();
     	wishlistTest = testService.setUpWishlist(userTest);
-    	itinerarioTestSameName = testService.setUpItinerario(userTest);
+    	itinerarioTestSameName = testService.setUpItinerario(userTest); 
     }
 
     /**
