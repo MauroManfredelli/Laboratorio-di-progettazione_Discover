@@ -81,6 +81,7 @@ public class ListeController {
     		inputOrdinaListe = inputOrdinaListeObj.toString();
     	}
 		request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId(), ""));
+		request.getSession().setAttribute("idListaUtente", "wishlist"+wishlist.getId());
 		this.addParametersIndexListe(modelAndView, user.getId(), inputOrdinaListe);
         return modelAndView;
 	}
@@ -97,6 +98,7 @@ public class ListeController {
 			ValidationResponse vr = new ValidationResponse("SUCCESS");
 			vr.setIdGenerato(idGenerato+"");
 			request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId(), ""));
+			request.getSession().setAttribute("idListaUtente", "itinerario"+idGenerato);
 			return vr;
 		}
 	}
