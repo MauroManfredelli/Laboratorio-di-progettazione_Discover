@@ -18,11 +18,11 @@ public class ListaDAO extends AbstractEntityDao<String, Lista> {
 				"from vw_liste_utente " +
 				"where USER_PROPRIETARIO=:user and ARCHIVIATA = 0 ";
 		if(ordineListe.equals("dataCreazione")) {
-			sql += "order by DATA_CREAZIONE";
+			sql += "order by DATA_CREAZIONE DESC";
 		} else if(ordineListe.equals("nome")) {
 			sql += "order by nome";
 		} else if(ordineListe.equals("numeroAttrazioni")) {
-			sql += "order by NUMERO_ATTRAZIONI";
+			sql += "order by NUMERO_ATTRAZIONI DESC";
 		} else {
 			sql += "order by NOME";
 		}
