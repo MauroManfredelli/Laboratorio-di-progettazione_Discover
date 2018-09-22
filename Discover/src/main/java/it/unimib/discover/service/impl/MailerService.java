@@ -2,7 +2,6 @@ package it.unimib.discover.service.impl;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -70,9 +69,5 @@ public class MailerService {
 		
 		sendEmail(user.getEmail(), MyUserAccount.class.getSimpleName(), stringWriter.toString());
 		
-	}
-	
-	private SimpleDateFormat getSimpleDateFormat(){
-		return new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	}
 }

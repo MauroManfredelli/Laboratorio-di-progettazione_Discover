@@ -29,6 +29,9 @@
 		
 		function checkAttrazioniLista() {
 			var idLista = $("#idListaSelezionata").val();
+			if($("[id=idListaSelezionata][style='']").val() != undefined && $("[id=idListaSelezionata][style='']").val() != '') {
+				idLista = $("[id=idListaSelezionata][style='']").val();
+			}
 			$.ajax({
 		    	type: 'GET',
 		        url : '/discover/liste/getAttrazioniLista',
@@ -46,11 +49,19 @@
 			});
 		}
 		
-		function mostraScegliLista() {
-			if($("#scegliLista").hasClass("hidden")) {
+		function mostraScegliLista(action) {
+			if(action == undefined) {
+				if($("#scegliLista").hasClass("hidden")) {
+					$("#scegliLista").removeClass("hidden");
+					$("#btnMostraScegliLista").addClass("hidden");
+				} else {
+					$("#scegliLista").addClass("hidden");
+					$("#btnMostraScegliLista").removeClass("hidden");
+				}
+			} else if(action == 'show') {
 				$("#scegliLista").removeClass("hidden");
 				$("#btnMostraScegliLista").addClass("hidden");
-			} else {
+			} else if(action == 'hide') {
 				$("#scegliLista").addClass("hidden");
 				$("#btnMostraScegliLista").removeClass("hidden");
 			}
@@ -58,6 +69,9 @@
 		
 		function saveSceltaLista() {
 			var idLista = $("#idListaSelezionata").val();
+			if($("[id=idListaSelezionata][style='']").val() != undefined && $("[id=idListaSelezionata][style='']").val() != '') {
+				idLista = $("[id=idListaSelezionata][style='']").val();
+			}
 			$.ajax({
 		    	type: 'GET',
 		        url : '/discover/liste/aggiornaIdListaUtente',
@@ -68,29 +82,33 @@
 		        success: function() {
 		        	checkAttrazioniLista();
 		        	if(idLista != '') {
-						$("#textSceltaLista").html($("#idListaSelezionata option[value="+$("#idListaSelezionata").val()+"]").html());
+						$("#textSceltaLista").html($("#idListaSelezionata option[value="+idLista+"]").html());
 						$("#textSceltaLista").closest("i").removeClass("text-action").addClass("text-success");
 					} else {
 						$("#textSceltaLista").html("Seleziona lista");
 						$("#textSceltaLista").closest("i").addClass("text-action").removeClass("text-success");
 					}
-		        	mostraScegliLista();
+		        	mostraScegliLista('hide');
 		        }
 			});
 		}
+		
+		jQuery.fn.outerHTML = function() {
+		    return jQuery('<div />').append(this.eq(0).clone()).html();
+		};
 		
 		function aggiungiAttrazioneToLista(idAttrazione) {
 			var idLista = $("#idListaSelezionata").val();
 			if(idLista == "") {
 				swal({
         			title: '',
-        			text: 'Selezionare una lista a cui aggiungere l\'attrazione!',
+        			text: 'Selezionare una lista a cui aggiungere l\'attrazione!<br><br>'+$("#idListaSelezionata").outerHTML().replace("display: none;", ""),
         			html: true,
         			showCancelButton: false,
         			confirmButtonText: 'Continua',
         			confirmButtonColor: '#3c8dbc',
         		}, function() {
-        			$("#inputSelectLista").fadeTo('slow', 0.5).fadeTo('slow', 1.0).fadeTo('slow', 0.5).fadeTo('slow', 1.0).fadeTo('slow', 0.5).fadeTo('slow', 1.0);
+        			$("#inputSelectLista").fadeTo('slow', 0.5).fadeTo('slow', 1.0).fadeTo('slow', 0.5).fadeTo('slow', 1.0);
         		});
 			} else {
 				$.ajax({
