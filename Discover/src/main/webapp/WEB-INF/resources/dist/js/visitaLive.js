@@ -2,6 +2,24 @@ $(document).ready(function() {
 	// $("#liHeadListe").addClass("section-active").css("margin-bottom", "1px");
 	initMap();
 	setDraggable();
+	if(isMobile) {
+		$(".main-header").addClass("hidden");
+		$(".content-wrapper").css("padding-top", "0px");
+		$("#headerVisitaLive").css("top", "0px");
+		$("#headerVisitaLive i").css("font-size", "20px");
+		$("#headerVisitaLive span").css("font-size", "17px");
+		$("#headerVisitaLive img").css("width", "30px");
+		$("#accordion").css("top", "50px");
+		$("#accordion li").css("font-size", "8px");
+		$("#accordion li > .noDrag").css("margin-left", "-14px");
+		$("#accordion li #spanOrdine").css("font-size", "0.9em");
+		$("#accordion li img").not(".road-sign").css("width", "20px").css("height", "20px");
+		$("#accordion li img.road-sign").css("height", "12px");
+		$("#accordion div[style='font-size: 20px;']").css("font-size", "8px");
+		$("#accordion").css("max-width","330px").css("height", "90%").css("max-height", "90%");
+		$("#map").css("margin-left", "330px").css("margin-top", "22.5px").css("height", $("#accordion").css("height"));
+		// screen.orientation.lock('landscape');
+	}
 });
 
 $('#headNonVisitate').on("click", function() {
@@ -278,13 +296,13 @@ function aggiornaOrdineSezione() {
 
 function mostraNotaVisita(idVisita) {
 	$("#notaVisitaModal #idVisita").val(idVisita);
-	$("#notaVisitaModal #notaVisita").html($("#notaVisita"+idVisita).val());
+	$("#notaVisitaModal #notaVisita").val($("#notaVisita"+idVisita).val());
 	$("#notaVisitaModal").modal("toggle");
 }
 
 function mostraNotaPrecedente(idVisita) {
 	$("#notaVisitaPrecedenteModal #idVisita").val(idVisita);
-	$("#notaVisitaPrecedenteModal #notaPrec").html($("#notaPrec"+idVisita).val());
+	$("#notaVisitaPrecedenteModal #notaPrec").val($("#notaPrec"+idVisita).val());
 	$("#notaVisitaPrecedenteModal").modal("toggle");
 }
 

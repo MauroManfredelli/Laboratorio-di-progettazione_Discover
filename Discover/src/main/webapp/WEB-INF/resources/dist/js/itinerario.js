@@ -411,13 +411,13 @@ function resetZomm() {
 
 function mostraNotaVisita(idVisita) {
 	$("#notaVisitaModal #idVisita").val(idVisita);
-	$("#notaVisitaModal #notaVisita").html($("#notaVisita"+idVisita).val());
+	$("#notaVisitaModal #notaVisita").val($("#notaVisita"+idVisita).val());
 	$("#notaVisitaModal").modal("toggle");
 }
 
 function mostraNotaPrecedente(idVisita) {
 	$("#notaVisitaPrecedenteModal #idVisita").val(idVisita);
-	$("#notaVisitaPrecedenteModal #notaPrec").html($("#notaPrec"+idVisita).val());
+	$("#notaVisitaPrecedenteModal #notaPrec").val($("#notaPrec"+idVisita).val());
 	$("#notaVisitaPrecedenteModal").modal("toggle");
 }
 
