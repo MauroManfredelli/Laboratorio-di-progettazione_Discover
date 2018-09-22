@@ -74,7 +74,7 @@
    							</label>
    						</div>
    						<div class="col-md-12">
-   							<div class="input-group">
+   							<div class="input-group col-md-12">
 		                        <input type="text" class="form-control pull-right" id="dateRange"/>
 		                        <form:hidden path="dataInizio" />
 		                        <form:hidden path="dataFine" />
