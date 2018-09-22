@@ -252,16 +252,11 @@
 										if(!isMobile) {
 											$(".content").css("padding-left", "30px")
 											 		     .css("padding-right", "30px");
-											
-											$("body").css("-webkit-scrollbar", "hidden");
 										} else {
 											$("#cercaAttrazioni .col-md-5").addClass("p-0");
 										}
 									})
 								</script>
-								<style>
-									body::-webkit-scrollbar {display:none;}
-								</style>
 								<div class="panel rounded-box-desktop" style="padding-right: 10px;">
 								    <div class="box-header with-border" >
 								    	<div style="padding-left: 20px;">
