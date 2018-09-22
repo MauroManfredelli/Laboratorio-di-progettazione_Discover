@@ -2,6 +2,9 @@
 $(document).ready(function() {
 	initMap();
 	$("#headerWeb #btnIntornoMe, #footerMobile #btnIntornoMe").addClass("section-active");
+	if(isMobile) {
+		$("#mapCercaLocalita").css("top", "80px");
+	}
 });
 
 // Note: This example requires that you consent to location sharing when

@@ -19,8 +19,9 @@ $(document).ready(function() {
 	});
 });
 
+var isMobile = false;
 function checkRunningOnMobile() {
-	var isMobile = false; //initiate as false
+	isMobile = false; //initiate as false
 	// device detection
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) { 
 	    isMobile = true;

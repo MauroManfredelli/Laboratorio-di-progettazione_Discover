@@ -16,7 +16,8 @@ public class ListaDAO extends AbstractEntityDao<String, Lista> {
 	public List<Lista> getListeByUser(String id, String ordineListe) {
 		String sql = "select * " + 
 				"from vw_liste_utente " +
-				"where USER_PROPRIETARIO=:user and ARCHIVIATA = 0 ";
+				"where USER_PROPRIETARIO=:user and ARCHIVIATA = 0 "+
+				"order by nome";
 		if(ordineListe.equals("dataCreazione")) {
 			sql += "order by DATA_CREAZIONE";
 		} else if(ordineListe.equals("nome")) {

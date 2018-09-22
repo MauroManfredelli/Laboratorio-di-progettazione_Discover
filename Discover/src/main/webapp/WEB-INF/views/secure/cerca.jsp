@@ -249,8 +249,12 @@
 							<c:forEach items="${listAttrazioni}" var="attrazione" varStatus="indexAttrazione">
 								<script>
 									$(document).ready(function() {
-										$(".content").css("padding-left", "30px")
-										 		     .css("padding-right", "30px");
+										if(!isMobile) {
+											$(".content").css("padding-left", "30px")
+											 		     .css("padding-right", "30px");
+										} else {
+											$("#cercaAttrazioni .col-md-5").addClass("p-0");
+										}
 									})
 								</script>
 								<div class="panel rounded-box-desktop" style="padding-right: 10px;">

@@ -83,6 +83,7 @@
 		        	checkAttrazioniLista();
 		        	if(idLista != '') {
 						$("#textSceltaLista").html($("#idListaSelezionata option[value="+idLista+"]").html());
+						$("#idListaSelezionata").val(idLista).trigger("chosen:updated");
 						$("#textSceltaLista").closest("i").removeClass("text-action").addClass("text-success");
 					} else {
 						$("#textSceltaLista").html("Seleziona lista");
