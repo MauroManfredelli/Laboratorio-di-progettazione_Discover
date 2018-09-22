@@ -236,7 +236,7 @@ function modificaItinerario(lista) {
 }
 
 function creaItinerario() {
-	if(formWishlist != undefined && formWishlist != null && formWishlist != '') {
+	if($("#itinerarioModal #formWishlist").val() == undefined && formWishlist != undefined && formWishlist != null && formWishlist != '') {
 		$('#formGiorni').after($(formWishlist).outerHTML());
 	}
 	if($("#itinerarioModal [name=idWishlist]").val() == undefined) {
@@ -308,7 +308,10 @@ function salvaItinerario() {
 var formWishlist;
 
 function trasformaItinerario(idWishlist) {
-	if($("#itinerarioModal [name=idWishlist]").val() == undefined) {
+	if($("#itinerarioModal #formWishlist").val() == undefined && formWishlist != undefined && formWishlist != null && formWishlist != '') {
+		$('#formGiorni').after($(formWishlist).outerHTML());
+	}
+	if($("#itinerarioModal [name='idWishlist'][value='"+idWishlist+"']").val() == undefined) {
 		swal({
 			title: '',
 			text: '<b>La wishlist che hai selezionato è vuota.</b><br>Per creare l\'itinerario devi aggiungere almeno un\'attrazione!',

@@ -10,7 +10,7 @@
 
 <!-- Main content -->
 <section class="content" id="wishlistContent">
-	<nav style="position: fixed; top: 90px; width: 100%;" class="navbar main-header">
+	<nav style="position: fixed; top: 90px; width: 100%; z-index: 100;" class="navbar main-header">
 		<div class="col-md-12 p-0" style="border: none">
 			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px; cursor:default;">
 				<span class="font-weight-bold" style="font-size: 25px; padding-left: 20px;">${wishlist.nome}</span>
@@ -20,7 +20,8 @@
 			</div>
 		</div>
 	</nav>
-	<div style="position: relative; margin-top: 90px; padding-right: 180px; padding-left: 180px;">
+	<div style="position: relative; margin-top: 90px;">
+		<input type="hidden" id="abilitaTrasforma" value="${abilitaTrasforma}" />
 		<c:forEach items="${wishlist.attrazioniWishlist}" var="attrazioneWishlist" varStatus="indexAW">
 			<c:set var="attrazione" value="${attrazioneWishlist.attrazione}" />
 			<div class="panel rounded-box-desktop" id="box${attrazioneWishlist.id}">

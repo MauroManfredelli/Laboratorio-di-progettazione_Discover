@@ -34,7 +34,7 @@ public class ItinerarioModelValidator implements Validator {
         	boolean b = m.find();
         	if(b) {
         		errors.rejectValue("nome", "", "Il nome dell'itinerario deve contenere solo numeri o lettere");
-        	} else if(itinerarioDAO.existsItinerarioSameNameForUser(form.getNome(), form.getIdUtente())) {
+        	} else if(itinerarioDAO.existsItinerarioSameNameForUser(form.getNome(), form.getIdUtente(), form.getId())) {
         		errors.rejectValue("nome", "", "Esiste già un itinerario con lo stesso nome");
         	}
         }

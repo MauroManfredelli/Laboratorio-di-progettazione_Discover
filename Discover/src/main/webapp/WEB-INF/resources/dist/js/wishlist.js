@@ -63,6 +63,17 @@ function rimuoviAttrazioneFromWishlist(idAW) {
 }
 
 function creaItinerario(idWishlist) {
+	if($("#abilitaTrasforma").val() != 'true') {
+		swal({
+			title: '',
+			text: '<b>La wishlist è vuota.</b><br>Per creare l\'itinerario devi aggiungere almeno un\'attrazione!',
+			html: true,
+			showCancelButton: false,
+			confirmButtonText: 'Continua',
+			confirmButtonColor: '#3c8dbc',
+		});
+		return;
+	}
 	$("#itinerarioModal #id").val("");
 	$("#itinerarioModal #nome").val("");
 	$("#itinerarioModal #numeroGorni").val("");

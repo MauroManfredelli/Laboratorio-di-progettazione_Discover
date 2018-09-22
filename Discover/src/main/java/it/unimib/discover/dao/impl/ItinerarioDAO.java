@@ -12,14 +12,15 @@ import it.unimib.discover.entity.Itinerario;
 public class ItinerarioDAO extends AbstractEntityDao<Integer, Itinerario> {
 
 	@Transactional
-	public boolean existsItinerarioSameNameForUser(String nome, String idUtente) {
+	public boolean existsItinerarioSameNameForUser(String nome, String idUtente, Integer idItinerario) {
 		String sql = "select ID " + 
 				"from itinerari " + 
-				"where NOME=:nome and USER_PROPRIETARIO=:idUtente";
+				"where NOME=:nome and USER_PROPRIETARIO=:idUtente and ID_ITINERARIO=:idItinerario";
 		SQLQuery query = (SQLQuery) getSQLQuery(sql)
 				.addScalar("ID", IntegerType.INSTANCE)
 				.setParameter("nome", nome)
-				.setParameter("idUtente", idUtente);
+				.setParameter("idUtente", idUtente)
+				.setParameter("idItinerario", idItinerario == null ? -1 : idItinerario);
 		return !query.list().isEmpty();
 	}
 
