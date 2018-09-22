@@ -31,6 +31,7 @@ $(document).ready(function() {
 		$("#itinerarioNavTabs").attr("style", "height: calc(90vh); height: -webkit-calc(90vh); height: -moz-calc(90vh); overflow-y: auto; cursor:default");
 		$("#tabContentItinerario").attr("style", "height: calc(90vh); height: -webkit-calc(90vh); height: -moz-calc(90vh);");
 		$("#map").css("margin-left", "330px").css("margin-top", "22.5px").css("height", $("#itinerarioNavTabs").css("height"));
+		// screen.orientation.lock('landscape');
 	}
 });
 
