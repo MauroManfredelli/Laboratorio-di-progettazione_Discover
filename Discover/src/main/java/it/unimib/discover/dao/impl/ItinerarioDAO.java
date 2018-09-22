@@ -15,7 +15,7 @@ public class ItinerarioDAO extends AbstractEntityDao<Integer, Itinerario> {
 	public boolean existsItinerarioSameNameForUser(String nome, String idUtente, Integer idItinerario) {
 		String sql = "select ID " + 
 				"from itinerari " + 
-				"where NOME=:nome and USER_PROPRIETARIO=:idUtente and ID_ITINERARIO=:idItinerario";
+				"where NOME=:nome and USER_PROPRIETARIO=:idUtente and ID<>:idItinerario";
 		SQLQuery query = (SQLQuery) getSQLQuery(sql)
 				.addScalar("ID", IntegerType.INSTANCE)
 				.setParameter("nome", nome)
