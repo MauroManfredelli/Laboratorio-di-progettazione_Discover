@@ -54,7 +54,7 @@ CREATE TABLE MESSAGGI (
 	USER_FROM VARCHAR(255),
 	USER_TO VARCHAR(255),
 	TESTO VARCHAR(4000),
-	DATA_INVIO DATE,
+	DATA_INVIO DATETIME,
 	CONSTRAINT PK_MESSAGGI PRIMARY KEY (ID)
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE NOTIFICHE (
 	ID INT NOT NULL AUTO_INCREMENT,
 	TIPO VARCHAR(255) COMMENT 'GESTITO DA UN ENUMERATORE',
 	DESCRIZIONE VARCHAR(4000),
-	DATA_NOTIFICA DATE,
+	DATA_NOTIFICA DATETIME,
 	USER_TO VARCHAR(255),
 	CONSTRAINT PK_NOTIFICHE PRIMARY KEY (ID)
 );
@@ -106,7 +106,7 @@ CREATE TABLE ATTRAZIONI (
 	ID_MARKER_POSIZIONE INT,
 	ID_STATO_ATTRAZIONE INT COMMENT 'GESTITO CON UNA TABELLA DI DECODIFICA',
 	USER_INSERIMENTO VARCHAR(255),
-	DATA_INSERIMENTO DATE,
+	DATA_INSERIMENTO DATETIME,
 	CONSTRAINT PK_ATTRAZIONI PRIMARY KEY (ID)
 );
 
@@ -125,7 +125,7 @@ CREATE TABLE RECENSIONI (
 	VISITA_CONFERMATA INT COMMENT 'BOOLEANO: 1 VISITATA, 0 ALTRIMENTI',
 	ID_ATTRAZIONE INT,
 	USER_INSERIMENTO VARCHAR(255),
-	DATA_INSERIMENTO DATE,
+	DATA_INSERIMENTO DATETIME,
 	CONSTRAINT PK_RECENSIONI PRIMARY KEY (ID)
 );
 
@@ -136,7 +136,7 @@ DROP TABLE IF EXISTS FOTO;
 CREATE TABLE FOTO (
 	ID INT AUTO_INCREMENT,
 	PATH VARCHAR(400),
-	DATA_CARICAMENTO DATE,
+	DATA_CARICAMENTO DATETIME,
 	ID_RECENSIONE INT,
 	ID_ATTRAZIONE INT,
 	PRINCIPALE INT COMMENT 'BOOLEANO: 1 è PRINCIPALE, 0 ALTRIMENTI',
@@ -173,7 +173,7 @@ DROP TABLE IF EXISTS ITINERARI;
 CREATE TABLE ITINERARI (
 	ID INT AUTO_INCREMENT,
 	NOME VARCHAR(200),
-	DATA_CREAZIONE DATE,
+	DATA_CREAZIONE DATETIME,
 	USER_PROPRIETARIO VARCHAR(255),
 	ARCHIVIATA INT DEFAULT 0 COMMENT 'BOOLEANO: 1 è STATA ARCHIVIATA (GIà FATTO), 0 ALTRIMENTI',
 	DATA_INIZIO DATE,
@@ -260,7 +260,7 @@ insert into recensioni values (
 	'MI_PIACE',
 	1,
 	100,
-	'1',
+	'2',
 	STR_TO_DATE('08/08/2018 12:22', '%d/%m/%Y %T')
 );
 insert into foto values (200, '/discover/resources/dist/img/attrazione100/1.jpg', STR_TO_DATE('08/08/2018 12:22', '%d/%m/%Y %T'), 200, 100, 1);
@@ -270,7 +270,7 @@ insert into recensioni values (
 	'Una piscina naturale ma...',
 	'Siamo arrivati in mattina per le 11 ed era impossibile starci, nessun parcheggio nei dintorni e spiaggia super affollata, quindi siamo tornati sul tardo pomeriggio verso le 18, parcheggi disponibili al prezzo di 2€ ogni ora e spiaggia finalmente utilizzabile, ricordatevi di comprare in precedenza le stuoie perché sono OBBLIGATORIE, mare semplicemente fantastico, una piscina naturale.',
 	null,
-	'MI_PIACE',
+	'NON_MI_PIACE',
 	1,
 	100,
 	'4',
@@ -298,7 +298,7 @@ insert into recensioni values (
 	null,
 	1,
 	101,
-	'2',
+	'4',
 	STR_TO_DATE('17/07/2018 10:12', '%d/%m/%Y %T')
 );
 insert into foto values (204, '/discover/resources/dist/img/attrazione101/1.jpg', STR_TO_DATE('17/07/2018 10:12', '%d/%m/%Y %T'), 202, 101, 1);
@@ -596,11 +596,13 @@ insert into foto values (333, '/discover/resources/dist/img/attrazione158/6.jpg'
 
 
 insert into wishlist values (401, 'Wishlist Milano', STR_TO_DATE('10/09/2018 17:00', '%d/%m/%Y %T'), '5', 0);
-insert into wishlist values (402, 'Test', STR_TO_DATE('10/09/2018 17:00', '%d/%m/%Y %T'), '5', 0);
 insert into rel_wishlist_attrazione values (501, 401, 150);
 insert into rel_wishlist_attrazione values (502, 401, 151);
 insert into rel_wishlist_attrazione values (503, 401, 152);
 insert into rel_wishlist_attrazione values (504, 401, 155);
 insert into rel_wishlist_attrazione values (505, 401, 158);
+insert into rel_wishlist_attrazione values (508, 401, 153);
+insert into rel_wishlist_attrazione values (507, 401, 154);
+
 
 set foreign_key_checks=1;

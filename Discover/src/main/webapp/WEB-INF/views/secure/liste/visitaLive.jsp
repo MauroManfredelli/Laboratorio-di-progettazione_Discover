@@ -71,7 +71,7 @@
 								<div class="noDrag light-grey-bg" style="width: 109%; margin-left: -15px; padding: 10px; margin-top: -10px;">
 									<input type="hidden" id="notaPrec${visita.id}" value="${visita.notaPrec}" />
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
+									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" data-placement="right" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
 								</div>
 								<div class="sort-handle">
 									<div class="text-center" style="margin-top: 10px;">
@@ -132,7 +132,7 @@
 								<div class="noDrag light-grey-bg" style="width: 109%; background-color: #FFF; margin-left: -15px; padding: 10px; margin-top: -10px;">
 									<input type="hidden" id="notaPrec${visita.id}" value="${visita.notaPrec}" />
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
+									<i class="fa fa-file noDrag" data-toggle="tooltip" title="Nota precedente" data-placement="right" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaPrecedente('${visita.id}')"></i>
 								</div>
 								<div class="sort-handle">
 									<div class="text-center" style="margin-top: 10px;">
