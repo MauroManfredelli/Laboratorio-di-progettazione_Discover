@@ -35,7 +35,7 @@
 	<input type="hidden" id="idItinerario" value="${itinerario.id}" />
 	<div id="map"></div>
 	
-	<div style="position: fixed; top: 90px; width: 100%;">
+	<div style="position: fixed; top: 90px; width: 100%;" id="headerVisitaLive">
 		<div class="col-md-12 p-0" style="border: none">
 			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px; cursor:default;">
 				<i class="fa fa-arrow-left" data-toggle="tooltip" title="Torna a itinerario" data-placement="right" style="font-size: 30px; cursor: pointer;" onclick="location.assign('/discover/liste/itinerario${itinerario.id}')"></i>
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="accordion" class="light-blue-bg" style="position: fixed; height: 82%; max-height: 82%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px; padding-bottom: 20px; cursor:default;">
+	<div id="accordion" class="light-blue-bg" style="position: fixed; height: 82%; max-height: 82%; width: 100%; max-width: 380px; overflow-x:hidden; overflow-y: auto; top: 150px; padding-bottom: 20px; cursor:default;" id="bodyVisitaLive">
 		<div class="panel box box-primary m-0">
 			<div class="box-header with-border dropable-tab" style="text-align:center; background-color: #FFDDAC;">
 				<h4 class="box-title col-md-12 p-0">
@@ -95,7 +95,7 @@
 										<i class="fa fa-file text-primary" data-toggle="tooltip" title="Nota visita" style="font-size: 1.5em; text-align: left; padding-right: 10px; cursor: pointer;" onclick="mostraNotaVisita('${visita.id}')"></i>
 										<i class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli attrazione" style="font-size: 1.5em; text-align: left; cursor: pointer;" onclick="window.open('/discover/attrazione/${visita.attrazione.id}', '_blank')"></i>
 										
-										<img src="/discover/resources/dist/img/road_sign.png"
+										<img src="/discover/resources/dist/img/road_sign.png" class="road-sign"
 													style=" float: right; padding-right: 10px; cursor: pointer; height: 22px;" data-toggle="tooltip" title="Raggiungi" id="btnIndicazioniVisita" onclick="indicazioniVisita('${visita.id}')" >
 										<i class="fa fa-check-circle text-action" data-toggle="tooltip" title="Conferma" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnConfermaVisita" onclick="confermaVisita('${visita.id}')"></i>
 										<i class="fa fa-trash text-primary" data-toggle="tooltip" title="Sposta in non programmate" style="font-size: 1.5em; float: right; padding-right: 10px; cursor: pointer;" id="btnEliminaVisita" onclick="eliminaVisita('${visita.id}')"></i>
