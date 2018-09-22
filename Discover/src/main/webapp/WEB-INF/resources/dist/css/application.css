@@ -244,11 +244,12 @@ ol li.placeholder {
   padding-top: 5px;
   left: 30px;
   height: 50px;
+  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
   content: "\f0a9"; /* FontAwesome Unicode */
-  font-family: "Font Awesome 5 free";
-    margin-left: -1.3em; /* same as padding-left set on li */
+  margin-left: -1.3em; /* same as padding-left set on li */
   font-size: 1.3em; /* same as padding-left set on li */
-    list-style:none;
+  list-style:none;
 }
 ol li.placeholder:before {
   position: relative;
@@ -256,8 +257,9 @@ ol li.placeholder:before {
   padding-top: 5px;
   left: 30px;
   height: 50px;
+  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
   content: "\f0a9"; /* FontAwesome Unicode */
-  font-family: FontAwesome;
      margin-left: -1.3em; /* same as padding-left set on li */
   font-size: 1.3em; /* same as padding-left set on li */
      list-style:none;
