@@ -263,7 +263,7 @@
 									    	<h3 class="m-0">
 									        	<a style="cursor: pointer; color: #444;" href="/discover/attrazione/${attrazione.id}" target="_blank"><span class="text-name"><b style="float: left;">${attrazione.nome}</b></span></a>
 									        	<span class="pull-right" style="padding-right: 20px;">
-									        		<a class="fa fa-info-circle text-primary" data-toggle="tooltip" title="Dettagli" style="cursor: pointer;" href="/discover/attrazione/${attrazione.id}" target="_blank"></a>
+									        		<a class="fa fa-info-circle text-primary" data-toggle="tooltip" data-placement="left" title="Dettagli attrazione" style="cursor: pointer;" href="/discover/attrazione/${attrazione.id}" target="_blank"></a>
 									        	</span>
 									        	<br>
 									        	<c:choose>
