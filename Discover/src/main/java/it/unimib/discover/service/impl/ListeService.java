@@ -93,16 +93,19 @@ public class ListeService {
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void salvaWishlist(Wishlist wishlist, MyUserAccount user) {
+	public Lista salvaWishlist(Wishlist wishlist, MyUserAccount user) {
 		if(wishlist.getId() != null) {
 			Wishlist wishlistRemote = wishlistDAO.findByKey(wishlist.getId());
 			wishlistRemote.setNome(wishlist.getNome());
 			wishlistDAO.persist(wishlistRemote);
+			return null;
 		} else {
 			wishlist.setArchiviata(false);
 			wishlist.setDataCreazione(new Date());
 			wishlist.setUserProprietario(user);
 			wishlistDAO.persist(wishlist);
+			List<Lista> l = listaDAO.getListeByUser(user.getId(), "dataCreazione");
+			return l.get(l.size()-1);
 		}
 	}
 

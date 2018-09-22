@@ -96,6 +96,7 @@ public class ListeController {
 			Integer idGenerato = listeService.salvaItinerario(itinerarioModel, user);
 			ValidationResponse vr = new ValidationResponse("SUCCESS");
 			vr.setIdGenerato(idGenerato+"");
+			request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId(), ""));
 			return vr;
 		}
 	}
@@ -152,12 +153,16 @@ public class ListeController {
 	@RequestMapping(value = "/liste/archiviaLista", method = RequestMethod.GET)
     public @ResponseBody ValidationResponse archiviaLista(@RequestParam(name="idLista") String idLista,  HttpServletRequest request) {
 		listeService.archiviaLista(idLista);
+		MyUserAccount user = (MyUserAccount) request.getSession().getAttribute("currentUser");
+		request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId(), ""));
 		return new ValidationResponse("SUCCESS");
     }
 	
 	@RequestMapping(value = "/liste/recuperaLista", method = RequestMethod.GET)
     public @ResponseBody ValidationResponse recuperaLista(@RequestParam(name="idLista") String idLista,  HttpServletRequest request) {
 		listeService.recuperaLista(idLista);
+		MyUserAccount user = (MyUserAccount) request.getSession().getAttribute("currentUser");
+		request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId(), ""));
 		return new ValidationResponse("SUCCESS");
     }
 	
@@ -171,6 +176,8 @@ public class ListeController {
     			request.getSession().setAttribute("idListaUtente", "");
     		}
     	}
+    	MyUserAccount user = (MyUserAccount) request.getSession().getAttribute("currentUser");
+    	request.getSession().setAttribute("listeUtente", listeService.getListeByUser(user.getId(), ""));
 		return new ValidationResponse("SUCCESS");
     }
 	

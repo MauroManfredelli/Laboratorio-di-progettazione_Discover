@@ -371,8 +371,8 @@
 													<c:when test="${attrazione.stato.id == '3' or attrazione.stato.id == '4'}">
 														<div class="row" style="padding-top: 15px;">
 															<div class="col-md-12" style="float: left; font-size: 22px;">
-																<span><i class="fa fa-star" data-toggle="tooltip" title="Valutazione" style="cursor: pointer;"></i> <span id="num">${attrazione.valutazioneMedia}</span></span>
-																&nbsp;&nbsp;<span><i class="fa fa-check-circle" data-toggle="tooltip" title="Visite confermate" style="cursor: pointer;"></i> <span id="num">${attrazione.numeroVisite}</span></span>
+																<span><i class="fa fa-star" style="color: #f39c12" data-toggle="tooltip" title="Valutazione" style="cursor: pointer;"></i> <span id="num">${attrazione.valutazioneMedia}</span></span>
+																&nbsp;&nbsp;<span><i class="fas fa-check" data-toggle="tooltip" title="Visite confermate" style="cursor: pointer;"></i> <span id="num">${attrazione.numeroVisite}</span></span>
 															</div>
 														</div>
 													</c:when>

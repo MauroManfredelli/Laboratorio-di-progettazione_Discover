@@ -187,12 +187,12 @@
 												<c:otherwise>
 													<div class="checkbox icheck">
 										            	<label>
-										                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="far fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;70 (70%)
+										                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="far fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;${attrazione.reazioniPositive} (<fmt:formatNumber maxFractionDigits="0" value="${attrazione.reazioniPositive div (attrazione.reazioniPositive+attrazione.reazioniNegative)*100}"/>%)
 										                </label>
 										            </div>
 													<div class="checkbox icheck">
 										            	<label>
-										                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="far fa-thumbs-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;10 (10%)
+										                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="far fa-thumbs-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;${attrazione.reazioniNegative} (<fmt:formatNumber maxFractionDigits="0" value="${100-(attrazione.reazioniPositive div (attrazione.reazioniPositive+attrazione.reazioniNegative)*100)}"/>%)
 														</label>
 													</div>
 												</c:otherwise>
