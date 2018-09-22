@@ -236,6 +236,9 @@ function modificaItinerario(lista) {
 }
 
 function creaItinerario() {
+	if(formWishlist != undefined && formWishlist != null && formWishlist != '') {
+		$('#formGiorni').after($(formWishlist).outerHTML());
+	}
 	if($("#itinerarioModal [name=idWishlist]").val() == undefined) {
 		swal({
 			title: '',
@@ -302,6 +305,8 @@ function salvaItinerario() {
 	});
 }
 
+var formWishlist;
+
 function trasformaItinerario(idWishlist) {
 	if($("#itinerarioModal [name=idWishlist]").val() == undefined) {
 		swal({
@@ -325,6 +330,7 @@ function trasformaItinerario(idWishlist) {
 	$("#itinerarioModal #formDate").addClass("hidden");
 	$("#itinerarioModal #formGiorni").addClass("hidden");
 	$("#itinerarioModal [type=radio], #itinerarioModal [type=checkbox]").iCheck('uncheck');
+	formWishlist = $("#itinerarioModal #formWishlist").clone();
 	$("#itinerarioModal #formWishlist").remove();
 	if($("#itinerarioModal #modalItinerarioForm").find("[name^=idWishlist]").val() == undefined) {
 		$("#itinerarioModal #modalItinerarioForm").append("<input type='hidden' name='idWishlist[0]' value='"+idWishlist+"' />");

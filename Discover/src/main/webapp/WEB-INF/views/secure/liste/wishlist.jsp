@@ -9,7 +9,7 @@
 <section class="content-header p-0"></section>
 
 <!-- Main content -->
-<section class="content" id="mapContent">
+<section class="content" id="wishlistContent">
 	<nav style="position: fixed; top: 90px; width: 100%;" class="navbar main-header">
 		<div class="col-md-12 p-0" style="border: none">
 			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px; cursor:default;">

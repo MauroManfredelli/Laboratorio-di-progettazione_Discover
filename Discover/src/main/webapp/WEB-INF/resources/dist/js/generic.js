@@ -68,6 +68,10 @@ function checkRunningOnMobile() {
 	}
 }
 
+jQuery.fn.outerHTML = function() {
+    return jQuery('<div />').append(this.eq(0).clone()).html();
+};
+
 function addReaction(el, reaction) {
 	if($(el).parent("span").hasClass("text-primary") || $(el).parent("span").hasClass("text-danger") || $(el).parent("span").hasClass("text-success")) {
 		$(el).parent("span").removeClass("text-primary").removeClass("text-danger").removeClass("text-success");

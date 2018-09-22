@@ -1,4 +1,11 @@
 
+$(document).ready(function() {
+	if(isMobile) {
+		$("#wishlistContent > div").attr("style", "position: relative; margin-top: 90px; padding: 0px;");
+		$("#wishlistContent > nav").css("top", "82px");
+	}
+})
+
 function modificaWishlist(idWishlist) {
 	$.ajax({
     	type: 'GET',

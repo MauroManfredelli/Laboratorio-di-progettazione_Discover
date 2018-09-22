@@ -13,6 +13,22 @@ $(document).ready(function() {
 			loadMarkersGiorno($(ol).attr("keyString"));
 		}
 	}
+	if(isMobile) {
+		$(".main-header").addClass("hidden");
+		$(".content-wrapper").css("padding-top", "0px");
+		$("#headerItinerario").css("top", "0px");
+		$("#headerItinerario i").css("font-size", "20px");
+		$("#headerItinerario span").css("font-size", "17px");
+		$("#bodyItinerario").css("top", "48px");
+		$("#bodyItinerario").css("max-width", "370px");
+		$("#itinerarioNavTabs li").css("font-size", "8px");
+		$("#itinerarioNavTabs li .badge").css("font-size", "8px");
+		$("#tabContentItinerario li").css("font-size", "11px");
+		$("#tabContentItinerario li > .noDrag").css("margin-left", "-10px");
+		$("#tabContentItinerario li #spanOrdine").css("font-size", "");
+		$("#tabContentItinerario li img").css("width", "30px").css("height", "30px");
+		$("#tabContentItinerario div[style='font-size: 20px;']").css("font-size", "12px");
+	}
 });
 
 function setDraggable() {

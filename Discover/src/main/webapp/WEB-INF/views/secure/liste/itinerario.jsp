@@ -41,7 +41,7 @@
 	<input type="hidden" id="localitaMappa" value="${localitaCentroMappa}" />
 	<div id="map"></div>
 	
-	<div style="position: fixed; top: 90px; width: 100%;">
+	<div style="position: fixed; top: 90px; width: 100%;" id="headerItinerario">
 		<div class="col-md-12 p-0" style="border: none">
 			<div class="box box-body m-0 light-blue-bg" style="padding: 10px 10px 10px 10px; border-radius: 0px; cursor:default;">
 				<i class="fa fa-arrow-left hidden" style="font-size: 30px; cursor: pointer;"></i>
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 	</div>
-	<div style="position: fixed; height: 100%; max-height: 100%; width: 100%; max-width: 530px; overflow-x:hidden; overflow-y: auto; top: 146px;">
+	<div style="position: fixed; height: 100%; max-height: 100%; width: 100%; max-width: 530px; overflow-x:hidden; overflow-y: auto; top: 146px;" id="bodyItinerario">
 		<div class="nav-tabs-custom tabbable tabs-left">
 			<ul id="itinerarioNavTabs" class="nav nav-tabs nav-iti light-blue-bg m-0" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px); overflow-y: auto; cursor:default">
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
