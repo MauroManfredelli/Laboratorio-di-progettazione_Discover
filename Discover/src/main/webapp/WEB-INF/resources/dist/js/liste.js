@@ -4,6 +4,7 @@ $(document).ready(function() {
 	if(inputOrdinaListe != '') {
 		$("#inputOrdinaListe").val(inputOrdinaListe).trigger("chosen:updated");
 	}
+	if(isMobile) {}
 });
 
 function ordinaListe() {

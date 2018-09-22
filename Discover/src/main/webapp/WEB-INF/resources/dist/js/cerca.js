@@ -15,7 +15,7 @@ $(document).ready(function() {
 	});
 	$("#sliderLontananza").bootstrapSlider("setValue", [parseInt($("#lontananzaMinima").val()), parseInt($("#lontananzaMassima").val())]);
     $("#resSlider").html("("+$("#lontananzaMinima").val()+" Km - "+$("#lontananzaMassima").val()+" Km)");
-	$("#boxRisultatiAttrazioni").css("max-height", $("#boxRicercaAttrazioni").css("height")).css("overflow-y", "auto").css("overflow-x", "hidden").css("margin-right", "-19px");
+	$("#boxRisultatiAttrazioni").css("max-height", $("#boxRicercaAttrazioni").css("height")).css("overflow-y", "auto").css("overflow-x", "hidden");
 	if ($('input[name=tipoAttrazione]').filter(':checked').length == $('input[name=tipoAttrazione]').length) {
         $('#checkAllTipiAttrazioni').iCheck('check');
     }

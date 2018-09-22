@@ -187,18 +187,18 @@
 												<c:otherwise>
 													<div class="checkbox icheck">
 										            	<label>
-										                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="far fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;${attrazione.reazioniPositive} (<fmt:formatNumber maxFractionDigits="0" value="${attrazione.reazioniPositive div (attrazione.reazioniPositive+attrazione.reazioniNegative)*100}"/>%)
+										                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="far fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;${attrazione.reazioniPositive} <c:if test="${attrazione.reazioniPositive > 0}">(<fmt:formatNumber maxFractionDigits="0" value="${attrazione.reazioniPositive div (attrazione.reazioniPositive+attrazione.reazioniNegative)*100}"/>%)</c:if>
 										                </label>
 										            </div>
 													<div class="checkbox icheck">
 										            	<label>
-										                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="far fa-thumbs-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;${attrazione.reazioniNegative} (<fmt:formatNumber maxFractionDigits="0" value="${100-(attrazione.reazioniPositive div (attrazione.reazioniPositive+attrazione.reazioniNegative)*100)}"/>%)
+										                	<input type="checkbox" class="icheck-checbox" checked>&nbsp;&nbsp;<i class="far fa-thumbs-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;${attrazione.reazioniNegative} <c:if test="${attrazione.reazioniNegative > 0}">(<fmt:formatNumber maxFractionDigits="0" value="${100-(attrazione.reazioniPositive div (attrazione.reazioniPositive+attrazione.reazioniNegative)*100)}"/>%)</c:if>
 														</label>
 													</div>
 												</c:otherwise>
 											</c:choose>
 									</div>
-									<div class="col-md-6 text-right" style="margin-top: 20px; margin-bottom: 20px;">
+									<div class="col-md-6 text-right" style="padding-top: 20px; padding-bottom: 30px;">
 								    	<button type="button" class="btn btn-primary"><i class="fa fa-comment"></i> Aggiungi recensione</button>
 								    </div>
 							    </div>
