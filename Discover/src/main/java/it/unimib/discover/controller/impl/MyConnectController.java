@@ -17,9 +17,9 @@ public class MyConnectController extends ConnectController {
     }
     
     // Per gestire il caso in cui l'utente remoto non riesca ad autenticarsi
-//    @Override
-//    protected String connectView(String providerId) {
-//		return "redirect:/"+providerId;	
-//	}
+    @Override
+    protected String connectView(String providerId) {
+		return "redirect:/"+providerId;	
+	}
 
 }

@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class TipologicaAbstract {
+public abstract class TipologicaAbstract extends PreventAnyUpdate {
 	
 	@Id
 	@Column(name="ID")

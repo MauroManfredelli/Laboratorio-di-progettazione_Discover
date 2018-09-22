@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.unimib.discover.entity.Attrazione;
-import it.unimib.discover.entity.Lista;
 import it.unimib.discover.entity.MyUserAccount;
 import it.unimib.discover.entity.Wishlist;
 import it.unimib.discover.service.impl.AttrazioniService;

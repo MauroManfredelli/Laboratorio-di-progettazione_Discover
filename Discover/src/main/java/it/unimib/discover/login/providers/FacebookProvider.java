@@ -7,7 +7,6 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.WebRequest;
 
 import it.unimib.discover.entity.MyUserAccount;
 
@@ -49,7 +48,7 @@ public class FacebookProvider  {
 		userform.setFirstName(user.getFirstName());
 		userform.setLastName(user.getLastName());
 		userform.setUserName(user.getUsername());
-		byte[] img = facebook.userOperations().getUserProfileImage();
+		// byte[] img = facebook.userOperations().getUserProfileImage();
 		// TODO salvare l'immagine del profilo e aggiungerla all'url
 		userform.setImageUrl(null);
 		userform.setRole(MyUserAccount.ROLE_USER);
