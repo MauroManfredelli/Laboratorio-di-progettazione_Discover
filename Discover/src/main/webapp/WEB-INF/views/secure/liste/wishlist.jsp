@@ -20,7 +20,8 @@
 			</div>
 		</div>
 	</nav>
-	<div style="position: relative; margin-top: 90px; padding-right: 180px; padding-left: 180px;">
+	<div style="position: relative; margin-top: 90px;">
+		<input type="hidden" id="abilitaTrasforma" value="${abilitaTrasforma}" />
 		<c:forEach items="${wishlist.attrazioniWishlist}" var="attrazioneWishlist" varStatus="indexAW">
 			<c:set var="attrazione" value="${attrazioneWishlist.attrazione}" />
 			<div class="panel rounded-box-desktop" id="box${attrazioneWishlist.id}">

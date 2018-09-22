@@ -209,6 +209,7 @@ public class ListeController {
 			ModelAndView modelAndView = new ModelAndView("secure/liste/wishlist");
 			Wishlist wishlist = listeService.getWishlistById(lista.getIdWishlist());
 			modelAndView.addObject("wishlist", wishlist);
+			modelAndView.addObject("abilitaTrasforma", wishlist.getAttrazioniWishlist() != null && !wishlist.getAttrazioniWishlist().isEmpty());
 			modelAndView.addObject("itinerario", new ItinerarioModel());
 			return modelAndView;
 		}

@@ -20,14 +20,17 @@ $(document).ready(function() {
 		$("#headerItinerario i").css("font-size", "20px");
 		$("#headerItinerario span").css("font-size", "17px");
 		$("#bodyItinerario").css("top", "48px");
-		$("#bodyItinerario").css("max-width", "370px");
-		$("#itinerarioNavTabs li").css("font-size", "8px");
-		$("#itinerarioNavTabs li .badge").css("font-size", "8px");
-		$("#tabContentItinerario li").css("font-size", "11px");
+		$("#bodyItinerario").css("max-width", "330px");
+		$("#itinerarioNavTabs li").css("font-size", "6px");
+		$("#itinerarioNavTabs li .badge").css("font-size", "6px");
+		$("#tabContentItinerario li").css("font-size", "8px");
 		$("#tabContentItinerario li > .noDrag").css("margin-left", "-10px");
-		$("#tabContentItinerario li #spanOrdine").css("font-size", "");
-		$("#tabContentItinerario li img").css("width", "30px").css("height", "30px");
-		$("#tabContentItinerario div[style='font-size: 20px;']").css("font-size", "12px");
+		$("#tabContentItinerario li #spanOrdine").css("font-size", "0.9em");
+		$("#tabContentItinerario li img").css("width", "20px").css("height", "20px");
+		$("#tabContentItinerario div[style='font-size: 20px;']").css("font-size", "8px");
+		$("#itinerarioNavTabs").attr("style", "height: calc(90vh); height: -webkit-calc(90vh); height: -moz-calc(90vh); overflow-y: auto; cursor:default");
+		$("#tabContentItinerario").attr("style", "height: calc(90vh); height: -webkit-calc(90vh); height: -moz-calc(90vh);");
+		$("#map").css("margin-left", "330px").css("margin-top", "22.5px").css("height", $("#itinerarioNavTabs").css("height"));
 	}
 });
 
