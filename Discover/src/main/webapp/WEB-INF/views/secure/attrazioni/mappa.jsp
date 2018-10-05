@@ -6,12 +6,10 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<%--<script
-	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&key=AIzaSyDyEIJOP_23NNYKbQFtwDl8A4_EZ3m_Smg"></script>--%>
 <script
-	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode,places&client=gme-gestoredelservizi1"></script>
+	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&key=AIzaSyDyEIJOP_23NNYKbQFtwDl8A4_EZ3m_Smg"></script>
 
- <style>
+<style>
    #map {
      height: 750px;
      width: 100%;

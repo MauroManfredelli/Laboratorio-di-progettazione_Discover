@@ -6,10 +6,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<%--<script
-	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&key=AIzaSyDyEIJOP_23NNYKbQFtwDl8A4_EZ3m_Smg"></script>--%>
 <script
-	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&client=gme-gestoredelservizi1"></script>
+	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&key=AIzaSyDyEIJOP_23NNYKbQFtwDl8A4_EZ3m_Smg"></script>
 <script src="<%= request.getContextPath() %>/resources/plugin/jQuery/jquery-sortable.js"></script>
 
  <style>
@@ -56,7 +54,7 @@
 	</div>
 	<div style="position: fixed; height: 100%; max-height: 100%; width: 100%; max-width: 530px; overflow-x:hidden; overflow-y: auto; top: 146px;" id="bodyItinerario">
 		<div class="nav-tabs-custom tabbable tabs-left">
-			<ul id="itinerarioNavTabs" class="nav nav-tabs nav-iti light-blue-bg m-0" style="height: calc(90vh - 42px); height: -webkit-calc(90vh - 42px); height: -moz-calc(90vh - 42px); overflow-y: auto; cursor:default">
+			<ul id="itinerarioNavTabs" class="nav nav-tabs nav-iti light-blue-bg m-0" style="height: calc(87vh - 42px); height: -webkit-calc(87vh - 42px); height: -moz-calc(87vh - 42px); overflow-y: auto; cursor:default">
 				<c:forEach items="${itinerario.mapAttrazioni.keySet()}" var="key" varStatus="indexKey">
 					<c:if test="${key eq 'Non programm.'}">
 						<li id="nonProgramm" onclick="loadMarkersGiorno('${key}')" class="m-0 dropable-tab active" style="font-size: 15px; border-bottom: 1px solid #ddd; padding: 10px; cursor: pointer;" href="#data${indexKey.index}" data-toggle="tab">${key} <span id="numeroAttrazioni${fn:replace(key, ' ', '')}" class="badge pull-right" style="margin-left: 5px; backgrpund-color: #808080"><i class="fa fa-spinner fa-spin"></i></span></li>

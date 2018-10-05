@@ -7,10 +7,8 @@
 
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<%--<script
-	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&key=AIzaSyDyEIJOP_23NNYKbQFtwDl8A4_EZ3m_Smg"></script>--%>
 <script
-	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode,places&client=gme-gestoredelservizi1"></script>
+	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,geocode&key=AIzaSyDyEIJOP_23NNYKbQFtwDl8A4_EZ3m_Smg"></script>
 
 <!-- Bootstrap slider -->
 <link href="<%= request.getContextPath() %>/resources/plugin/bootstrap-slider/slider.css" rel="stylesheet" type="text/css" />

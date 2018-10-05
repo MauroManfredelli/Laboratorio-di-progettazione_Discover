@@ -258,7 +258,7 @@
   </nav>
   
   <nav class="navbar col-md-12 hidden light-azure-bg" style="padding-left: 0px; margin-left: 0px; padding-right: 0px; border: 1px solid #F0F0F0; border-bottom: 1.5px solid #3c8dbc; cursor:default" id="headerWeb">
-  	<a href="/discover" type="button" class="btn btn-lg btn-default col-md-3" id="btnBacheca" style="background-color: #FCFDFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 11px; border-radius: 0px;">
+  	<a href="/discover" type="button" class="btn btn-lg btn-default col-md-3" id="btnBacheca" style="background-color: #FCFDFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 9px; border-radius: 0px;">
 		<img src="<%= request.getContextPath() %>/resources/dist/img/bacheca.png" style="width: 20px; padding-bottom: 5px;"/> Bacheca
 	</a>
 	<a href="javascript:void(0)" type="button" class="btn btn-lg btn-default col-md-3" id="btnBachecaDiscover" style="background-color: #FCFDFF; font-size: 1.3em; text-align: center; border: none; padding-bottom: 8px; border-radius: 0px;">
@@ -274,7 +274,7 @@
   
   <nav class="col-md-12 btn-group light-azure-bg" style="padding: 0px; width: 100%; border-bottom: 1.5px solid #3c8dbc; " id="footerMobile">
   	<a href="/discover" type="button" class="btn btn-lg btn-default col-md-3" id="btnBacheca" style="background-color: #FCFDFF; width: 25%; font-size: 0.7em;">
-		<i class="fa fa-list" style="padding-bottom: 5px;"></i> Bacheca
+		<img src="<%= request.getContextPath() %>/resources/dist/img/bacheca.png" style="width: 20px; padding-bottom: 5px;"/> Bacheca
 	</a>
 	<a href="javascript:void(0)" type="button" class="btn btn-lg btn-default col-md-3" id="btnBachecaDiscover" style="background-color: #FCFDFF; width: 25%; font-size: 0.7em;">
 		<img src="<%= request.getContextPath() %>/resources/dist/img/bacheca_discover.png" style="width: 11px; padding-bottom: 5px;"/> Discover
